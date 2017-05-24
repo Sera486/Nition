@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -8,7 +9,9 @@ namespace OnlineCourses.Data
 {
     public class RolesData
     {
-        private static readonly string[] Roles = new string[] { "Lecturer", "Student", "Admin" };
+        public const string Lecturer = "Lecturer";
+        public const string Student  = "Student";
+        public const string Admin = "Admin";
 
         public static async Task SeedRoles(IServiceProvider serviceProvider)
         {
@@ -16,7 +19,9 @@ namespace OnlineCourses.Data
             {
                 var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                foreach (var role in Roles)
+                var roles  = new List<string>{Lecturer,Student,Admin};
+                
+                foreach (var role in roles)
                 {
                     if (!await roleManager.RoleExistsAsync(role))
                     {
