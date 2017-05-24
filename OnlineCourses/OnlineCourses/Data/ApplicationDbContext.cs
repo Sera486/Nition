@@ -28,11 +28,6 @@ namespace OnlineCourses.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<ApplicationUser>(entity =>
-            {
-                //entity.HasMany(e => e.FamilyMembers).WithOne();
-            });
-
             builder.Entity<Course>(entity =>
             {
                 entity.HasMany(e => e.Lessons).WithOne(e=>e.Course);
