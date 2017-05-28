@@ -8,6 +8,7 @@ namespace OnlineCourses.Models
     public class Lesson
     {
         public int ID { get; set; }
+        public int Order { get; set; }
         public Course Course { get; set; }
         public string Title {get; set;}
         public string Description {get; set;}

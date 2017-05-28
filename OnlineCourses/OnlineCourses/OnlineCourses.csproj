@@ -9,11 +9,17 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <UserSecretsId>aspnet-OnlineCourses-9370e00a-8d6a-49a4-b460-7012b6f4b578</UserSecretsId>
+    <UserSecretsId>aspnet-OnlineCourses-13874912-b4fc-4afb-a8d1-60191bdc60f4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\ImageController.cs" />
+    <Content Include="wwwroot\js\common.js" />
+    <Content Include="wwwroot\js\effetsFile.js" />
+    <Content Include="wwwroot\vendors\css\main.css" />
+    <Content Include="wwwroot\vendors\css\registration.css" />
+    <Content Include="wwwroot\vendors\css\single-course(paid).css" />
+    <Content Include="wwwroot\vendors\css\site.css" />
+    <Content Include="wwwroot\vendors\css\site.min.css" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -36,10 +42,6 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\video\" />
   </ItemGroup>
 
 </Project>

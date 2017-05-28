@@ -59,5 +59,7 @@ namespace OnlineCourses.Data
                 entity.HasOne(e => e.Member).WithMany(e => e.FamilyMembers);
             });
         }
+
+        public DbSet<OnlineCourses.Models.ApplicationUser> ApplicationUser { get; set; }
     }
 }
