@@ -26,12 +26,18 @@ namespace OnlineCourses.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Course()
         {
             return View(_context.Courses.ToList());
         }
 
-        
+        [HttpGet("Course/{id}")]
+        public IActionResult CourseInfo(int id)
+        {
+            return View(_context.Courses.Find(id));
+        }
+
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";

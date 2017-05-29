@@ -9,6 +9,6 @@
 <p>
     @foreach (var course in Model)
     {
-        @course.Name;
+        <a asp-controller="Home" asp-action="CourseInfo" asp-route-id="@course.ID">@course.Name;</a>
     }
 </p>

@@ -20,7 +20,7 @@
                     <li class="col-sm-3">
                         <div class="fff">
                             <div class="thumbnail">
-                                <a href="#"><img src="@el.ImageURL" alt=""></a>
+                                <a asp-controller="Home" asp-action="CourseInfo" asp-route-id="@el.ID"><img src="~/@el.ValidImageURL" alt=""></a>
                             </div>
                             <div class="caption">
                                 <h4>@el.Name</h4>

@@ -1,0 +1,9 @@
+@model Course
+@{
+    ViewData["Title"] = "CourseInfo";
+}
+
+<img src="~/@Model.ValidImageURL"/>
+<p>@Model.Name</p><br/>
+<p>@Model.Description</p>
+

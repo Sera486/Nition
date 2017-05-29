@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\img\no_image.png" />
     <Content Include="wwwroot\js\common.js" />
     <Content Include="wwwroot\js\effetsFile.js" />
     <Content Include="wwwroot\vendors\css\main.css" />

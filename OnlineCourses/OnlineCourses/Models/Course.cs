@@ -14,5 +14,6 @@ namespace OnlineCourses.Models
         public DateTime ModificationDate {get;set; }
         public string Description { get; set; }
         public string ImageURL { get; set; }
+        public string ValidImageURL => string.IsNullOrWhiteSpace(ImageURL) ? "img/no_image.png" : ImageURL;
     }
 }
