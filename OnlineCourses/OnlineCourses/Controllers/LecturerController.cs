@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
 
@@ -39,7 +36,7 @@ namespace OnlineCourses.Controllers
                 _context.Courses.Add(new Course()
                 {
                     Name = course.Name,
-                    Creator = GetCurrentUser().Result,
+                    Author = GetCurrentUser().Result,
                     CreationDate = DateTime.Today,
                     ModificationDate = DateTime.Today,
                     Description = course.Description

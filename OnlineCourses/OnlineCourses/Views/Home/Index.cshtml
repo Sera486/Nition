@@ -356,70 +356,18 @@
     <!-- /.control-box -->   
                               
 </div><!-- /#myCarousel -->
-    
-    
-    
-<footer id="myFooter">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3 myCols">
-                <h5>Для початку</h5>
-                <ul>
-                    <li><a href="#">Домашня сторінка</a></li>
-                    <li><a href="#">Увійти</a></li>
-                    <li><a href="#">Зареєструватись</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3 myCols">
-                <h5>Про нас</h5>
-                <ul>
-                    <li><a href="#">Додаткова інформація</a></li>
-                    <li><a href="#">Контакти</a></li>
-                    <li><a href="#">Зв'язок</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3 myCols">
-                <h5>Допомога</h5>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Help</a></li>
-                    <li><a href="#">Forum</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3 myCols">
-                <h5>Курси</h5>
-                <ul>
-                    <li><a href="#">Усі курси</a></li>
-                    <li><a href="#">Популярні курси</a></li>
-                    <li><a href="#">Останні курси</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="social-networks">
-        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-        <a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
-        <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
-    </div>
-    <div class="footer-copyright">
-        <p>© 2017 </p>
-    </div>
-</footer>
 
-
-
-
-<script type="text/javascript" src="vendors/jquery.min.js"></script>
-<script type="text/javascript" src="vendors/js/bootstrap.min.js"></script>
-<script type="text/jscript" src="vendors/aos.js"></script>
-<script type="text/javascript" src="JS/common.js"></script>
-<script>
-    AOS.init({
-        easing: 'ease-in-out-sine'
-    });
-    $(document).ready(function () {
-        $('.carousel').carousel({
-            interval: 6000
+@section Scripts{
+    <script type="text/jscript" src="~/vendors/aos.js"></script>
+    <script>
+        AOS.init({
+            easing: 'ease-in-out-sine'
         });
-    });
-</script>
+        $(document).ready(function () {
+            $('.carousel').carousel({
+                interval: 6000
+            });
+        });
+    </script>
+
+}

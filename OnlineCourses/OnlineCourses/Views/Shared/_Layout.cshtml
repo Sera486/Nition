@@ -1,5 +1,4 @@
-﻿@model LoginViewModel
-@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OnlineCourses</title>
     
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/Footer-with-social-icons.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/css/registration.css">
+    <link rel="stylesheet" href="~/css/Footer-with-social-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="~/vendors/aos.css">
@@ -60,63 +60,66 @@
     </div>
     <!--/.contatiner -->
 </nav>
-    <div >
-        @RenderBody()
-        <hr />
-    </div>
+<div >
+    <hr />
+    @RenderBody()
+    <hr/>
+</div>
     
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-            
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Увійти</h4>
+<footer id="myFooter">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 myCols">
+                <h5>Для початку</h5>
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Домашня сторінка</a></li>
+                    <li><a asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]">Увійти</a></li>
+                    <li><a asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Зареєструватись</a></li>
+                </ul>
             </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-6">
-                            <form role="form" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                                <fieldset>
-                                    <h2>Введіть логін та пароль</h2>
-                                    <hr class="colorgraph">
-                                    <div class="form-group">
-                                        <input asp-for="Login" name="login" id="emailLog" class="form-control input-lg" placeholder="логін">
-                                    </div>
-                                    <div class="form-group">
-                                        <input asp-for="Password" type="password" name="password" id="passwordLog" class="form-control input-lg" placeholder="пароль">
-                                    </div>
-                                    <span class="button-checkbox">
-                                        <button type="button" class="btn" data-color="info">Запам'ятати</button>
-                                        <input asp-for="RememberMe" type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
-                                        <a href="" class="btn btn-link pull-right">Забули пароль?</a>
-                                    </span>
-                                    <hr class="colorgraph">
-                                    <div class="row">
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Увійти">
-                                        </div>
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <a asp-controller="Account" asp-action="Register" class="btn btn-lg btn-primary btn-block">Реєстрація</a>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                        
-                </div>
+            <div class="col-sm-3 myCols">
+                <h5>Про нас</h5>
+                <ul>
+                    <li><a href="#">Додаткова інформація</a></li>
+                    <li><a href="#">Контакти</a></li>
+                    <li><a href="#">Зв'язок</a></li>
+                </ul>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+            <div class="col-sm-3 myCols">
+                <h5>Допомога</h5>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Forum</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3 myCols">
+                <h5>Курси</h5>
+                <ul>
+                    <li><a href="#">Усі курси</a></li>
+                    <li><a href="#">Популярні курси</a></li>
+                    <li><a href="#">Останні курси</a></li>
+                </ul>
             </div>
         </div>
     </div>
-</div>
+    <div class="social-networks">
+        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
+        <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+    </div>
+    <div class="footer-copyright">
+        <p>© 2017 </p>
+    </div>
+</footer>
 
-    @RenderSection("Scripts", required: false)
+<!-- Modal -->
+@await Html.PartialAsync("_LoginModalPartial", new LoginViewModel())
+@RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<script type="text/javascript" src="~/vendors/jquery.min.js"></script>
+<script type="text/javascript" src="~/vendors/js/bootstrap.min.js"></script>
+<script type="text/jscript" src="~/vendors/aos.js"></script>
+<script type="text/javascript" src="~/js/common.js"></script>

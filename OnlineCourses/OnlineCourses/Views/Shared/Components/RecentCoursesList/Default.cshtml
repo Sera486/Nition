@@ -1,0 +1,11 @@
+﻿@using System.Collections.Generic
+@using OnlineCourses.Models.CourseViewModels
+@model IEnumerable<CoursePreviewViewModel>
+
+<h3>Priority Items</h3>
+<ul>
+    @foreach (var course in Model)
+    {
+        <li>@todo.Name</li>
+    }
+</ul>

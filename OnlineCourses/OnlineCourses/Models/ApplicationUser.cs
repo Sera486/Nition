@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using OnlineCourses.Models.ManageViewModels;
 
@@ -12,6 +9,7 @@ namespace OnlineCourses.Models
     {
         public string FirstName {get; set;}
         public string LastName {get; set;}
+        public string FullName  => $"{LastName} {FirstName}";  
         public string ImageURL{get; set;}
         public List<Subscription> Subscriptions { get; set; }
         public List<Course> CreatedCourses { get; set; }

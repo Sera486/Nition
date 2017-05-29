@@ -13,13 +13,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OnlineCourses.Models;
 using OnlineCourses.Models.AccountViewModels;
-using OnlineCourses.Models.Validation;
 using OnlineCourses.Services;
 
 namespace OnlineCourses.Controllers
 {
     [Authorize]
-    //[ValidateModel]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -65,7 +63,6 @@ namespace OnlineCourses.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -106,15 +103,22 @@ namespace OnlineCourses.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            var vm = new RegisterViewModel();
+            vm.Roles = new List<SelectListItem>
+            {
+                new SelectListItem() {Text = "Студент", Value = "Student"},
+                new SelectListItem() {Text = "Лектор", Value = "Lecturer"}
+            };
+            return View(vm);
         }
 
         //
         // POST: /Account/Register
-        [HttpPost("/Account/Register")]
+        [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody]RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -139,17 +143,17 @@ namespace OnlineCourses.Controllers
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
-                    return Json(new {result = true});
+                    return RedirectToLocal(returnUrl);
                 }
+                AddErrors(result);
             }
-
-            return Json(new { result = false });
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         //
         // POST: /Account/Logout
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

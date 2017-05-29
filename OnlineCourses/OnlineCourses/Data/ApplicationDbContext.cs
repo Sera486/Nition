@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Models;
 using OnlineCourses.Models.ManageViewModels;
@@ -31,7 +27,7 @@ namespace OnlineCourses.Data
             builder.Entity<Course>(entity =>
             {
                 entity.HasMany(e => e.Lessons).WithOne(e=>e.Course);
-                entity.HasOne(e => e.Creator).WithMany(e => e.CreatedCourses);
+                entity.HasOne(e => e.Author).WithMany(e => e.CreatedCourses);
             });
 
             builder.Entity<Lesson>(entity =>

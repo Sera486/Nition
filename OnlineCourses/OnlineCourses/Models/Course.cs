@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineCourses.Models
 {
@@ -9,7 +7,7 @@ namespace OnlineCourses.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public ApplicationUser Creator { get; set; }
+        public ApplicationUser Author { get; set; }
         public List<Subscription> Subscriptions { get; set; }
         public List<Lesson> Lessons { get; set; }
         public DateTime CreationDate { get; set; }
