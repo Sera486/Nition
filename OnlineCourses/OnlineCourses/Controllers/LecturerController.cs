@@ -28,7 +28,7 @@ namespace OnlineCourses.Controllers
         }
 
         // POST: api/Lecturer
-        [HttpPost]
+        [HttpPost("Lecturer/CreateCourse")]
         public async Task<IActionResult> CreateCourse([FromBody] Course course)
         {
             try

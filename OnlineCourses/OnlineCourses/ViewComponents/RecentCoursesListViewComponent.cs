@@ -17,15 +17,14 @@ namespace OnlineCourses.ViewComponents
             _context = context;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(
-            int maxPriority, bool isDone)
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var items = await GetItemsAsync(maxPriority, isDone);
+            var items = await GetItemsAsync();
             return View(items);
         }
-        private Task<List<Course>> GetItemsAsync(int maxPriority, bool isDone)
+        private Task<List<Course>> GetItemsAsync()
         {
-            return _context.Courses.OrderByDescending(c=>c.Subscriptions.Count).Take(12).ToListAsync(); //.Select(e=>new CoursePreviewViewModel(){Author = e.Author.FullName,ImageURL = e.ImageURL,Title = e.Name})
+            return _context.Courses.OrderByDescending(c=>c.Subscriptions.Count).Take(12).ToListAsync();
         }
     }
 }
