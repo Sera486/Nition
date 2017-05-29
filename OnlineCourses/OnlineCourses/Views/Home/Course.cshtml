@@ -1,0 +1,14 @@
+﻿@model IList<Course>
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>
+    @foreach (var course in Model)
+    {
+        @course.Name;
+    }
+</p>
