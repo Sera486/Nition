@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Practice project</title>
+
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/Footer-with-social-icons.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
+	<link rel="stylesheet" href="vendors/aos.css">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+<!--*****************//////////NAVBAR///////////*********************-->
+<!--*****************//////////NAVBAR///////////*********************-->
+<!--*****************//////////NAVBAR///////////*********************-->  
+	<nav class="navbar navbar-inverse navbar-fixed-top normal" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img class="img-responsive" src="img/9gag1600.png" alt=""></a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+
+				<ul class="nav navbar-nav navbar-left">
+					<li class="active"><a href="Index.html">Головна</a>
+					</li>
+					<li><a href="#about">Курси</a>
+					</li>
+					<li><a href="#about">Про нас</a>
+					</li>
+					<li><a href="#contact">Контакти</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="registration.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<div id="nav-social-icon" class="col-md-12" nopadding>
+						<!--
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <i class="fa fa-google" aria-hidden="true"></i>
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            -->
+					</div>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+		<!--/.contatiner -->
+	</nav>
+<!--*****************//////////endNAVBAR///////////*********************-->
+<!--*****************//////////endNAVBAR///////////*********************-->
+<!--*****************//////////endNAVBAR///////////*********************-->  
+
+
+<!--*****************//////////SLIDER///////////*********************-->
+<!--*****************//////////SLIDER///////////*********************-->
+<!--*****************//////////SLIDER///////////*********************-->  
+	<div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="5000">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#bootstrap-touch-slider" data-slide-to="0" class="active"></li>
+			<li data-target="#bootstrap-touch-slider" data-slide-to="1"></li>
+			<li data-target="#bootstrap-touch-slider" data-slide-to="2"></li>
+		</ol>
+		<!-- Wrapper For Slides -->
+		<div class="carousel-inner" role="listbox">
+			<!-- Third Slide -->
+			<div class="item active">
+				<!-- Slide Background -->
+				<img src="img/training.jpg" class="slide-image" />
+				<div class="bs-slider-overlay"></div>
+				<div class="container">
+					<div class="row">
+						<!-- Slide Text Layer -->
+						<div class="slide-text slide_style_left">
+							<h1 data-animation="animated zoomInRight">Найкращі лекції</h1>
+							<p data-animation="animated fadeInLeft">Великий вибір бізнес лекцій на різноманітну тематику.</p>
+							<a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Популярні курси</a>
+							<!--                                <a href=""  class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End of Slide -->
+
+			<!-- Second Slide -->
+			<div class="item">
+				<!-- Slide Background -->
+				<img src="img/150.jpg" alt="Bootstrap Touch Slider" class="slide-image" />
+				<div class="bs-slider-overlay"></div>
+				<!-- Slide Text Layer -->
+				<div class="slide-text slide_style_center">
+					<h1 data-animation="animated flipInX">Більше ніж 1000 лекцій</h1>
+					<p data-animation="animated lightSpeedIn">Кожен зможе знайти цікаву та потрібну лекцію.</p>
+					<a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInUp">Переглянути усі курси</a>
+					<!--                        <a href="" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">select two</a>-->
+				</div>
+			</div>
+			<!-- End of Slide -->
+
+			<!-- Third Slide -->
+			<div class="item">
+				<!-- Slide Background -->
+				<img src="img/c700x420.jpg" alt="Bootstrap Touch Slider" class="slide-image" /> *
+				<div class="bs-slider-overlay"></div>
+				<!-- Slide Text Layer -->
+				<div class="slide-text slide_style_right">
+					<h1 data-animation="animated zoomInLeft">Можливість переглянути лекції людей із реальним досвідом роботи</h1>
+					<p data-animation="animated fadeInRight">Унікальні лекції від успішних людей.</p>
+					<a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Що ми пропонуємо</a>
+					<!--                        <a href="" target="_blank" class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
+				</div>
+			</div>
+			<!-- End of Slide -->
+		</div>
+		<!-- End of Wrapper For Slides -->
+		<!-- Left Control -->
+		<a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
+			<span class="fa fa-angle-left" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+
+		<!-- Right Control -->
+		<a class="right carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="next">
+			<span class="fa fa-angle-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+<!--*****************//////////endSLIDER///////////*********************-->
+<!--*****************//////////endSLIDER///////////*********************-->
+<!--*****************//////////endSLIDER///////////*********************--> 
+
+
+
+<!--*****************//////////CARD///////////*********************-->
+<!--*****************//////////CARD///////////*********************-->
+<!--*****************//////////CARD///////////*********************--> 
+	<div class="container-fluid" id="containerfirst">
+		<div class="container" class="aos-all" id=s econdcontainer>
+			<div class="col-md-12 aos-item" data-aos="zoom-in">
+				<h1>Що ми пропонуємо</h1></div>
+			<div class="col-md-4 Oportunities aos-item nopadding one" data-aos="fade-up">
+				<h3>Що ви отримуєте</h3>
+				<strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам у вашій подільшій справі.
+				<ul>
+					<li>dsgasdf</li>
+				</ul>
+			</div>
+			<div class="col-md-4 Oportunities aos-item nopadding two" data-aos="fade-up-right">
+				<h3>Що ви отримуєте</h3>
+				<strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+			<div class="col-md-4 Oportunities aos-item nopadding three" data-aos="fade-up">
+				<h3>Що ви отримуєте</h3>
+				<strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+			<div class="col-md-4 Oportunities aos-item nopadding four" data-aos="fade-up-left">
+				<h3>Що ви отримуєте</h3>
+				<strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+		</div>
+	</div>
+<!--*****************//////////endCARD///////////*********************-->
+<!--*****************//////////endCARD///////////*********************-->
+<!--*****************//////////endCARD///////////*********************--> 
+
+
+
+<!--*****************//////////STEPS///////////*********************-->
+<!--*****************//////////STEPS///////////*********************-->
+<!--*****************//////////STEPS///////////*********************--> 
+	<div id="steps">
+		<div class="container" id="in_steps">
+			<div class="row">
+				<div class="process">
+					<div class="process-row nav nav-tabs">
+						<div class="process-step">
+							<button type="button" class="btn btn-info btn-circle" data-toggle="tab" href="#menu1"><i class="fa fa-sign-in fa-3x"></i></button>
+							<p><small>Пройти<br />реєстрацію</small></p>
+						</div>
+						<div class="process-step">
+							<button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu2"><i class="fa fa-search fa-3x"></i></button>
+							<p><small>Знайти<br />потрібний курс</small></p>
+						</div>
+						<div class="process-step">
+							<button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu3"><i class="fa fa-credit-card" style="font-size:36px"></i></button>
+							<p><small>Оплатити<br />курс</small></p>
+						</div>
+						<div class="process-step">
+							<button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu4"><i class="fa fa-cogs fa-3x"></i></button>
+							<p><small>Пройти курс<br />...</small></p>
+						</div>
+						<div class="process-step">
+							<button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu5"><i class="fa fa-check fa-3x"></i></button>
+							<p><small>Отримати<br />результат)))</small></p>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div id="menu1" class="tab-pane fade active in">
+						<h3>Реєстрація</h3>
+						<p>Пойдіть стандартну реєстрацію та вибирийте потрібний курс.</p>
+						<ul class="list-unstyled list-inline pull-right">
+							<!--     <li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>-->
+						</ul>
+					</div>
+					<div id="menu2" class="tab-pane fade">
+						<h3>Пошук курсів</h3>
+						<p>Вм можете підібрати потрібний вам курс</p>
+						<ul class="list-unstyled list-inline pull-right">
+							<!--
+     <li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
+     <li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>
+-->
+						</ul>
+					</div>
+					<div id="menu3" class="tab-pane fade">
+						<h3>Оплата</h3>
+						<p>Виберіть метод оплати та оплатіть курс.</p>
+						<ul class="list-unstyled list-inline pull-right">
+							<!--
+     <li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
+     <li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>
+-->
+						</ul>
+					</div>
+					<div id="menu4" class="tab-pane fade">
+						<h3>Ви отримуєте курс</h3>
+						<p>Вибраний курс вам доступний, ви можете переглянути його.</p>
+						<ul class="list-unstyled list-inline pull-right">
+							<!--
+     <li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
+     <li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>
+-->
+						</ul>
+					</div>
+					<div id="menu5" class="tab-pane fade">
+						<h3>Пост перегляд</h3>
+						<p>Ви отримуєте потрібні знання та навички.</p>
+						<ul class="list-unstyled list-inline pull-right">
+							<!--
+     <li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
+     <li><button type="button" class="btn btn-success"><i class="fa fa-check"></i> Done!</button></li>
+-->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--*****************//////////endSTEPS///////////*********************-->
+<!--*****************//////////endSTEPS///////////*********************-->
+<!--*****************//////////endSTEPS///////////*********************--> 
+
+
+<!--*****************//////////POPULAR-COURSES///////////*********************-->
+<!--*****************//////////POPULAR-COURSES///////////*********************-->
+<!--*****************//////////POPULAR-COURSES///////////*********************--> 
+	<div class="carousel slide aos-all  aos-item" data-aos="fade-up" data-aos-anchor-placement="center-bottom" id="myCarousel">
+		<div class="container" class="aos-all" id=s econdcontainer>
+			<div class="col-md-12 aos-item">
+				<h1>Популярні лекції</h1></div>
+		</div>
+		<div class="carousel-inner">
+			<div class="item active">
+				<ul class="thumbnails">
+					<li class="col-sm-3">
+						<div class="fff">
+							<div class="thumbnail">
+								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+							</div>
+							<div class="caption">
+								<h4>Лекція про йога Івана і його кота Євдакима</h4>
+								<p>tu-tu-ry</p>
+								<a class="btn btn-mini" href="#">» Більше</a>
+							</div>
+						</div>
+					</li>
+					<li class="col-sm-3">
+						<div class="fff">
+							<div class="thumbnail">
+								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+							</div>
+							<div class="caption">
+								<h4>Лекція про йога Івана і його кота Євдакима</h4>
+								<p>tu-tu-ry</p>
+								<a class="btn btn-mini" href="#">» Більше</a>
+							</div>
+						</div>
+					</li>
+					<li class="col-sm-3">
+						<div class="fff">
+							<div class="thumbnail">
+								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+							</div>
+							<div class="caption">
+								<h4>Лекція про йога Івана і його кота Євдакима</h4>
+								<p>tu-tu-ry</p>
+								<a class="btn btn-mini" href="#">» Більше</a>
+							</div>
+						</div>
+					</li>
+					<li class="col-sm-3">
+						<div class="fff">
+							<div class="thumbnail">
+								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+							</div>
+							<div class="caption">
+								<h4>Лекція про йога Івана і його кота Євдакима</h4>
+								<p>tu-tu-ry</p>
+								<a class="btn btn-mini" href="#">» Більше</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- /Slide1 -->
+			<div class="item">
+				<ul class="thumbnails">
+					<li class="col-sm-3">
+						<div class="fff">
+							<div class="thumbnail">
+								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+							</div>
+							<div class="caption">
+								<h4>Лекція про йога Івана і його кота Євдакима</h4>
+								<p>tu-tu-ry</p>
+								<a class="btn btn-mini" href="#">» Більше</a>
+							</div>
+						</div>
+					</li>
+					<li class="col-sm-3">
+						<div class="fff">
+							<div class="thumbnail">
+								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+							</div>
+							<div class="caption">
+								<h4>Лекція про йога Івана і його кота Євдакима</h4>
+								<p>tu-tu-ry</p>
+								<a class="btn btn-mini" href="#">» Більше</a>
+							</div>
+						</div>
+					</li>
+					<li class="col-sm-3">
+						<div class="fff">
+							<div class="thumbnail">
+								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+							</div>
+							<div class="caption">
+								<h4>Лекція про йога Івана і його кота Євдакима</h4>
+								<p>tu-tu-ry</p>
+								<a class="btn btn-mini" href="#">» Більше</a>
+							</div>
+						</div>
+					</li>
+					<li class="col-sm-3">
+						<div class="fff">
+							<div class="thumbnail">
+								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+							</div>
+							<div class="caption">
+								<h4>Лекція про йога Івана і його кота Євдакима</h4>
+								<p>tu-tu-ry</p>
+								<a class="btn btn-mini" href="#">» Більше</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<nav>
+			<ul class="control-box pager">
+				<li><a data-slide="prev" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+				<li><a data-slide="next" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-right"></i></li>
+			</ul>
+		</nav>
+	   <!-- /.control-box -->   
+                              
+    </div><!-- /#myCarousel -->
+<!--*****************//////////endPOPULAR-COURSES///////////*********************-->
+<!--*****************//////////endPOPULAR-COURSES///////////*********************-->
+<!--*****************//////////endPOPULAR-COURSES///////////*********************--> 
+    
+    
+
+    
+<!--*****************//////////FOOTER///////////*********************-->
+<!--*****************//////////FOOTER///////////*********************-->
+<!--*****************//////////FOOTER///////////*********************-->     
+     <footer id="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 myCols">
+                    <h5>Для початку</h5>
+                    <ul>
+                        <li><a href="#">Домашня сторінка</a></li>
+				<li><a href="#">Увійти</a></li>
+				<li><a href="#">Зареєструватись</a></li>
+			</ul>
+	</div>
+	<div class="col-sm-3 myCols">
+		<h5>Про нас</h5>
+		<ul>
+			<li><a href="#">Додаткова інформація</a></li>
+			<li><a href="#">Контакти</a></li>
+			<li><a href="#">Зв'язок</a></li>
+		</ul>
+	</div>
+	<div class="col-sm-3 myCols">
+		<h5>Допомога</h5>
+		<ul>
+			<li><a href="#">FAQ</a></li>
+			<li><a href="#">Help</a></li>
+			<li><a href="#">Forum</a></li>
+		</ul>
+	</div>
+	<div class="col-sm-3 myCols">
+		<h5>Курси</h5>
+		<ul>
+			<li><a href="#">Усі курси</a></li>
+			<li><a href="#">Популярні курси</a></li>
+			<li><a href="#">Останні курси</a></li>
+		</ul>
+	</div>
+	</div>
+	</div>
+	<div class="social-networks">
+		<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+		<a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
+		<a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+	</div>
+	<div class="footer-copyright">
+		<p>© 2017 </p>
+	</div>
+	</footer>
+	
+<!--*****************//////////endFOOTER///////////*********************-->
+<!--*****************//////////endFOOTER///////////*********************-->
+<!--*****************//////////endFOOTER///////////*********************-->   
+
+
+<!--*****************//////////MODAL-LOGIN///////////*********************-->
+<!--*****************//////////MODAL-LOGIN///////////*********************-->
+<!--*****************//////////MODAL-LOGIN///////////*********************--> 
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Увійти</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-8 col-md-6">
+								<form role="form">
+									<fieldset>
+										<h2>Введіть логін та пароль</h2>
+										<hr class="colorgraph">
+										<div class="form-group">
+											<input type="email" name="emailLog" id="emailLog" class="form-control input-lg" placeholder="email/логін">
+										</div>
+										<div class="form-group">
+											<input type="password" name="passwordLog" id="passwordLog" class="form-control input-lg" placeholder="пароль">
+										</div>
+										<span class="button-checkbox">
+					<button type="button" class="btn" data-color="info">Запам'ятати</button>
+                    <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
+					<a href="" class="btn btn-link pull-right">Забули пароль?</a>
+				</span>
+										<hr class="colorgraph">
+										<div class="row">
+											<div class="col-xs-6 col-sm-6 col-md-6">
+												<input type="submit" class="btn btn-lg btn-success btn-block" value="Увійти">
+											</div>
+											<div class="col-xs-6 col-sm-6 col-md-6">
+												<a href="registration.html" class="btn btn-lg btn-primary btn-block">Реєстрація</a>
+											</div>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--*****************//////////endMODAL-LOGIN///////////*********************-->
+<!--*****************//////////endMODAL-LOGIN///////////*********************-->
+<!--*****************//////////endMODAL-LOGIN///////////*********************--> 
+
+	<script type="text/javascript" src="vendors/jquery.min.js"></script>
+	<script type="text/javascript" src="vendors/js/bootstrap.min.js"></script>
+	<script type="text/jscript" src="vendors/aos.js"></script>
+	<script type="text/javascript" src="JS/common.js"></script>
+	<script>
+		AOS.init({
+			easing: 'ease-in-out-sine'
+		});
+		$(document).ready(function () {
+			$('.carousel').carousel({
+				interval: 6000
+			})
+		});
+	</script>
+</body>
+
+</html>
