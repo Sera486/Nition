@@ -28,6 +28,7 @@ namespace OnlineCourses.Data
             {
                 entity.HasMany(e => e.Lessons).WithOne(e=>e.Course);
                 entity.HasOne(e => e.Author).WithMany(e => e.CreatedCourses);
+               // entity.Property(e => e.ModificationDate).IsRequired(false);
             });
 
             builder.Entity<Lesson>(entity =>

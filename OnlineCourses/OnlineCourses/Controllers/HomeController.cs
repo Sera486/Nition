@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
+using OnlineCourses.Models.HomeViewModels;
 
 namespace OnlineCourses.Controllers
 {
@@ -27,14 +30,28 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpGet]
-        public IActionResult Course()
+        public async Task<IActionResult> Course(int page=1, string searchStr="")
         {
-            return View(_context.Courses.ToList());
+            int pageSize = 5; 
+
+            IQueryable<Course> source = _context.Courses.Include(x => x.Author);
+            var count = await source.CountAsync();
+            var items = await source.Where(c=>c.Title.Contains(searchStr)).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            CourseViewModel viewModel = new CourseViewModel
+            {
+                PageViewModel = pageViewModel,
+                Courses = items
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet("Course/{id}")]
         public IActionResult CourseInfo(int id)
         {
+            
             return View(_context.Courses.Find(id));
         }
 

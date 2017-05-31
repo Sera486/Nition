@@ -8,13 +8,21 @@
     </div>
     <div class="carousel-inner">
         @{
-            int currentPos = 0;
+            int firstBlockFlag = 0;
             IEnumerable<Course> coursesBlock;
             while ((coursesBlock =Model.Take(4)) != null)
             {
-                Html.Raw("<div class=\"item\">");
-                Html.Raw("<ul class=\"thumbnails\">");
-
+                if (firstBlockFlag == 0)
+                {
+                    Html.Raw("<div class=\"item active\">");
+                    Html.Raw("<ul class=\"thumbnails\">");
+                    firstBlockFlag++;
+                }
+                else
+                {
+                    Html.Raw("<div class=\"item\">");
+                    Html.Raw("<ul class=\"thumbnails\">");
+                }
                 foreach (var el in coursesBlock)
                 {
                     <li class="col-sm-3">
@@ -23,7 +31,7 @@
                                 <a asp-controller="Home" asp-action="CourseInfo" asp-route-id="@el.ID"><img src="~/@el.ValidImageURL" alt=""></a>
                             </div>
                             <div class="caption">
-                                <h4>@el.Name</h4>
+                                <h4>@el.Title</h4>
                                 <p>@el.Author</p>
                                 <a class="btn btn-mini" href="#">» Більше</a>
                             </div>
@@ -34,7 +42,6 @@
                 Html.Raw("</ul>");
                 Html.Raw("</div>");
 
-                currentPos += 4;
                 if (coursesBlock.Count() != 4){ break;}
                 else
                 {

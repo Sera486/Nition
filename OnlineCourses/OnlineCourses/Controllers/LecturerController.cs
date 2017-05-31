@@ -35,7 +35,7 @@ namespace OnlineCourses.Controllers
             {
                 _context.Courses.Add(new Course()
                 {
-                    Name = course.Name,
+                    Title = course.Title,
                     Author = GetCurrentUser().Result,
                     CreationDate = DateTime.Today,
                     ModificationDate = DateTime.Today,
