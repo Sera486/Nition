@@ -1,6 +1,18 @@
+@font-face {
+	font-family: mainFont;
+	src: url(..vendors/fonts/Prociono-Regular.otf);
+}
+
+* {
+	font-family: mainFont;
+	font-size: 1.03em;
+}
+
 body {
 	background-color: #fcfeff;
 }
+
+
 /* added to  .nav */
 
 .normal {
@@ -709,18 +721,52 @@ li {
 	background-color: #1E8BC3;
 }
 
-.modal-content  {
-    -webkit-border-radius: 0px !important;
-    -moz-border-radius: 0px !important;
-    border-radius: 0px !important;
+.modal-content {
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
 }
 
-.modal{
-    background: rgba(236, 240, 241,0.5);
+.modal {
+	background: rgba(236, 240, 241, 0.5);
 }
 
- .btn,input,button,select{
-    -webkit-border-radius: 0px !important;
-    -moz-border-radius: 0px !important;
-    border-radius: 0px !important;
+.btn,
+input,
+button,
+select {
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
+}
+
+
+.slideanim {visibility:hidden;}
+.slide {
+    animation-name: slide;
+    -webkit-animation-name: slide; 
+    animation-duration: 1s; 
+    -webkit-animation-duration: 1s;
+    visibility: visible; 
+}
+
+@keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    } 
+}
+@-webkit-keyframes slide {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    }
 }
