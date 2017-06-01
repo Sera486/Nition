@@ -11,7 +11,7 @@ namespace OnlineCourses.Models
         public List<Subscription> Subscriptions { get; set; }
         public List<Lesson> Lessons { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime ModificationDate {get;set; }
+        public DateTime? ModificationDate {get;set; }
         public string Description { get; set; }
         public string ImageURL { get; set; }
         public double Price { get; set; }

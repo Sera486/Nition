@@ -11,13 +11,13 @@
     <div class="container-fluid">
 	
         <div class="col-md-8 col-md-offset-2" >
-            <form asp-controller="Home" asp-action="Course" asp-route-searchStr="@Model.SearchString" class="form-inline">
+            <form asp-controller="Home" asp-action="Course" method="get" class="form-inline">
                 <div class="form-group col-md-8">
                     <!--					<label for="searchInput"></label>-->
-                    <input asp-for="SearchString" type="text" class="form-control" id="searchInput" placeholder="Введіть назву курсу">
+                    <input name="searchStr" type="text" class="form-control" id="searchInput" placeholder="Введіть назву курсу">
                 </div>
                 <div class="col-md-4">
-                    <button asp-controller="Home" asp-action="Course" type="submit" class="btn btn-default" id="buttSearch">Пошук</button>
+                    <button  type="submit" class="btn btn-default" id="buttSearch">Пошук</button>
                 </div>
             </form>
         </div>

@@ -35,14 +35,15 @@ namespace OnlineCourses.Controllers
             int pageSize = 5; 
 
             IQueryable<Course> source = _context.Courses.Include(x => x.Author);
-            var count = await source.CountAsync();
+            var count = await source.Where(c => c.Title.Contains(searchStr)).CountAsync();
             var items = await source.Where(c=>c.Title.Contains(searchStr)).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             CourseViewModel viewModel = new CourseViewModel
             {
                 PageViewModel = pageViewModel,
-                Courses = items
+                Courses = items,
+                SearchString = searchStr
             };
 
             return View(viewModel);
