@@ -16,6 +16,10 @@
                     <!--					<label for="searchInput"></label>-->
                     <input name="searchStr" type="text" class="form-control" id="searchInput" placeholder="Введіть назву курсу">
                 </div>
+                <span class="button-checkbox">
+                    <button type="button" class="btn" data-color="info">Шукати в описi</button>
+                    <input name="searchInDesc" type="checkbox" class="hidden">
+                </span>
                 <div class="col-md-4">
                     <button  type="submit" class="btn btn-default" id="buttSearch">Пошук</button>
                 </div>
@@ -36,7 +40,8 @@
 {
     <a asp-controller="Home" asp-action="Course"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-       asp-route-searchStr="@(Model.SearchString)"
+       asp-route-search="@(Model.SearchString)"
+       asp-route-searchInDesc="@(Model.SearchInDescription)"
        class="btn btn-default btn">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Назад
@@ -46,7 +51,8 @@
 {
     <a asp-controller="Home" asp-action="Course"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-       asp-route-searchStr="@(Model.SearchString)"
+       asp-route-search="@(Model.SearchString)"
+       asp-route-searchInDesc="@(Model.SearchInDescription)"
        class="btn btn-default btn">
     Вперед
        <i class="glyphicon glyphicon-chevron-right"></i>

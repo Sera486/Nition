@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -30,20 +31,29 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Course(int page=1, string searchStr="")
+        public async Task<IActionResult> Course(int page=1, string search="",bool searchInDesc = false,int theme=-1)
         {
             int pageSize = 5; 
 
             IQueryable<Course> source = _context.Courses.Include(x => x.Author);
-            var count = await source.Where(c => c.Title.Contains(searchStr)).CountAsync();
-            var items = await source.Where(c=>c.Title.Contains(searchStr)).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            
+            var allItems = source.Where(c => c.Title.Contains(search)).ToImmutableHashSet();//.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            if (searchInDesc == true)
+            {
+                allItems.Union(source.Where(c => c.Description.Contains(search)));
+            }
+
+            var count = allItems.Count;
+            var pageItems = allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             CourseViewModel viewModel = new CourseViewModel
             {
                 PageViewModel = pageViewModel,
-                Courses = items,
-                SearchString = searchStr
+                Courses = pageItems,
+                SearchString = search,
+                SearchInDescription = searchInDesc,
+                ThemeID = theme
             };
 
             return View(viewModel);

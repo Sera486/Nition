@@ -14,14 +14,14 @@
             {
                 if (firstBlockFlag == 0)
                 {
-                    Html.Raw("<div class=\"item active\">");
-                    Html.Raw("<ul class=\"thumbnails\">");
+                    @Html.Raw("<div class=\"item active\">")
+                    @Html.Raw("<ul class=\"thumbnails\">");
                     firstBlockFlag++;
                 }
                 else
                 {
-                    Html.Raw("<div class=\"item\">");
-                    Html.Raw("<ul class=\"thumbnails\">");
+                    @Html.Raw("<div class=\"item\">");
+                    @Html.Raw("<ul class=\"thumbnails\">");
                 }
                 foreach (var el in coursesBlock)
                 {
@@ -39,8 +39,8 @@
                     </li>
                 }
 
-                Html.Raw("</ul>");
-                Html.Raw("</div>");
+                @Html.Raw("</ul>");
+                @Html.Raw("</div>");
 
                 if (coursesBlock.Count() != 4){ break;}
                 else
@@ -62,7 +62,7 @@
     <!-- /.control-box -->
 
 </div><!-- /#myCarousel -->
-@section Scripts{
+
     <script type="text/jscript" src="~/vendors/aos.js"></script>
     <script>
         AOS.init({
@@ -74,4 +74,3 @@
             });
         });
     </script>
-}
