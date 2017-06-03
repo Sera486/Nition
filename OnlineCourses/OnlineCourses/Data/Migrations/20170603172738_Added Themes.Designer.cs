@@ -8,8 +8,8 @@ using OnlineCourses.Data;
 namespace OnlineCourses.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170603161055_Fixed CourseThemes")]
-    partial class FixedCourseThemes
+    [Migration("20170603172738_Added Themes")]
+    partial class AddedThemes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

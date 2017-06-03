@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/css/coursenopaid.css">
     <link rel="stylesheet" href="~/css/registration.css">
     <link rel="stylesheet" href="~/css/allcoursesearch.css">
     <link rel="stylesheet" href="~/css/Footer-with-social-icons.css">
@@ -38,7 +39,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a asp-controller="Home" asp-action="Index">Головна</a>
                 </li>
-                <li><a asp-controller="Home" asp-action="Course">Курси</a>
+                <li><a asp-controller="Course" asp-action="Index">Курси</a>
                 </li>
                 @if ( User.Identity.IsAuthenticated ){
                     if ( User.IsInRole("Lecturer") ){

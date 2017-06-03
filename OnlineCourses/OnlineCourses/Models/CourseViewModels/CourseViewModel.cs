@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace OnlineCourses.Models.HomeViewModels
+namespace OnlineCourses.Models.CourseViewModels
 {
     public class CourseViewModel:IEnumerable<Course>
     {

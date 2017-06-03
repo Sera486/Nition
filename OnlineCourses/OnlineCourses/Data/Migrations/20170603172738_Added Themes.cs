@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace OnlineCourses.Data.Migrations
 {
-    public partial class AddedCourseThemes : Migration
+    public partial class AddedThemes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,8 +39,8 @@ namespace OnlineCourses.Data.Migrations
                 {
                     table.PrimaryKey("PK_CourseThemes", x => new { x.CourseID, x.ThemeID });
                     table.ForeignKey(
-                        name: "FK_CourseThemes_Courses_ThemeID",
-                        column: x => x.ThemeID,
+                        name: "FK_CourseThemes_Courses_CourseID",
+                        column: x => x.CourseID,
                         principalTable: "Courses",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);

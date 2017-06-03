@@ -1,0 +1,109 @@
+﻿@model OnlineCourses.Models.CourseViewModels.BuyingCourseViewModel
+@{
+    ViewData["Title"] = Model.Course.Title;
+}
+<body>
+
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>Головна/Назва курсу</h1>
+    </div>
+</div>
+
+	<div class="container-fluid">
+	<div class="col-md-12">
+		<!--*****************//////////course-name///////////*********************-->
+		<h1>Заголовок</h1>
+		<hr class="hr-min">
+		<!--*****************//////////min-description///////////*********************-->
+		<div class="col-md-12">
+		<span id=description-min>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit ducimus, perspiciatis qui nulla recusandae. Rerum, soluta suscipit natus quibusdam, cum quae. Pariatur est, repellat architecto suscipit rerum obcaecati distinctio amet.
+		<hr class="hr-min">
+		</span>
+		</div>
+		<div class="container-fluid row"></div>
+		<div class="col-md-3 row">
+   <!--*****************//////////authot(img+name)///////////*********************-->
+			<ul class="list-inline">
+				<li>
+					<figure>
+						<img src="img/polybreno_1500.jpg" class="img-responsive img-circle" alt="authot" width="57">
+						<figcaption>автор:</figcaption>
+
+					</figure>
+				</li>
+				<li>
+					<h4 style="margin-top:0;">Ivan</h4></li>
+			</ul>
+			
+		</div>
+		<!--*****************//////////ours+numberVideo+numberPeopleBay///////////*********************-->
+		<div class="col-md-4" id="About-course">
+			<ul class="list-inline">
+				<li>
+					<figure class="about-1">
+						<i class="fa fa-clock-o" aria-hidden="true" style="font-size:57px"></i>
+						<figcaption>Час</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure class="about-1">
+						<i class="fa fa-file-video-o" aria-hidden="true" style="font-size:57px"></i>
+						<figcaption>Відео-3</figcaption>
+					</figure>
+				</li>
+				<li>
+					<figure class="about-1">
+						<i class="fa fa-users" aria-hidden="true" style="font-size:57px"></i>
+						<figcaption>3</figcaption>
+					</figure>
+				</li>
+			</ul>
+		</div>
+   <!--*****************//////////price///////////*********************-->
+		<div class="col-md-2">
+			<h2>Price</h2>
+			<h4>666$</h4>
+		</div>
+   <!--*****************//////////buttonBay///////////*********************-->
+		<div class="col-md-3">
+			<span>
+			<button type="button" class="btn btn-primary btn-block" id="buyButt">Купити цей курс</button>	
+			</span>
+		</div>
+
+	</div>
+   <!--*****************//////////courseIMG///////////*********************-->
+	<div class="col-md-6 col-md-offset-3">
+		<img src="img/course.jpg" alt="img-course" style="margin: 0 auto;">
+	</div>
+   <!--*****************//////////allDescription///////////*********************-->
+	<div class="col-md-12" style="margin:1vh">
+		<span>
+				Historically, cryptography was used to ensure private communication between two people with some prior relationship. More recently, its scope has expanded to include things as diverse as data integrity, secure internet-wide communication, electronic cash, secure distributed computation, and more. Cryptography has also become ubiquitous. Perhaps unknowingly, we have all encountered applications of cryptography in our daily lives—whether by logging in using a password, making a web purchase over a secure connection, or applying a software update that is digitally signed. web purchase over a secure connection, or applying a software update that is digitally signed.
+			</span>
+	</div>
+</div>
+
+    <!--*****************//////////endCOURSE///////////*********************-->
+	<!--*****************//////////endCOURSE///////////*********************-->
+	<!--*****************//////////endCOURSE///////////*********************-->
+
+	<script type="text/javascript" src="vendors/jquery.min.js"></script>
+	<script type="text/javascript" src="vendors/js/bootstrap.min.js"></script>
+	<script type="text/jscript" src="vendors/aos.js"></script>
+	<script type="text/javascript" src="JS/common.js"></script>
+	<script>
+		AOS.init({
+			easing: 'ease-in-out-sine'
+		});
+		$(document).ready(function () {
+			$('.carousel').carousel({
+				interval: 6000
+			})
+		});
+	</script>
+</body>
+
+</html>
