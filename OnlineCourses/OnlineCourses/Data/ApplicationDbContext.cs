@@ -19,6 +19,8 @@ namespace OnlineCourses.Data
         public DbSet<VideoBlock> VideoBlocks {get; set;}
         public DbSet<Subscription> Subscriptions{ get;set;}
         public DbSet<FamilyMember> FamilyMembers { get; set; }
+        public DbSet<Theme> Themes { get; set; }
+        public DbSet<CourseTheme> CourseThemes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -28,9 +30,15 @@ namespace OnlineCourses.Data
             {
                 entity.HasMany(e => e.Lessons).WithOne(e=>e.Course);
                 entity.HasOne(e => e.Author).WithMany(e => e.CreatedCourses);
-               // entity.Property(e => e.ModificationDate).IsRequired(false);
             });
 
+            builder.Entity<CourseTheme>(entity =>
+            {
+                entity.HasKey(e => new {e.CourseID, e.ThemeID});
+                entity.HasOne(e => e.Course).WithMany(e => e.CourseThemes).HasForeignKey(e=>e.CourseID);
+                entity.HasOne(e => e.Theme).WithMany(e => e.CourseThemes).HasForeignKey(e=>e.ThemeID);
+            });
+            
             builder.Entity<Lesson>(entity =>
             {
                 entity.HasMany(e => e.TextBlocks).WithOne(e=>e.Lesson);

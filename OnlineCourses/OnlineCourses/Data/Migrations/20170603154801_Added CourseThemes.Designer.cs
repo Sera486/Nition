@@ -8,9 +8,10 @@ using OnlineCourses.Data;
 namespace OnlineCourses.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170603154801_Added CourseThemes")]
+    partial class AddedCourseThemes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -403,7 +404,7 @@ namespace OnlineCourses.Data.Migrations
                 {
                     b.HasOne("OnlineCourses.Models.Course", "Course")
                         .WithMany("CourseThemes")
-                        .HasForeignKey("CourseID")
+                        .HasForeignKey("ThemeID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("OnlineCourses.Models.Theme", "Theme")

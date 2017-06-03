@@ -15,7 +15,7 @@ namespace OnlineCourses.Models
         public string Description { get; set; }
         public string ImageURL { get; set; }
         public double Price { get; set; }
-        
+        public List<CourseTheme> CourseThemes { get; set; }
         #region Properties
         public string ValidImageURL => string.IsNullOrWhiteSpace(ImageURL) ? "img/no_image.png" : ImageURL;
         #endregion
