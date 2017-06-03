@@ -13,6 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\HomeViewModels\**" />
+    <Content Remove="Models\HomeViewModels\**" />
+    <EmbeddedResource Remove="Models\HomeViewModels\**" />
+    <None Remove="Models\HomeViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\allcoursesearch.css" />
     <Content Include="wwwroot\coursenopaid.css" />
     <Content Include="wwwroot\css\allcoursesearch.css" />
@@ -47,9 +54,6 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\HomeViewModels\" />
   </ItemGroup>
 
 </Project>
