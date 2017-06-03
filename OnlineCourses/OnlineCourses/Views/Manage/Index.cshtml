@@ -1,4 +1,4 @@
-﻿@model IndexViewModel
+﻿@model OnlineCourses.Models.ManageViewModels.IndexViewModel
 @{
     ViewData["Title"] = "Manage your account";
 }
@@ -6,32 +6,72 @@
 <h2>@ViewData["Title"].</h2>
 <p class="text-success">@ViewData["StatusMessage"]</p>
 
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Firs tName:</dt>
-        <dd>
-            @Model.
-        </dd>
-
-        <dt>Password:</dt>
-        <dd>
-            @if (Model.HasPassword)
-            {
-                <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Change</a>
-            }
-            else
-            {
-                <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Create</a>
-            }
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-
-            @Model.Logins.Count <a asp-controller="Manage" asp-action="ManageLogins" class="btn-bracketed">Manage</a>
-        </dd>
-
-
-    </dl>
+<body>
+<div class="container=fluid" id="InfoBack" style="background-image: url(img/InfoPage.jpg) ;">
+    <div class="row" >
+        <br>
+        <div class="col-xs-1"></div>
+        <div class="col-sm-1" style=" margin-left: 30;">
+            <img src="img/150.jpg" class="img" alt="user photo" width="100" height="100">
+        </div>
+        <div class="col-xs-4">
+            <h1 >Логін користувача</h1>
+        </div>
+    </div>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+            <p style="font: 15pt sans-serif;">Ім'я:</p>
+        </div>
+        <div class="col-lg-12">
+            <br>
+            <p style="font: 15pt sans-serif;">Прізвище:</p>
+        </div>
+        <div class="col-lg-12">
+            <br>
+            <p style="font: 15pt sans-serif;">Email:</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-11">
+            <div id="accordion" class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#collapse-1" data-toggle="collapse">Курси</a>
+                        </h4>
+                    </div>
+                    <div id="collapse-1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            @foreach (var course in Model.Courses)
+                            {
+                                <div class="col-md-2">
+                                    <img @course.ValidImageURL class="img" alt="user photo" width="100" height="100">
+                                </div>
+                                <div class="col-md-10">
+                                    <p>@course.Description</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                        
+                </div>
+                <div class="panel panel-default"></div>
+            </div>
+        </div>
+            
+    </div>
+</div>
+<!-- jQuery (потрібно для JavaScript плагінів Bootstrap) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- Підключення мінімізованої збірки всіх плагінів jQuery. Можна підключати додаткові плагіни, якщо потрібно -->
+<script src="vendors/js/bootstrap.js"></script>
+<script src="vendors/js/bootstrap.min.js"></script>
+</body>

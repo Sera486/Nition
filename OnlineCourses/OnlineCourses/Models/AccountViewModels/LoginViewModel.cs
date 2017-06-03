@@ -6,11 +6,10 @@ namespace OnlineCourses.Models.AccountViewModels
     public class LoginViewModel
     {
         [Required]
-        [JsonProperty("login")]
+        [Display(Name = "Username/Email")]
         public string Login { get; set; }
 
         [Required]
-        [JsonProperty("password")]
         //[DataType(DataType.Password)]
         public string Password { get; set; }
 

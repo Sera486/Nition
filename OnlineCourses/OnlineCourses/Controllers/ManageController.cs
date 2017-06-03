@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.ManageViewModels;
 using OnlineCourses.Services;
@@ -16,6 +19,7 @@ namespace OnlineCourses.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _context;
         private readonly string _externalCookieScheme;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
@@ -24,6 +28,7 @@ namespace OnlineCourses.Controllers
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
+          ApplicationDbContext context,
           IOptions<IdentityCookieOptions> identityCookieOptions,
           IEmailSender emailSender,
           ISmsSender smsSender,
@@ -35,6 +40,7 @@ namespace OnlineCourses.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
+            _context = context;
         }
 
         //
@@ -56,11 +62,24 @@ namespace OnlineCourses.Controllers
             {
                 return View("Error");
             }
+
+            List<Course> courses = new List<Course>();
+
+            if (User.IsInRole("Lecturer"))
+            {
+                courses = _context.Courses.Where(e => e.Author == user).ToList();
+            }
+            else if (User.IsInRole("Student"))
+            {
+                courses = _context.Subscriptions.Where(e => e.User == user).Select(e => e.Course).ToList();
+            }
+
             var model = new IndexViewModel
             {
                 HasPassword = await _userManager.HasPasswordAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
-                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
+                Courses = courses
             };
             return View(model);
         }

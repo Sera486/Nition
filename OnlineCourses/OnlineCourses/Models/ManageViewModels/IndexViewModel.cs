@@ -10,5 +10,7 @@ namespace OnlineCourses.Models.ManageViewModels
         public IList<UserLoginInfo> Logins { get; set; }
 
         public bool BrowserRemembered { get; set; }
+
+        public IList<Course> Courses { get; set; }
     }
 }
