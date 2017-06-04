@@ -22,54 +22,89 @@
 	color: white;
 }
 
- input,button,select{
-    -webkit-border-radius: 0px !important;
-    -moz-border-radius: 0px !important;
-    border-radius: 0px !important;
-}
-#course-property{
-	display: inline-block;
-}
-#About-course figcaption{
-	  text-align: center;
-}
-.about-1{
-	margin-left: 1vh;
-	
+input,
+button,
+select {
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
 }
 
-#buyButt{
+#course-property {
+	display: inline-block;
+}
+
+#About-course figcaption {
+	text-align: center;
+}
+
+.about-1 {
+	margin-left: 1vh;
+}
+
+#buyButt {
 	margin-top: 10px;
 	width: 100%;
 	height: 57px;
 	background-color: #16919d;
-    border: solid;
+	border: solid;
 	border-color: #36a8a8;
 	border width: 2vh;
 	font-size: 1.3em;
 }
-#buyButt:hover{
-	-webkit-box-shadow: -9px 17px 35px -8px rgba(9,21,41,0.67);
--moz-box-shadow: -9px 17px 35px -8px rgba(9,21,41,0.67);
-box-shadow: -9px 17px 35px -8px rgba(9,21,41,0.67);
-		background-color: #137680;
+
+#buyButt:hover {
+	-webkit-box-shadow: -9px 17px 35px -8px rgba(9, 21, 41, 0.67);
+	-moz-box-shadow: -9px 17px 35px -8px rgba(9, 21, 41, 0.67);
+	box-shadow: -9px 17px 35px -8px rgba(9, 21, 41, 0.67);
+	background-color: #137680;
 }
-#all-about-course{
+
+#all-about-course {
 	margin-top: 1vh;
 	margin-bottom: 1vh;
-	
 	font-size: 1.3em;
 }
-#description-min{
+
+#description-min {
 	font-size: 1.4em;
 }
-@media (max-width: 969px ) {
-.head {
-	text-align: center;
-}
-	#buyButt{
+
+@media (max-width: 969px) {
+	.head {
+		text-align: center;
+	}
+	#buyButt {
 		margin: 0;
 		padding: 0;
 	}
+	#img-course {
+		padding-top: 1vh;
+	}
+}
+#authorAboout{
+    padding-right: 1vh;
+	padding-left: 1vh;
+	border: solid;
+	border-color: #ffffff;
+	border-width: 0.5vmin;
+	color: black;
+}
+#authorAboout:hover{
+	border: solid;
+	border-color: #f4f4f4;
+	border-width: 0.5vmin;
+	background-color: #f0f0f0;
 }
 
+.openLesson:hover{
+	background-color: #f0f0f0;
+	border: solid;
+	border-color: #36a8a8;
+	border-width: 0.19vmin;
+	color: black;
+}
+
+.numLessonTh{
+	width: 7em;
+}
