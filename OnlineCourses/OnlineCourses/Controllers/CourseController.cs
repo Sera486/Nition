@@ -9,25 +9,20 @@ using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.CourseViewModels;
-using OnlineCourses.Models.ManageViewModels;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace OnlineCourses.Controllers
 {
     public class CourseController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
         public CourseController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
             ApplicationDbContext context)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _context = context;
         }
 
@@ -38,7 +33,7 @@ namespace OnlineCourses.Controllers
             //selecting courses with all info
             IQueryable<Course> source = _context.Courses
                 .Include(course => course.Author)
-                .Include(course => course.CourseThemes);//.ThenInclude(courseTheme => courseTheme.ThemeID);
+                .Include(course => course.CourseThemes);
             
             //searching through courses
             var allItems = SearchCourse( source.ToList(), search, desc, theme);//.ToListAsync();
@@ -81,28 +76,29 @@ namespace OnlineCourses.Controllers
             return source;
         }
 
-        [HttpGet("Course/{id}")]
+        [HttpGet]
         public IActionResult CourseInfo(int id)
         {
             return View(_context.Courses.Find(id));
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BuyingCourse(BuyingCourseViewModel model)
+
+        [HttpGet("Course/{id}")]
+        public async Task<IActionResult> BuyingCourse(int ID)
         {
             var user = await GetCurrentUserAsync();
-            if (user != null)
+            if (user != null /*&& User.IsInRole("Student")*/)
             {
-                if (_context.Subscriptions.Where(e => e.User == user && e.Course == model.Course).ToList().Count == 0)
+                Course course = _context.Courses.Find(ID);
+                if (_context.Subscriptions.Where(e => e.User == user && e.Course == course).ToList().Count == 0)
                 {
-                     return View(model);
+                    return View(_context.Courses.Find(ID));
                 }
                 else
                 {
-                    //REDIRECT TO COURSE PAGE
+                    return View(_context.Courses.Find(ID));
                 }
             }
-            return View(model);
+            return View();
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync()
