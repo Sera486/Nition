@@ -1,0 +1,19 @@
+#InfoBack {
+	background-image: url(img/InfoPage.jpg); 
+    width: 100%;
+    height: 250px;
+    background-size: 100%;  
+  position:relative 
+   
+}
+.panel-body .img{
+   margin-left:-10px;
+    
+}
+.Carousel { float: left; overflow: hidden; padding:15px; width: 100%; }
+
+.Carousel-inner { transition: 1s ease all; float: left; }
+
+    .Carousel-inner .item { float: left; border: 1px solid #ccc; text-align:center; }
+    
+    .leftLst, .rightLst { margin-top:15px;}
