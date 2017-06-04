@@ -88,14 +88,15 @@ namespace OnlineCourses.Controllers
             var user = await GetCurrentUserAsync();
             if (user != null /*&& User.IsInRole("Student")*/)
             {
-                Course course = _context.Courses.Find(ID);
+                var source = _context.Courses.Include(c=>c.Author);
+                Course course = source.Where(c => c.ID == ID).ToList()[0];
                 if (_context.Subscriptions.Where(e => e.User == user && e.Course == course).ToList().Count == 0)
                 {
-                    return View(_context.Courses.Find(ID));
+                    return View(course);
                 }
                 else
                 {
-                    return View(_context.Courses.Find(ID));
+                    return View(course);
                 }
             }
             return View();

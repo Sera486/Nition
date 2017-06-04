@@ -44,5 +44,9 @@
 	background-color: #16919d;
     border: solid;
 	border-color: #138590;
-	border width: 2vh;	
+	border-width: 2vh;	
+}
+
+#authorImgHead {
+    width: 57px;
 }
