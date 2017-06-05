@@ -89,7 +89,7 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpPost("media/SetCourseImage")]
-        public async Task<IActionResult> SetCourseImage(CourseImageViewModel model, string returnUrl = null)
+        public async Task<IActionResult> UpdateCourseImage(CourseImageViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (model.UploadedFile != null)
@@ -97,6 +97,8 @@ namespace OnlineCourses.Controllers
                 try
                 {
                     var course = _context.Courses.Find(model.CourseID);
+                    //remove old image if any
+                    System.IO.File.Delete(course.ImageURL);
 
                     // avatars folder path
                     string path = $"images/courseLogos/{Guid.NewGuid()}{Path.GetExtension(model.UploadedFile.FileName)}";

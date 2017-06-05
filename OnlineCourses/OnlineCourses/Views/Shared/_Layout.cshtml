@@ -38,14 +38,22 @@
                 </li>
                 <li><a asp-controller="Course" asp-action="Index">Курси</a>
                 </li>
-                @if ( User.Identity.IsAuthenticated ){
-                    if ( User.IsInRole("Lecturer") ){
-                        <li><a asp-controller="Home" asp-action="About">Про нас</a>
-                        </li>     
-                    }
-                }
+                <li><a asp-controller="Home" asp-action="About">Про нас</a>
+                </li> 
                 <li><a asp-controller="Home" asp-action="Contact">Контакти</a>
                 </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("Lecturer"))
+                    {
+                        <li>
+                            <a asp-controller="Lecturer" asp-action="CreateCourse">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                Створити курс
+                            </a>
+                        </li>
+                    }
+                }
             </ul>   
             <ul class="nav navbar-nav navbar-right">
                 @await Html.PartialAsync("_LoginPartial")
