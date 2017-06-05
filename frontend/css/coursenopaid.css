@@ -134,7 +134,8 @@ select {
 }
 
 #addLesson{
-	background-color: #f0f0f0;	
+	background-color: #f0f0f0;
+	
 }
 
 #authorImgHead{
@@ -147,4 +148,14 @@ select {
 	height: 0;
 }
 */
+#newCourse{
+	background-color: #ffffff;
+	border: solid;
+	border-color: #ebebeb;
+	border-width: 0.19vmin;	
+}
+
+#showCourseButt{
+	margin: 1vmin;
+}
 

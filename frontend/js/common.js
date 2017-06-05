@@ -134,3 +134,30 @@ var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 var marker = new google.maps.Marker({position:myCenter});
 marker.setMap(map);
 }
+
+///////////////// add COURSE //////////////////
+$("#addText").click(function () {	
+	var text = $("#shortDescAdd").val();
+	if (text === '') {
+		alert("Введіть текст");
+	} else {
+	$("#newCourse").append('<div class="col-md-10 col-md-offset-1" style="font-size: 1.3em;">' + text + '</div>');
+	}
+});
+
+$("#addVideo").click(function () {
+	var videoSrc = $("#addFile").val();
+	if (videoSrc === '') {
+		alert("Виберіть файл");
+	} else {
+		var video = '<video controls style="max-width: 100%;height: auto;"><source src="' + videoSrc + '" type="video/mp4"><source src="' + videoSrc + '" type="video/ogg"> Your browser does not support HTML5 video.</video>';
+		$("#newCourse").append('<div class="col-md-10 col-md-offset-1 text-center">' + video + '</div>');
+		//		alert(videoSrc);
+	}
+});
+
+$("#clearAddLesson").click(function () {
+	$("#newCourse").empty();
+});
+
+

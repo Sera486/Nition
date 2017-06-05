@@ -189,9 +189,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<!--*****************//////////newCourse///////////*********************-->
-		<div class="col-md-10 col-md-offset-1" id="newCourse">
-		</div>
+
 
 		<!--*****************//////////addCourse///////////*********************-->
 
@@ -199,39 +197,27 @@
 			<form class="form-horizontal" action="">
 				<div class="form-group">
 					<div class="col-sm-offset-1 col-sm-10">
-					<hr>
-						<h4>Додати текст</h4>
+						<h4>Назва:</h4>
+						<input type="text" class="form-control" id="nameCourseAdd" placeholder="" name="nameCourseAdd">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-10">
+						<h4>Короткий опис</h4>
 						<textarea class="form-control" id="shortDescAdd" name="shortDescAdd" placeholder=""></textarea>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-1 col-sm-10">
-						<button type="button" class="btn-success btn-lg" id="addText">Додати текст</button>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-1 col-sm-10">
-					<hr>
 						<h4>Додати відео:</h4>
 						<span class="btn btn-default btn-file">
-                        Знайти відео... . <input type="file" id="addFile">
+                        Знайти відео... . <input type="file">
                         </span>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-1 col-sm-10">
-						<button type="button" class="btn btn-success btn-lg" id="addVideo">Додати відео</button>
-						<hr>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-1 col-sm-10">
-						<div class="col-md-6">
-							<button type="submit" class="btn btn-danger btn-block btn-lg" id="confirmAddLesson">Додати урок</button>
-						</div>
-						<div class="col-md-6">
-							<button type="button" class="btn btn-default btn-block btn-lg" id="clearAddLesson">Очистити</button>
-						</div>
+						<button type="submit" class="btn btn-danger btn-lg" id="confirmAddLesson">Додати урок</button>
 					</div>
 				</div>
 			</form>
@@ -239,7 +225,7 @@
 
 		<div class="col-md-6 col-md-offset-3">
 			<span>
-			<button type="button" class="btn btn-primary btn-block SeeMore" id="showCourseButt" value="addLesson">Додати урок</button>	
+			<button type="button" class="btn btn-primary btn-block SeeMore" id="addCourseButt" value="addLesson">Додати урок</button>	
 			</span>
 		</div>
 	</div>
@@ -393,14 +379,11 @@
 				//			$("#addLessonForm").css("visibility", "hidden");
 				//			$("#addLessonForm").css("height", "0");
 				$('#addLessonForm').hide();
-				$('#newCourse').hide();
-				
 			} else {
 				$this.text('Приховати');
 				//			$("#addLessonForm").css("visibility", "visible");
 				//			$("#addLessonForm").css("height", "auto");
 				$('#addLessonForm').fadeIn('slow');
-				$('#newCourse').fadeIn('slow');
 			}
 		});
 	</script>
