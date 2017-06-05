@@ -8,11 +8,11 @@ using OnlineCourses.Models;
 
 namespace OnlineCourses.ViewComponents
 {
-    public class RecentCoursesListViewComponent:ViewComponent
+    public class PopularCoursesListViewComponent:ViewComponent
     {
         private readonly ApplicationDbContext _context;
 
-        public RecentCoursesListViewComponent(ApplicationDbContext context)
+        public PopularCoursesListViewComponent(ApplicationDbContext context)
         {
             _context = context;
         }

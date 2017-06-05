@@ -20,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\allcoursesearch.css" />
-    <Content Include="wwwroot\coursenopaid.css" />
     <Content Include="wwwroot\css\allcoursesearch.css" />
     <Content Include="wwwroot\css\coursenopaid.css" />
+    <Content Include="wwwroot\css\user-info.css" />
+    <Content Include="wwwroot\css\userinfo.css" />
     <Content Include="wwwroot\img\no_image.png" />
     <Content Include="wwwroot\js\common.js" />
     <Content Include="wwwroot\js\effetsFile.js" />

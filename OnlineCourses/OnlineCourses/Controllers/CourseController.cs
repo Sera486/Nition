@@ -62,9 +62,10 @@ namespace OnlineCourses.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchStr))
             {
+                searchStr = searchStr.ToLower();
                 source = searchInDesc
-                    ? source.Where(c => c.Title.Contains(searchStr) || c.Description.Contains(searchStr)).ToList()
-                    : source.Where(c => c.Title.Contains(searchStr)).ToList();
+                    ? source.Where(c => c.Title.ToLower().Contains(searchStr) || c.Description.ToLower().Contains(searchStr)).ToList()
+                    : source.Where(c => c.Title.ToLower().Contains(searchStr)).ToList();
                 if (themeID != 0)
                     source = source.Where(c => c.CourseThemes.Exists(e => e.ThemeID == themeID)).ToList();
             }

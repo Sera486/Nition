@@ -1,8 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<!--slider -->
+﻿<!--slider -->
 <div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="5000">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -189,7 +185,7 @@
 </div>
 
 <!-- /#myCarousel -->
-@await Component.InvokeAsync("RecentCoursesList")
+@await Component.InvokeAsync("PopularCoursesList")
 
 @section Scripts{
     <script type="text/jscript" src="~/vendors/aos.js"></script>
