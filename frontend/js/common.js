@@ -3,6 +3,9 @@
 
 $('#bootstrap-touch-slider').bsTouchSlider();
 
+
+/////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
         	$(window).scroll(function() {
 			if ($(document).scrollTop() > 150) {
 			$('.navbar').addClass('shrink');
@@ -13,14 +16,19 @@ $('#bootstrap-touch-slider').bsTouchSlider();
             +',0.5)';
             $('.navbar').css('background-color', rgbaCol);
             $('.navbar').css("transition", "1s");
+			$('.userImgHead').css("padding-left", "10px");
+			$('#imgHead').css("padding-bottom", "0px");
+				
 			}
 			else {
 			$('.navbar').removeClass('shrink');
             $('.navbar').css("transition", "1s");         
             $('.navbar').css("background-color", '#36393c'); 
+			$('#imgHead').css("padding-bottom", "24px");
             }
 });
-
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
 
 $(function(){
    $('.btn-circle').on('click',function(){
