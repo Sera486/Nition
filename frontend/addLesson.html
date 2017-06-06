@@ -86,159 +86,107 @@
 	<!--*****************//////////COURSE///////////*********************-->
 	<!--*****************//////////COURSE///////////*********************-->
 	<!--*****************//////////COURSE///////////*********************-->
-	<div class="container-fluid">
 
-		<!--*****************//////////course-name///////////*********************-->
-		<h1>Заголовок</h1>
-		<hr class="hr-min">
-		<!--*****************//////////min-description///////////*********************-->
-		<div class="col-md-12">
-			<span id=description-min>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit ducimus, perspiciatis qui nulla recusandae. Rerum, soluta suscipit natus quibusdam, cum quae. Pariatur est, repellat architecto suscipit rerum obcaecati distinctio amet.
-		<hr class="hr-min">
-		</span>
-		</div>
-		<div class="container-fluid row">
-			<div class="col-md-3 row head">
-				<!--*****************//////////authot(img+name)///////////*********************-->
-				<a href="">
-					<ul class="list-inline">
-						<li>
-							<figure class="text-center" id="authorAboout">
-								<img src="img/Morty-b-font.jpg" class="img-responsive img-circle" alt="author" id="authorImgHead">
-								<figcaption>автор:
-									<h4 style="margin-top:0;">Ivan</h4></figcaption>
-							</figure>
-						</li>
-					</ul>
-				</a>
-			</div>
-			<!--*****************//////////ours+numberVideo+numberPeopleBay///////////*********************-->
-			<div class="col-md-4 head" id="About-course">
-				<ul class="list-inline">
-					<li>
-						<figure class="about-1">
-							<i class="fa fa-clock-o" aria-hidden="true" style="font-size:57px"></i>
-							<figcaption>Час</figcaption>
-						</figure>
-					</li>
-					<li>
-						<figure class="about-1">
-							<i class="fa fa-file-video-o" aria-hidden="true" style="font-size:57px"></i>
-							<figcaption>Відео-3</figcaption>
-						</figure>
-					</li>
-					<li>
-						<figure class="about-1">
-							<i class="fa fa-users" aria-hidden="true" style="font-size:57px"></i>
-							<figcaption>3</figcaption>
-						</figure>
-					</li>
-				</ul>
-			</div>
-			<!--*****************//////////price///////////*********************-->
-			<div class="col-md-5 head">
-				<h4><strong>Цей курс уже куплено, ви можете переглядати уроки.</strong></h4>
-			</div>
-			<!--*****************//////////buttonBay///////////*********************-->
-		</div>
-
-		<div class="container-fluid row">
-			<!--*****************//////////courseIMG///////////*********************-->
-			<div class="col-md-12 row head text-center">
-				<img src="img/course.jpg" alt="img-course" style="margin: 0 auto;" class="text-center" id="img-course">
-			</div>
-			<!--*****************//////////LessonsList///////////*********************-->
-		</div>
-		<!--*****************//////////allDescription///////////*********************-->
-		<div class="col-md-12" id="all-about-course">
-			<hr>
-			<span>
-				Historically, cryptography was used to ensure private communication between two people with some prior relationship. More recently, its scope has expanded to include things as diverse as data integrity, secure internet-wide communication, electronic cash, secure distributed computation, and more. Cryptography has also become ubiquitous. Perhaps unknowingly, we have all encountered applications of cryptography in our daily lives—whether by logging in using a password, making a web purchase over a secure connection, or applying a software update that is digitally signed. web purchase over a secure connection, or applying a software update that is digitally signed.
-			</span>
-			<hr>
-		</div>
-		<div class="col-md-12 text-center">
-			<h2><strong>Перелік уроків:</strong></h2>
-			<hr>
-		</div>
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Урок№</th>
-					<th>Назва</th>
-					<th>Короткий опис</th>
-				</tr>
-			</thead>
-			<tbody id="tableLesson">
-				<tr class="openLesson" data-href="#">
-					<td class="numLessonTh">Урок№</td>
-					<td class="nameLessonTh">Назва</td>
-					<td class="shortDescTh">Короткий опис</td>
-					<td class="editButt text-center"><i class="fa fa-pencil" aria-hidden="true"></i></td>
-					<td class="delButt text-center"><i class="fa fa-times" aria-hidden="true"></i></td>
-				</tr>
-				<tr class="openLesson" data-href="#">
-					<td class="numLessonTh">Урок№</td>
-					<td class="nameLessonTh">Назва</td>
-					<td class="shortDescTh">Короткий опис</td>
-						<td class="editButt text-center"><i class="fa fa-pencil" aria-hidden="true"></i></td>
-						<td class="delButt text-center"><i class="fa fa-times" aria-hidden="true"></i></td>
-				</tr>
-				<tr class="openLesson" data-href="#">
-					<td class="numLessonTh">Урок№</td>
-					<td class="nameLessonTh">Назва</td>
-					<td class="shortDescTh">Короткий опис</td>
-						<td class="editButt text-center"><i class="fa fa-pencil" aria-hidden="true"></i></td>
-						<td class="delButt text-center"><i class="fa fa-times" aria-hidden="true"></i></td>
-				</tr>
-			</tbody>
-		</table>
-
+		
+	    <div class="container-fluid">
+		
 		<!--*****************//////////addCourse///////////*********************-->
 
-		<div class="col-md-6 col-md-offset-3 " id="addLessonForm">
+		<div class="col-md-10 col-md-offset-1 text-center" id="nameCourse-addLesson">
+		 <button type="button" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button>
+		 <button type="button" class="btn btn-warning pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+			<h3>Назва уроку</h3>
+		</div>
+		<div class="col-md-10 col-md-offset-1 text-center" id="nameCourse-addLesson">
+		 <button type="button" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button>
+		 <button type="button" class="btn btn-warning pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+			<h4>Опис уроку Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit inventore voluptates dignissimos dolores modi, atque numquam aspernatur odit nobis illum magni eos labore molestias optio. Error autem possimus, sunt velit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos quas ipsam, minus eius quaerat impedit voluptatem fuga rerum sit ullam mollitia porro, laboriosam iure ab fugiat placeat quidem animi dolorum?</h4>
+		</div>
+		<!--*****************//////////newCourse///////////*********************-->
+		<hr>
+		<div class="col-md-10 col-md-offset-1" id="newCourse"></div>
+        <hr>
+		<div class="col-md-6 col-md-offset-3 " id="createLessonForm">
+			<form class="form-horizontal" action="">
+<hr>
+				<div class="form-group">
+					<div class="col-md-6">
+						<button type="button" class="btn-success btn-lg btn-block" id="addTextButt">Додати текст</button>
+					</div>
+					<div class="col-md-6">
+						<button type="button" class="btn-success btn-lg btn-block" id="addVideoButt">Додати відео</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-primary btn-block btn-lg" id="confirmLesson">Готово</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+
+
+		<div class="col-md-6 col-md-offset-3 " id="addTextLessonForm">
 			<form class="form-horizontal" action="">
 				<div class="form-group">
 					<div class="col-sm-offset-1 col-sm-10">
-					<hr>
-						<h4>Назва уроку</h4>
-						<textarea class="form-control" id="nameLesson" name="nameLesson" placeholder=""></textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-1 col-sm-10">
-					<hr>
-						<h4>Опис уроку</h4>
-						<textarea class="form-control" id="descLesson" name="descLesson" placeholder=""></textarea>
+						<hr>
+						<h4>Введіть текст текст</h4>
+						<textarea class="form-control" id="addLessonText" name="addLessonText" placeholder=""></textarea>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-1 col-sm-10">
 						<div class="col-md-6">
-							<button type="button" class="btn btn-danger btn-block btn-lg" id="confirmAddLesson">Додати урок</button>
+							<button type="button" class="btn btn-success btn-block btn-lg" id="confirmAddLessonText">Додати текст</button>
 						</div>
 						<div class="col-md-6">
-							<button type="button" class="btn btn-default btn-block btn-lg" id="clearAddLesson">Очистити</button>
+							<button type="button" class="btn btn-default btn-block btn-lg" id="cancleAddText">Відмінити</button>
 						</div>
 					</div>
 				</div>
 			</form>
-				<div class="col-sm-offset-1 col-sm-10">
-			<div class="col-md-12 text-center" id="emptyInput">
-	Зоповніть усі поля
-</div>
-	</div>
 		</div>
-		
 
-	
+
+
+		<div class="col-md-6 col-md-offset-3 " id="addVideoLessonForm">
+			<form class="form-horizontal" action="">
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-10">
+					<div class="col-md-12">
+						<hr>
+						<span class="btn btn-info btn-file btn-block btn-lg">
+                       Знайти відео... . <input type="file" id="addFile">
+                        </span>
+					</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-10">
+						<div class="col-md-6">
+							<button type="button" class="btn btn-success btn-block btn-lg" id="confirmAddLessonVideo">Додати відео</button>
+						</div>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-default btn-block btn-lg" id="cancleAddVideo">Відмінити</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+	</div>
+	<!--
 		<div class="col-md-6 col-md-offset-3">
 			<span>
 			<button type="button" class="btn btn-primary btn-block SeeMore" id="showCourseButt" value="addLesson">Додати урок</button>	
 			</span>
 		</div>
+-->
+
 	</div>
 
 	<!--*****************//////////endCOURSE///////////*********************-->
@@ -372,7 +320,7 @@
 			$('.carousel').carousel({
 				interval: 6000
 			})
-		});		
+		});
 	</script>
 </body>
 

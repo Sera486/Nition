@@ -105,9 +105,25 @@ select {
 	color: black;
 }
 
+
+
 .numLessonTh{
 	width: 7em;
 }
+.editButt{
+	width: 5em;
+}
+.editButt:hover{
+	background-color: #cccccc;
+}
+.delButt{
+	width: 5em;
+}
+.delButt:hover{
+	background-color: #cccccc;
+}
+
+
 
 #addCourseButt{
 	margin-bottom: 1vh;
@@ -157,5 +173,16 @@ select {
 
 #showCourseButt{
 	margin: 1vmin;
+}
+
+#emptyInput{
+	padding: 0;
+	margin: 0;
+	border: solid;
+	border-color: #931010;
+	background-color: #d9d9d9;
+	border-width: 0.1vmin;
+	color: #ffffff;
+	font-size: 1.2em;
 }
 
