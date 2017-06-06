@@ -23,16 +23,16 @@ namespace OnlineCourses.TagHelpers
             output.TagName = "div";
             
             string coursePreviewContent = 
-                "<div class='container col-md-12 col-lg-8 col-lg-offset-2' id='course-one'>"+
-                    "<div class='col-md-4 col-sm-12' id='img-prj'>"+
-                        $"<img id='course-search-image' src=\'/{Course.ValidImageURL}\' alt=\'prjImg\'>"+             
-                    "</div>"+
-                    "<div class='col-md-8 col-sm-12'>"+
-                        $"<a href='/Course/{Course.ID}'><strong><h3>{Course.Title}</h3></strong></a>"+
-                        $"<h6>Автор: {Course.Author.FullName}</h6>"+
-                        $"<p class='text-left'>{Course.Description}</p>"+
-                    "</div>"+
-                "</div>";
+                 "<div class=\"container col-md-12 col-lg-8 col-lg-offset-2\" id=\"course-one\">" +
+                            "<div class=\"col-md-4 col-sm-12\" id=\"img-prjDiv\">" +
+                                $"<img src=\'/{Course.ValidImageURL}\' alt=\"prjImg\" id=\"img-prj\" class=\"img-responsive\">" +
+                            "</div>" +
+                            "<div class=\"col-md-8 col-sm-12\">" +
+                                $"<a href='/Course/{Course.ID}'><strong><h3>{Course.Title}</h3></strong></a>" +
+                                $"<h6>Автор: {Course.Author.FullName}</h6>" +
+                                $"<p class=\"text-left\">{Course.Description}</p>" +
+                            "</div>" +
+                       "</div>";
             output.Content.SetHtmlContent(coursePreviewContent);
         }
     }

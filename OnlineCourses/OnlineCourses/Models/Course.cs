@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OnlineCourses.Models.Enums;
 
 namespace OnlineCourses.Models
 {
@@ -16,7 +17,7 @@ namespace OnlineCourses.Models
         public string ImageURL { get; set; }
         public double Price { get; set; }
         public double Estimate { get; set; }
-        public bool IsPublished { get; set; }
+        public PublishStatus PublishStatus { get; set; }
         public List<CourseTheme> CourseThemes { get; set; }
         #region Properties
         public string ValidImageURL => string.IsNullOrWhiteSpace(ImageURL) ? "img/no_image.png" : ImageURL;

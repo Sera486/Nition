@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.CourseViewModels;
+using OnlineCourses.Models.Enums;
 
 
 namespace OnlineCourses.Controllers
@@ -27,7 +28,7 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page=1, string search="",bool desc = false,int theme=0)
+        public async Task<IActionResult> Index(int page=1, string search="",bool desc = true,int theme=0)
         {
             var pageSize = 5;
             //selecting courses with all info
@@ -36,7 +37,7 @@ namespace OnlineCourses.Controllers
                 .Include(course => course.CourseThemes);
             
             //searching through courses
-            var allItems = SearchCourse( source.ToList(), search, desc, theme);//.ToListAsync();
+            var allItems =await SearchCourse( source, search, desc, theme).ToListAsync();
             
             //splitting into pages
             var count = allItems.Count;
@@ -58,21 +59,22 @@ namespace OnlineCourses.Controllers
             return View(viewModel);
         }
 
-        private List<Course> SearchCourse(List<Course> source, string searchStr, bool searchInDesc, int themeID)
+        private IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr, bool searchInDesc, int themeID)
         {
+            source = source.Where(c => c.PublishStatus == PublishStatus.Published);
             if (!string.IsNullOrWhiteSpace(searchStr))
             {
                 searchStr = searchStr.ToLower();
                 source = searchInDesc
-                    ? source.Where(c => c.Title.ToLower().Contains(searchStr) || c.Description.ToLower().Contains(searchStr)).ToList()
-                    : source.Where(c => c.Title.ToLower().Contains(searchStr)).ToList();
+                    ? source.Where(c => c.Title.ToLower().Contains(searchStr) || c.Description.ToLower().Contains(searchStr))
+                    : source.Where(c => c.Title.ToLower().Contains(searchStr));
                 if (themeID != 0)
-                    source = source.Where(c => c.CourseThemes.Exists(e => e.ThemeID == themeID)).ToList();
+                    source = source.Where(c => c.CourseThemes.Exists(e => e.ThemeID == themeID));
             }
             else
             {
                 if (themeID != 0)
-                    source = source.Where(c => c.CourseThemes.Exists(e => e.ThemeID == themeID)).ToList();
+                    source = source.Where(c => c.CourseThemes.Exists(e => e.ThemeID == themeID));
             }
             return source;
         }

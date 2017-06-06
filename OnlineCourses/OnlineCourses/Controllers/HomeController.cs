@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +15,20 @@ namespace OnlineCourses.Controllers
     
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public HomeController(ApplicationDbContext context)
+        private UserManager<ApplicationUser> _userManager;
+        public HomeController(UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            _userManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user != null)
+            {
+                var role = await _userManager.GetRolesAsync(user);
+                if (role[0] == RolesData.Admin)
+                    return RedirectToAction(nameof(AdminController.Index), "Admin");
+            }
             return View();
         }
 

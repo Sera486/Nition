@@ -10,25 +10,32 @@
         @{
             int firstBlockFlag = 0;
             IEnumerable<Course> coursesBlock;
-            while ((coursesBlock =Model.Take(4)) != null)
+            while (Model.Count != 0)
             {
+                coursesBlock = Model.Take(4);
                 if (firstBlockFlag == 0)
                 {
                     @Html.Raw("<div class=\"item active\">")
-                    @Html.Raw("<ul class=\"thumbnails\">");
+                    ;
+                    @Html.Raw("<ul class=\"thumbnails\">")
+                    ;
                     firstBlockFlag++;
                 }
                 else
                 {
-                    @Html.Raw("<div class=\"item\">");
-                    @Html.Raw("<ul class=\"thumbnails\">");
+                    @Html.Raw("<div class=\"item\">")
+                    ;
+                    @Html.Raw("<ul class=\"thumbnails\">")
+                    ;
                 }
                 foreach (var el in coursesBlock)
                 {
                     <li class="col-sm-3">
                         <div class="fff">
                             <div class="thumbnail">
-                                <a asp-controller="Course" asp-action="BuyingCourse" asp-route-id="@el.ID"><img src="~/@el.ValidImageURL" alt=""></a>
+                                <a asp-controller="Course" asp-action="BuyingCourse" asp-route-id="@el.ID">
+                                    <img src="~/@el.ValidImageURL" id="popular-course-Img" class="img-responsive" alt="">
+                                </a>
                             </div>
                             <div class="caption">
                                 <h4>@el.Title</h4>
@@ -39,13 +46,18 @@
                     </li>
                 }
 
-                @Html.Raw("</ul>");
-                @Html.Raw("</div>");
+                @Html.Raw("</ul>")
+                ;
+                @Html.Raw("</div>")
+                ;
 
-                if (coursesBlock.Count() != 4){ break;}
+                if (coursesBlock.Count() != 4)
+                {
+                    break;
+                }
                 else
                 {
-                    Model.RemoveRange(0,4);
+                    Model.RemoveRange(0, 4);
                 }
             }
         }

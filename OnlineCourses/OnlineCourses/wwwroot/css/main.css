@@ -1,6 +1,18 @@
+@font-face {
+	font-family: mainFont;
+	src: url(..vendors/fonts/Prociono-Regular.otf);
+}
+
+* {
+	font-family: mainFont;
+	font-size: 1.02em;
+}
+
 body {
 	background-color: #fcfeff;
 }
+
+
 /* added to  .nav */
 
 .normal {
@@ -709,18 +721,112 @@ li {
 	background-color: #1E8BC3;
 }
 
-.modal-content  {
-    -webkit-border-radius: 0px !important;
-    -moz-border-radius: 0px !important;
-    border-radius: 0px !important;
+.modal-content {
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
 }
 
-.modal{
-    background: rgba(236, 240, 241,0.5);
+.modal {
+	background: rgba(236, 240, 241, 0.5);
 }
 
- .btn,input,button,select{
-    -webkit-border-radius: 0px !important;
-    -moz-border-radius: 0px !important;
-    border-radius: 0px !important;
+.btn,
+input,
+button,
+select {
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
+}
+
+
+.slideanim {visibility:hidden;}
+.slide {
+    animation-name: slide;
+    -webkit-animation-name: slide; 
+    animation-duration: 1s; 
+    -webkit-animation-duration: 1s;
+    visibility: visible; 
+}
+
+@keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    } 
+}
+@-webkit-keyframes slide {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    }
+}
+
+
+#gap {
+	z-index: 111;
+	height: 30vh;
+	background-color: #3a3b3b;
+	margin-top: 1vh;
+	background-image: url(background/blue-bg.png);
+}
+
+#gap2 {
+	height: 5vh;
+	background-color: #3a3b3b;
+	background-image: url(background/blue-bg.png);
+}
+
+#gap-in {
+	vertical-align: middle;
+}
+
+#gap-in h1 {
+	margin-top: 15vh;
+	color: white;
+}
+
+input,
+button,
+select {
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
+}
+
+#{
+	padding: 0;
+	margin: 0;
+}
+
+///////////////////////////
+///////////////////////////
+///////////////////////////
+@media (max-width: 991px) {
+.userImgHead{
+	visibility: collapse;
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+}
+}
+
+#popular-course-Img{
+	height: 10em;
+	width: 0;
+	width: auto;
+}
+
+#selRole{
+    width: 100%;
 }

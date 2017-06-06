@@ -39,7 +39,7 @@
                 <li><a asp-controller="Course" asp-action="Index">Курси</a>
                 </li>
                 <li><a asp-controller="Home" asp-action="About">Про нас</a>
-                </li> 
+                </li>
                 <li><a asp-controller="Home" asp-action="Contact">Контакти</a>
                 </li>
                 @if (User.Identity.IsAuthenticated)
@@ -54,10 +54,8 @@
                         </li>
                     }
                 }
-            </ul>   
-            <ul class="nav navbar-nav navbar-right">
-                @await Html.PartialAsync("_LoginPartial")
             </ul>
+                @await Html.PartialAsync("_LoginPartial")
             <ul class="nav navbar-nav navbar-right">
                 <div id="nav-social-icon" class="col-md-12" nopadding>
                     <!--
@@ -73,6 +71,8 @@
     <!--/.contatiner -->
 </nav>
 <div>
+    <hr />
+    <hr />
     @RenderBody()
     <hr/>
 </div>

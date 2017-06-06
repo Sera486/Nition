@@ -3,6 +3,9 @@
 
 $('#bootstrap-touch-slider').bsTouchSlider();
 
+
+/////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
         	$(window).scroll(function() {
 			if ($(document).scrollTop() > 150) {
 			$('.navbar').addClass('shrink');
@@ -13,14 +16,19 @@ $('#bootstrap-touch-slider').bsTouchSlider();
             +',0.5)';
             $('.navbar').css('background-color', rgbaCol);
             $('.navbar').css("transition", "1s");
+			$('.userImgHead').css("padding-left", "10px");
+			$('#imgHead').css("padding-bottom", "0px");
+				
 			}
 			else {
 			$('.navbar').removeClass('shrink');
             $('.navbar').css("transition", "1s");         
             $('.navbar').css("background-color", '#36393c'); 
+			$('#imgHead').css("padding-bottom", "24px");
             }
 });
-
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
 
 $(function(){
    $('.btn-circle').on('click',function(){
@@ -114,3 +122,125 @@ $(function(){
 		init();
 	});
 });
+
+
+$(window).scroll(function() {
+  $(".slideanim").each(function(){
+    var pos = $(this).offset().top;
+
+    var winTop = $(window).scrollTop();
+    if (pos < winTop + 600) {
+      $(this).addClass("slide");
+    }
+  });
+});
+
+function myMap() {
+var myCenter = new google.maps.LatLng(41.878114, -87.629798);
+var mapProp = {center:myCenter, zoom:12, scrollwheel:false, draggable:false, mapTypeId:google.maps.MapTypeId.ROADMAP};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+var marker = new google.maps.Marker({position:myCenter});
+marker.setMap(map);
+}
+
+///////////////// add COURSE text|vydeo //////////////////
+$("#confirmAddLessonText").click(function () {	
+	var text = $("#addLessonText").val();
+	if (text === '') {
+		alert("Введіть текст");
+	} else {
+	$("#newCourse").append('<div class="col-md-10 col-md-offset-1" style="font-size: 1.3em;"><button type="button" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button> <button type="button" class="btn btn-warning pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-pencil" aria-hidden="true"></i></button>' + text + '</div>');
+	}
+});
+
+$("#confirmAddLessonVideo").click(function () {
+	var videoSrc = $("#addFile").val();
+	if (videoSrc === '') {
+		alert("Виберіть файл");
+	} else {
+		var video = '<video controls style="max-width: 100%;height: auto;"><source src="' + videoSrc + '" type="video/mp4"><source src="' + videoSrc + '" type="video/ogg"> Your browser does not support HTML5 video.</video>';
+		$("#newCourse").append('<div class="col-md-10 col-md-offset-1 text-center"> <button type="button" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" class="btn btn-warning pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-pencil" aria-hidden="true"></i></button>' + video + '</div>');
+		//		alert(videoSrc);
+	}
+});
+/////////////////end add COURSE text|vydeo //////////////////
+
+
+$("#clearAddLesson").click(function () {
+	$("#nameLesson").val('');
+	$("#descLesson").val('');
+});
+
+
+$('tr[data-href]').on("click", function () {
+			document.location = $(this).data('href');
+		});
+
+		$(document).ready(function () {
+			$('#addLessonForm').hide();
+			$('#emptyInput').hide();	
+		});
+
+		$('.SeeMore').click(function () {
+			var $this = $(this);
+			$this.toggleClass('SeeMore');
+			if ($this.hasClass('SeeMore')) {
+				$this.text('Додати урок');
+				$('#addLessonForm').hide();
+				$('#newCourse').hide();
+				
+			} else {
+				$this.text('Приховати');
+				$('#addLessonForm').fadeIn('slow');
+				$('#newCourse').fadeIn('slow');
+			}
+		});
+
+
+$("#confirmAddLesson").click(function () {	
+	var name = $("#nameLesson").val();
+	var desc = $("#descLesson").val();
+	
+	if (name === ''||desc === '') {
+	$("#emptyInput").hide();
+	$('#emptyInput').fadeIn('slow');
+	return false;
+	} else {
+	$("#emptyInput").hide();
+		var lesson = '<tr class="openLesson" data-href="#"><td class="numLessonTh">Урок№</td><td class="nameLessonTh">'+name+'</td><td class="shortDescTh">'+desc+'</td><td class="editButt text-center"><i class="fa fa-pencil" aria-hidden="true"></i></td><td class="delButt text-center"><i class="fa fa-times" aria-hidden="true"></i></td></tr>';
+		$("#tableLesson").append(lesson);
+	}
+});
+
+
+
+$(document).ready(function () {
+	$('#addTextLessonForm').hide();
+	$('#addVideoLessonForm').hide();
+});
+
+$("#addTextButt").click(function () {
+$('#addTextLessonForm').fadeIn('slow');
+$('#createLessonForm').hide();
+$('#addVideoLessonForm').hide();	
+});
+	
+$("#cancleAddText").click(function () {
+$('#createLessonForm').fadeIn('slow');
+$('#addTextLessonForm').hide();
+$('#addVideoLessonForm').hide();	
+});
+
+
+$("#addVideoButt").click(function () {
+$('#addVideoLessonForm').fadeIn('slow');
+$('#createLessonForm').hide();
+$('#addTextLessonForm').hide();	
+});
+	
+$("#cancleAddVideo").click(function () {
+$('#createLessonForm').fadeIn('slow');
+$('#addTextLessonForm').hide();
+$('#addVideoLessonForm').hide();	
+});
+
