@@ -1,10 +1,10 @@
-﻿@model  Course
+﻿@model  OnlineCourses.Models.CourseViewModels.BuyingCourseViewModel
 
 <body>
 
 <div class="container-fluid" id="gap">
     <div class="col-md-12" id="gap-in">
-        <h1>@Model.Title</h1>
+        <h1>@Model.Course.Title</h1>
     </div>
 </div>
 
@@ -13,7 +13,7 @@
 		<hr class="hr-min">
 		<div class="container-fluid row"></div>
 		<div class="col-md-3 row">
-   <!--*****************//////////authot(img+name)///////////*********************-->
+   <!--*****************//////////author(img+name)///////////*********************-->
 			<ul class="list-inline">
 				<li>
 					<figure>
@@ -31,19 +31,19 @@
 				<li>
 					<figure class="about-1">
 						<i class="fa fa-clock-o" aria-hidden="true" style="font-size:57px"></i>
-						<figcaption>Час</figcaption>
+						<figcaption>@Model.Course.Estimate год</figcaption>
 					</figure>
 				</li>
 				<li>
 					<figure class="about-1">
 						<i class="fa fa-file-video-o" aria-hidden="true" style="font-size:57px"></i>
-						<figcaption>Відео-3</figcaption>
+						<figcaption>@Model.Lessons.Count</figcaption>
 					</figure>
 				</li>
 				<li>
 					<figure class="about-1">
 						<i class="fa fa-users" aria-hidden="true" style="font-size:57px"></i>
-						<figcaption>3</figcaption>
+						<figcaption>@Model.Course.Subscriptions.Count</figcaption>
 					</figure>
 				</li>
 			</ul>
@@ -51,29 +51,126 @@
    <!--*****************//////////price///////////*********************-->
 		<div class="col-md-2">
 			<h2>Price</h2>
-			<h4>@Model.Price</h4>
+			<h4>@Model.Course.Price</h4>
 		</div>
    <!--*****************//////////buttonBay///////////*********************-->
-		<div class="col-md-3">
+	    @if(!Model.Paid && !Model.IsAuthor){
+        <div class="col-md-3">
 			<span>
 			<button type="button" class="btn btn-primary btn-block" id="buyButt">Купити цей курс</button>	
 			</span>
 		</div>
-
+        }
 	</div>
    <!--*****************//////////courseIMG///////////*********************-->
-	<div class="col-md-6 col-md-offset-3">
-		<img src="~/@Model.ValidImageURL" alt="img-course" style="margin: 0 auto;">
-	</div>
+	    <div class="col-md-6 col-md-offset-3">
+	        <img src="~/@Model.Course.ValidImageURL" alt="img-course" style="margin: 0 auto;" class="text-center" id="img-course">
+	    </div>
+	    @if(!Model.Paid && !Model.IsAuthor)
+        {
+	    <div class="col-md-3">
+	        <span>
+	            <table class="table table-striped">
+	                <thead>
+	                <tr>
+	                    <th>Урок №</th>
+	                    <th>Назва уроку</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                @foreach(var lesson in Model.Lessons)
+	                {
+	                    <tr>
+	                        <td>@lesson.Order</td>
+	                        <td>@lesson.Title</td>
+	                    </tr>
+	                }
+	                </tbody>
+	            </table>	
+	        </span>
+	    </div>
+        }
    <!--*****************//////////allDescription///////////*********************-->
 	<div class="col-md-12" style="margin:1vh">
 	    <span>
-	        @Model.Description
+	        @Model.Course.Description
 	    </span>
 	</div>
-</div>
+@if (Model.Paid || Model.IsAuthor)
+{
+    <div class="col-md-12 text-center">
+        <h2><strong>Перелік уроків:</strong>
+        </h2>
+        <hr>
+    </div>
 
-    <!--*****************//////////endCOURSE///////////*********************-->
-	<!--*****************//////////endCOURSE///////////*********************-->
-	<!--*****************//////////endCOURSE///////////*********************-->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Урок№</th>
+            <th>Назва</th>
+            <th>Короткий опис</th>
+        </tr>
+        </thead>
+        <tbody id="tableLesson">
+        @foreach (var lesson in Model.Lessons)
+        {
+            <tr class="openLesson" data-href="#">
+                <td class="numLessonTh">@lesson.Order</td>
+                <td class="nameLessonTh">@lesson.Title</td>
+                <td class="shortDescTh">@lesson.Description</td>
+                @if (Model.IsAuthor)
+                {
+                    <td class="editButt text-center"><i class="fa fa-pencil" aria-hidden="true"></i></td>
+                    <td class="delButt text-center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+    
+    @if (Model.IsAuthor)
+    {
+        <div class="col-md-6 col-md-offset-3 " id="addLessonForm">
+            <form class="form-horizontal" action="">
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <hr>
+                        <h4>Назва уроку</h4>
+                        <textarea class="form-control" id="nameLesson" name="nameLesson" placeholder=""></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <hr>
+                        <h4>Опис уроку</h4>
+                        <textarea class="form-control" id="descLesson" name="descLesson" placeholder=""></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-danger btn-block btn-lg" id="confirmAddLesson">Додати урок</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default btn-block btn-lg" id="clearAddLesson">Очистити</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col-sm-offset-1 col-sm-10">
+                <div class="col-md-12 text-center" id="emptyInput">
+                    Зоповніть усі поля
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-md-offset-3">
+            <span>
+                <button type="button" class="btn btn-primary btn-block SeeMore" id="showCourseButt" value="addLesson">Додати урок</button>
+            </span>
+        </div>
+    }
+</div>
 </body>

@@ -89,17 +89,36 @@ namespace OnlineCourses.Controllers
         public async Task<IActionResult> BuyingCourse(int ID)
         {
             var user = await GetCurrentUserAsync();
+            user = _context.ApplicationUser.Include(c => c.Subscriptions).ThenInclude(s=>s.Course).First(c => c.Id == user.Id);
+
             if (user != null /*&& User.IsInRole("Student")*/)
             {
-                var source = _context.Courses.Include(c=>c.Author);
+                var source = _context.Courses.Include(c=>c.Author).Include(c=>c.Subscriptions);
                 Course course = source.Where(c => c.ID == ID).ToList()[0];
-                if (_context.Subscriptions.Where(e => e.User == user && e.Course == course).ToList().Count == 0)
+                ApplicationUser courseAuthor = _context.ApplicationUser.Where(author => author == course.Author).ToList()[0];
+                if (user.Subscriptions.Count(e => e.Course == course)==0)
                 {
-                    return View(course);
+                    var viewModel = new BuyingCourseViewModel()
+                    {
+                        Course = course,
+                        Lessons = _context.Lessons.Where(e => e.Course == course).ToList(),
+                        Author = courseAuthor,
+                        Paid = false,
+                        IsAuthor = user == courseAuthor
+                    };
+                    return View(viewModel);
                 }
                 else
                 {
-                    return View(course);
+                    var viewModel = new BuyingCourseViewModel()
+                    {
+                        Course = course,
+                        Lessons = _context.Lessons.Where(e => e.Course == course).ToList(),
+                        Author = _context.ApplicationUser.Where(author => author == course.Author).ToList()[0],
+                        Paid = true,
+                        IsAuthor = user == courseAuthor
+                    };
+                    return View(viewModel);
                 }
             }
             return View();

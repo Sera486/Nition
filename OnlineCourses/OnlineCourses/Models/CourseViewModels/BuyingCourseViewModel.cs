@@ -8,5 +8,9 @@ namespace OnlineCourses.Models.CourseViewModels
     public class BuyingCourseViewModel
     {
         public Course Course { get; set; }
+        public List<Lesson> Lessons { get; set; }
+        public ApplicationUser Author { get; set; }
+        public Boolean Paid { get; set; }
+        public Boolean IsAuthor { get; set; }
     }
 }
