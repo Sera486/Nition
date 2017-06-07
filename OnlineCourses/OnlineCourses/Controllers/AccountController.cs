@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.AccountViewModels;
 using OnlineCourses.Services;

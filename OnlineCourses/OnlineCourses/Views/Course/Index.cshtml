@@ -13,12 +13,12 @@
                 <div class="form-group col-md-5">
                     <input name="search" type="text" class="form-control" id="searchInput" placeholder="Введіть назву курсу">
                 </div>
-                <div class="form-group col-md-2">
+                @*<div class="form-group col-md-2">
                     <span class="button-checkbox">
                         <button type="button" class="btn btn-block" data-color="info">Шукати в описi</button>
                         <input style="width:100%;" name="desc" type="checkbox" value="true" class="hidden"/>
                     </span>
-                </div>
+                </div>*@
                 <div class="col-md-2">
                     <select name="theme" asp-for="ThemeID" asp-items="@ViewBag.Themes" class="form-control" id="selRole">
                         <option value="0">Оберіть тему</option>

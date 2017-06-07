@@ -356,6 +356,13 @@ namespace OnlineCourses.Controllers
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
 
+        [HttpGet("Profile")]
+        public IActionResult Profile(string id)
+        {
+            var user = _context.ApplicationUser.Find(id);
+            return View(user);
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)

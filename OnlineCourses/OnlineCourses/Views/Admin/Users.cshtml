@@ -1,0 +1,85 @@
+﻿@addTagHelper "OnlineCourses.TagHelpers.CoursePreviewTagHelper, OnlineCourses"
+@using OnlineCourses.Models.AdminViewModels
+@inject UserManager<ApplicationUser> UserManager
+@model UserListViewModel
+@{
+    ViewData["Title"] = "Курси";
+}
+
+<div id="searchDiv">
+    <div class="container-fluid">
+	
+        <div class="col-md-10 col-md-offset-1" >
+            <form asp-controller="Admin" asp-action="Users" method="get" class="form-inline">
+                <div class="form-group col-md-5 col-sm-12">
+                    <input name="search" type="text" class="form-control" id="searchInput" placeholder="Введіть логін користувача">
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <select name="role"  asp-items="@ViewBag.Roles" class="form-control" id="selRole">
+                        <option value="">Оберіть роль</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <button  type="submit" class="btn btn-default btn-block" id="buttSearch">Пошук</button>
+                </div>
+            </form>
+        </div>
+	
+    </div>
+</div>
+
+<div class="container-fluid">
+    @foreach (var user in Model)
+    {
+        <a asp-controller="Manage" asp-action="Profile" asp-route-id="@user.Id">
+            <div class="container col-md-12 col-lg-8 col-lg-offset-2">
+                <!--*****************//////////author(img+name)///////////*********************-->
+                <ul class="list-inline">
+                    <li>
+                        <figure>
+                            <img src= "~/@user.ValidImageURL" class="img-responsive img-circle" alt="author" id ="authorImgHead">
+                            <figcaption>Роль:@(UserManager.GetRolesAsync(user).Result[0])</figcaption>
+                        </figure>
+                    </li>
+                    <li><h4 style="margin-top:0;">@user.FullName</h4></li>
+                    <li>
+                        <span class="glyphicon-ban-circle"></span>
+                        <form asp-controller="Admin" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                            @if (!await UserManager.IsLockedOutAsync(user))
+                            {
+                                <input type="submit" style="background: tomato;" asp-action="LockUser" asp-route-ID="@user.Id">
+                            }
+                            else
+                            {
+                                <input type="submit" style="background:chartreuse;" asp-action="UnlockUser" asp-route-ID="@user.Id">
+                            }
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </a>
+    }
+</div>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-controller="Admin" asp-action="Users"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-search="@(Model.SearchString)"
+       asp-route-role="@(Model.Role)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-controller="Admin" asp-action="Users"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-search="@(Model.SearchString)"
+       asp-route-role="@(Model.Role)"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

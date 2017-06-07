@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
+using OnlineCourses.Models.Enums;
 
 namespace OnlineCourses.ViewComponents
 {
@@ -24,7 +25,7 @@ namespace OnlineCourses.ViewComponents
         }
         private Task<List<Course>> GetItemsAsync()
         {
-            return _context.Courses.OrderByDescending(c=>c.Subscriptions.Count).Take(12).ToListAsync();
+            return _context.Courses.Where(c=>c.PublishStatus==PublishStatus.Published).OrderByDescending(c=>c.Subscriptions.Count).Take(12).ToListAsync();
         }
     }
 }

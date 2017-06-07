@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.AdminViewModels;
@@ -30,7 +32,7 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var courseCount = _context.Courses.Count(c => c.PublishStatus == PublishStatus.Proccesing);
             //TODO запилить это дело
@@ -39,18 +41,20 @@ namespace OnlineCourses.Controllers
             return View(model);
         }
 
+        #region Courses
+
         [HttpGet]
-        public async Task<IActionResult> Course(int page=1, string search="",bool global=false)
+        public async Task<IActionResult> Course(int page = 1, string search = "", bool global = false)
         {
             var pageSize = 5;
             //selecting courses with all info
             IQueryable<Course> source = _context.Courses
                 .Include(course => course.Author)
                 .Include(course => course.CourseThemes);
-            
+
             //searching through courses
-            var allItems =await SearchCourse( source, search,global).ToListAsync();
-            
+            var allItems = await SearchCourse(source, search, global).ToListAsync();
+
             //splitting into pages
             var count = allItems.Count;
             var pageItems = allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -62,23 +66,23 @@ namespace OnlineCourses.Controllers
                 Courses = pageItems,
                 SearchString = search
             };
-            
+
             //filling themes selector
-            var themes = _context.Themes.Select(t => new SelectListItem {Text = t.Name, Value = t.ID.ToString()}).ToList();
+            var themes = _context.Themes.Select(t => new SelectListItem { Text = t.Name, Value = t.ID.ToString() }).ToList();
             ViewBag.Themes = themes;
             return View(viewModel);
         }
 
-        private IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr,bool isGlobal)
+        private IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr, bool isGlobal)
         {
             if (!isGlobal)
                 source = source.Where(c => c.PublishStatus == PublishStatus.Proccesing);
             if (!string.IsNullOrWhiteSpace(searchStr))
             {
                 searchStr = searchStr.ToLower();
-                source =  source.Where(c => c.Title.ToLower().Contains(searchStr) || c.Description.ToLower().Contains(searchStr));
+                source = source.Where(c => c.Title.ToLower().Contains(searchStr) || c.Description.ToLower().Contains(searchStr));
             }
-            
+
             return source;
         }
 
@@ -87,9 +91,80 @@ namespace OnlineCourses.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
 
-            var course =_context.Courses.Find(courseID);
-            course.PublishStatus=PublishStatus.Published;
+            var course = _context.Courses.Find(courseID);
+            course.PublishStatus = PublishStatus.Published;
             _context.Update(course);
+
+            return RedirectToLocal(returnUrl);
+        }
+
+        #endregion
+
+        [HttpGet]
+        public async Task<IActionResult> Users(int page = 1,string search = null, string role=null)
+        {
+            var pageSize = 5;
+            
+            //searching through users
+            var allItems = await SearchUser(_context.ApplicationUser,search, role).ToListAsync();
+
+            //splitting into pages
+            var count = allItems.Count;
+            var pageItems = allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var pageViewModel = new PageViewModel(count, page, pageSize);
+
+            var viewModel = new UserListViewModel
+            {
+                PageViewModel = pageViewModel,
+                Users = pageItems,
+                SearchString = search
+            };
+
+            //filling themes selector
+            var themes = new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Лектор", Value = RolesData.Lecturer},
+                new SelectListItem {Text = "Студент", Value = RolesData.Lecturer},
+            };
+            ViewBag.Themes = themes;
+            return View(viewModel);
+        }
+
+        private IQueryable<ApplicationUser> SearchUser(IQueryable<ApplicationUser> source,string searchStr, string role)
+        {
+            if (!string.IsNullOrWhiteSpace(searchStr))
+            {
+                searchStr = searchStr.ToLower();
+                source = source.Where(c => c.UserName.ToLower().Contains(searchStr));
+            }
+            if (!string.IsNullOrWhiteSpace(searchStr))
+            {
+                source = source.Where(c => _userManager.IsInRoleAsync(c,role).Result);
+            }
+
+            return source;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LockUser(string ID, string returnUrl=null)
+        {
+            var user = await _userManager.FindByIdAsync(ID);
+            await _userManager.SetLockoutEnabledAsync(user, true);
+            await _userManager.SetLockoutEndDateAsync(user,DateTimeOffset.MaxValue);
+
+            return RedirectToLocal(returnUrl);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnlockUser(string ID, string returnUrl = null)
+        {
+            var user = await _userManager.FindByIdAsync(ID);
+            var result = await _userManager.SetLockoutEnabledAsync(user, false);
+
+            if (result.Succeeded)
+            {
+                await _userManager.ResetAccessFailedCountAsync(user);
+            }
 
             return RedirectToLocal(returnUrl);
         }
