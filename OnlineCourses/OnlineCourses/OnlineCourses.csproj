@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\images\courseLogos\" />
+    <Folder Include="wwwroot\videos\lessonBlocks\" />
   </ItemGroup>
 
 </Project>

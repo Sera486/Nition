@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.LecturerViewModels;
@@ -33,7 +35,7 @@ namespace OnlineCourses.Controllers
             return await _userManager.GetUserAsync(HttpContext.User);
         }
 
-        [HttpGet("Lecturer/CreateCourse")]
+        [HttpGet]
         public IActionResult CreateCourse()
         {
             return View();
@@ -41,7 +43,7 @@ namespace OnlineCourses.Controllers
 
 
         // POST: api/Lecturer
-        [HttpPost("Lecturer/CreateCourse")]
+        [HttpPost]
         public async Task<IActionResult> CreateCourse(CreateCourseViewModel createCourseViewModel)
         {
             try
@@ -98,17 +100,40 @@ namespace OnlineCourses.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult LessonEditor(int LessonId)
+        {
+            var lesson = _context.Lessons.Include(l => l.TextBlocks).Include(l => l.VideoBlocks)
+                .Where(l => l.ID == LessonId).ToList()[0];
+            List<InfoBlock> list=new List<InfoBlock>();
+            foreach (var text in lesson.TextBlocks)
+            {
+                list.Add(text);
+            }
+            foreach (var video in lesson.VideoBlocks)
+            {
+                list.Add(video);
+            }
+            var viewModel = new LessonEditorViewModel()
+            {
+                Lesson = lesson,
+                InfoBlocks = list.OrderBy(c => c.Order).ToList()
+            };
+            return View(viewModel);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> AddLesson([FromBody] Lesson lesson)
+        public async Task<IActionResult> AddLesson(int courseID, string title, string description)
         {
             try
             {
+                Course course = _context.Courses.Find(courseID);
                 _context.Lessons.Add(new Lesson()
                 {
-                    Order = lesson.Order,
-                    Course = lesson.Course,
-                    Title = lesson.Title,
-                    Description = lesson.Description
+                    Order = _context.Lessons.Where(c => c.Course == course).Max(c => c.Order) + 1,
+                    Course = course,
+                    Title = title,
+                    Description = description
                 });
 
                 await _context.SaveChangesAsync();
@@ -120,7 +145,7 @@ namespace OnlineCourses.Controllers
                 return Json(new { result = false });
             }
         }
-
+        
         public async Task<IActionResult> DeleteLesson([FromBody] int lessonID)
         {
             try
@@ -137,16 +162,18 @@ namespace OnlineCourses.Controllers
             }
         }
 
-        public async Task<IActionResult> AddTextBlock([FromBody] TextBlock textBlock)
+        
+        [HttpPost]
+        public async Task<IActionResult> AddTextBlock(int lessonId, string text)
         {
             try
             {
                 _context.TextBlocks.Add(new TextBlock()
                 {
-                    Lesson = textBlock.Lesson,
-                    Text = textBlock.Text
+                    Lesson = _context.Lessons.Find(lessonId),
+                    Text = text,
+                    Order = _context.TextBlocks.Max(c => c.Order) > _context.VideoBlocks.Max(c => c.Order) ? _context.TextBlocks.Max(c => c.Order)+1 : _context.VideoBlocks.Max(c => c.Order)+1
                 });
-
                 await _context.SaveChangesAsync();
                 return Json(new { result = true });
             }
@@ -173,23 +200,38 @@ namespace OnlineCourses.Controllers
             }
         }
 
-        public async Task<IActionResult> AddVideoBlock([FromBody] TextBlock videoBlock)
+        [HttpPost]
+        public async Task<IActionResult> AddVideoBlock(VideoBlockViewModel model, string returnUrl = null)
         {
             try
             {
-                _context.VideoBlocks.Add(new VideoBlock()
-                {
-                    Lesson = videoBlock.Lesson,
-                    //VideoURL = videoBlock.
-                });
+                // attachment folder path
+                string path = Path.Combine("videos","lessonBlocks",Guid.NewGuid()+Path.GetExtension(model.UploadedFile.FileName));
 
-                await _context.SaveChangesAsync();
-                return Json(new { result = true });
+                // saving video in avatars folder in wwwroot
+                using (var fileStream = new FileStream(Path.Combine(_appEnvironment.WebRootPath, path), FileMode.Create))
+                {
+                    await model.UploadedFile.CopyToAsync(fileStream);
+                }
+
+                //updating table
+                var VideoBlock = new VideoBlock
+                {
+                    VideoURL = path,
+                    Lesson = _context.Lessons.Find(model.LessonID),
+                    Order = _context.TextBlocks.Max(c => c.Order) > _context.VideoBlocks.Max(c => c.Order)
+                        ? _context.TextBlocks.Max(c => c.Order) + 1
+                        : _context.VideoBlocks.Max(c => c.Order) + 1
+                };
+                _context.VideoBlocks.Add(VideoBlock);
+                _context.SaveChanges();
+
+                return Json(new {result = true});
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return Json(new { result = false });
+                return Json(new {result = false});
             }
         }
 

@@ -125,50 +125,7 @@ namespace OnlineCourses.Controllers
                 return Json(new { result = false });
             }
         }
-
-
-        // POST: media/addVideoBlock
-        [HttpPost("media/AddVideoBlock")]
-        public async Task<IActionResult> AddVideoBlock(VideoBlockViewModel model,string returnUrl=null)
-        {
-            if (model.UploadedFile != null)
-            {
-                try
-                {
-                    var lesson = await _context.Lessons.FindAsync(model.LessonID);
-                    
-                    // attachment folder path
-                    string path = $"attachments/videos/{Guid.NewGuid()},{Path.GetExtension(model.UploadedFile.FileName)}";
-                    
-                    // saving image in avatars folder in wwwroot
-                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                    {
-                        await model.UploadedFile.CopyToAsync(fileStream);
-                    }
-                    
-                    //updating table
-                    var VideoBlock = new VideoBlock
-                    {
-                        VideoURL = path,
-                        Lesson = lesson
-                    };
-                    _context.VideoBlocks.Add(VideoBlock);
-                    _context.SaveChanges();
-
-                    //result
-                    return RedirectToLocal(returnUrl);
-                }
-                catch (Exception e)
-                {
-                    return Json(new {result = false});
-                }
-            }
-            else
-            {
-                return Json(new {result = false});
-            }
-        }
-       
+        
         /*
         [HttpPost("media/AddAttachment")]
         public async Task<IActionResult> GetAttachments(int recordID)
