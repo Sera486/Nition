@@ -80,11 +80,11 @@ body {
 }
 
 .navbar {
-	background-color: #36393c;
+	background-color: #303030;
 }
 
 .navbar li {
-	background-color: #36393c;
+	background-color: #303030;
 }
 
 
@@ -479,38 +479,82 @@ body {
 	margin-top: 0.5em;
 	color: azure;
 }
-
 .three,
 .four {
 	height: 11.7em;
 }
 
 .one {
-	background-color: #1E8BC3;
+	background-color: #59ABE3;
 }
+
+.popular-them{
+	height: 10em;
+	background-color: #fff;
+	border: solid;
+	border-color: #ebebeb;
+	border width: 0.5vmin;
+	  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popular-them:hover{
+transition: 1s;
+background-color: #c7e8ff;
+}
+.popular-them-item{
+	color:#59ABE3;
+	margin:0 auto;
+}
+#popular-them-div{
+/*	background-color: #f5f5f5;*/
+	margin-bottom: 1vmin;
+}
+
+
 
 .two {
 	padding-left: 1vh;
 	padding-right: 1vh;
-	background-color: #1E8BC3;
+	background-color: #59ABE3;
+	background-image: url(background/default_a11690base.png);
+	background-position: right bottom; 
+    background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 .three {
-	background-color: #1E8BC3;
+	background-color: #59ABE3;
+	background-image: url(background/always-on-div.png);
+	background-position: center bottom;
+    background-repeat: no-repeat;
+	background-size: 50%;
 }
 
 .four {
-	background-color: #1E8BC3;
+	background-color: #59ABE3;
 }
 
 #steps {
 	height: 411px;
-	background-color: red;
-	background-image: url(background/background.png);
+	background-color: #59ABE3;
+	background-image: url(background/bulb.png ), url(background/learning-promo.png);
+   background-repeat: no-repeat;
+    background-position: bottom right, bottom left;
+
+    background-repeat: no-repeat;
+	background-size: 22%,25%;
+	color: white;
+	font-size: 1.5em;
 }
 
 #in_steps {
 	padding-top: 7%;
+}
+
+#menu1,#menu3,#menu2,#menu4,#menu5{
+	transition: 1s;
+	background-color: #498cba;
 }
 
 .process-step .btn:focus {
@@ -632,12 +676,12 @@ li {
 }
 
 #myFooter {
-	background-color: #2c376a;
+	background-color: #044F67;
 	color: white;
 }
 
 #myFooter .footer-copyright {
-	background-color: #383737;
+	background-color: #303030;
 	padding-top: 3px;
 	padding-bottom: 3px;
 	text-align: center;
@@ -826,3 +870,14 @@ select {
 	width: 0;
 	width: auto;
 }
+
+#selRole{
+	width: 100%;
+}
+
+#cardUl{
+list-style-type: circle;
+font-size: auto;
+/*	background-color: rebeccapurple;*/
+}
+
