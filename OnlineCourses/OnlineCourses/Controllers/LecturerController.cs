@@ -184,7 +184,27 @@ namespace OnlineCourses.Controllers
             }
         }
 
-        public async Task<IActionResult> DeleteTextBlock([FromBody] int textBlockID)
+        [HttpPost]
+        public async Task<IActionResult> EditTextBlock(int textBlockId, string text)
+        {
+            try
+            {
+                var textBlock = _context.TextBlocks.Find(textBlockId);
+                textBlock.Text = text;
+                _context.TextBlocks.Update(textBlock);
+
+                await _context.SaveChangesAsync();
+                return Json(new { result = true });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Json(new { result = false });
+            }
+        }
+
+
+        public async Task<IActionResult> DeleteTextBlock(int textBlockID)
         {
             try
             {
@@ -235,11 +255,12 @@ namespace OnlineCourses.Controllers
             }
         }
 
-        /*public async Task<IActionResult> DeleteVideoBlock([FromBody] int textBlockID)
+        public async Task<IActionResult> DeleteVideoBlock(int videoBlockID)
         {
             try
             {
-                _context.TextBlocks.Remove(_context.TextBlocks.Find(textBlockID));
+                System.IO.File.Delete(Path.Combine(_appEnvironment.WebRootPath,_context.VideoBlocks.Find(videoBlockID).VideoURL));
+                _context.VideoBlocks.Remove(_context.VideoBlocks.Find(videoBlockID));
 
                 await _context.SaveChangesAsync();
                 return Json(new { result = true });
@@ -249,7 +270,7 @@ namespace OnlineCourses.Controllers
                 Console.WriteLine(e);
                 return Json(new { result = false });
             }
-        }*/
+        }
 
         private bool ApplicationUserExists(string id)
         {

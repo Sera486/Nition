@@ -84,27 +84,48 @@ namespace OnlineCourses.Controllers
         {
             return View(_context.Courses.Find(id));
         }
+        
+        public IActionResult Payment(int courseID)
+        {
+            return View(_context.Courses.Include(c => c.Author).Where(c => c.ID == courseID).ToList()[0]);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Buy(int courseID)
+        {
+                var sub = new Subscription()
+                {
+                    Course = _context.Courses.Find(courseID),
+                    User = GetCurrentUserAsync().Result,
+                    SubscriptionDate = DateTime.Today
+                };
+                _context.Subscriptions.Add(sub);
+                await _context.SaveChangesAsync();
+            return RedirectToAction("Payment");
+        }
 
         [HttpGet("Course/{id}")]
         public async Task<IActionResult> BuyingCourse(int ID)
         {
+            
             var user = await GetCurrentUserAsync();
-            user = _context.ApplicationUser.Include(c => c.Subscriptions).ThenInclude(s=>s.Course).First(c => c.Id == user.Id);
+            var source = _context.Courses.Include(c => c.Author).Include(c => c.Lessons)
+                .Include(c => c.Subscriptions);
+            Course course = source.Where(c => c.ID == ID).ToList()[0];
+            ApplicationUser courseAuthor = _context.ApplicationUser.Where(author => author == course.Author)
+                .ToList()[0];
 
-            if (user != null /*&& User.IsInRole("Student")*/)
+            if (user != null)
             {
-                var source = _context.Courses.Include(c=>c.Author).Include(c=>c.Subscriptions);
-                Course course = source.Where(c => c.ID == ID).ToList()[0];
-                ApplicationUser courseAuthor = _context.ApplicationUser.Where(author => author == course.Author).ToList()[0];
-                if (user.Subscriptions.Count(e => e.Course == course)==0)
+                user = _context.ApplicationUser.Include(c => c.Subscriptions).ThenInclude(s=>s.Course).First(c => c.Id == user.Id);
+                if (user.Subscriptions.Count(e => e.Course == course) == 0)
                 {
                     var viewModel = new BuyingCourseViewModel()
                     {
                         Course = course,
-                        Lessons = _context.Lessons.Where(e => e.Course == course).ToList(),
-                        Author = courseAuthor,
                         Paid = false,
-                        IsAuthor = user == courseAuthor
+                        IsAuthor = user == courseAuthor,
+                        IsStudent = User.IsInRole("Student")
                     };
                     return View(viewModel);
                 }
@@ -113,13 +134,22 @@ namespace OnlineCourses.Controllers
                     var viewModel = new BuyingCourseViewModel()
                     {
                         Course = course,
-                        Lessons = _context.Lessons.Where(e => e.Course == course).ToList(),
-                        Author = _context.ApplicationUser.Where(author => author == course.Author).ToList()[0],
                         Paid = true,
                         IsAuthor = user == courseAuthor
                     };
                     return View(viewModel);
                 }
+            }
+            else
+            {
+                var viewModel = new BuyingCourseViewModel()
+                {
+                    Course = course,
+                    Paid = false,
+                    IsAuthor = false,
+                    IsStudent = false
+                };
+                return View(viewModel);
             }
             return View();
         }

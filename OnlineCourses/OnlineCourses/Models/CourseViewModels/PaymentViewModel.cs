@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace OnlineCourses.Models.CourseViewModels
 {
-    public class BuyingCourseViewModel
+    public class PaymentViewModel
     {
         public Course Course { get; set; }
-        public Boolean Paid { get; set; }
-        public Boolean IsAuthor { get; set; }
-        public Boolean IsStudent { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

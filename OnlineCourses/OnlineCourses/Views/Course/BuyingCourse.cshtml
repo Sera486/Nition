@@ -1,5 +1,4 @@
 ﻿@model  OnlineCourses.Models.CourseViewModels.BuyingCourseViewModel
-
 <body>
 
 <div class="container-fluid" id="gap">
@@ -17,12 +16,12 @@
 			<ul class="list-inline">
 				<li>
 					<figure>
-						<img src= "~/@Model.Author.ValidImageURL" class="img-responsive img-circle" alt="author" id ="authorImgHead">
+						<img src= "~/@Model.Course.Author.ValidImageURL" class="img-responsive img-circle" alt="author" id ="authorImgHead">
 						<figcaption>Лектор:</figcaption>
 					</figure>
 				</li>
 				<li>
-					<h4 style="margin-top:0;">@Model.Author.FullName</h4></li>
+					<h4 style="margin-top:0;">@Model.Course.Author.FullName</h4></li>
 			</ul>
 		</div>
 		<!--*****************//////////ours+numberVideo+numberPeopleBay///////////*********************-->
@@ -37,7 +36,7 @@
 				<li>
 					<figure class="about-1">
 						<i class="fa fa-file-video-o" aria-hidden="true" style="font-size:57px"></i>
-						<figcaption>@Model.Lessons.Count</figcaption>
+						<figcaption>@Model.Course.Lessons.Count</figcaption>
 					</figure>
 				</li>
 				<li>
@@ -54,11 +53,16 @@
 			<h4>@Model.Course.Price</h4>
 		</div>
    <!--*****************//////////buttonBay///////////*********************-->
-	    @if(!Model.Paid && !Model.IsAuthor){
+	    @if(!Model.Paid && Model.IsStudent){
         <div class="col-md-3">
-			<span>
-			<button type="button" class="btn btn-primary btn-block" id="buyButt">Купити цей курс</button>	
-			</span>
+            
+        <form asp-controller="Course" asp-action="Payment">
+            <span>
+                <input type="hidden" name="courseID" value="@Model.Course.ID" />
+                <button type="submit" class="btn btn-primary btn-block" id="buyButt">Купити цей курс</button>
+            </span>
+        </form>
+            
 		</div>
         }
 	</div>
@@ -78,7 +82,7 @@
 	                </tr>
 	                </thead>
 	                <tbody>
-	                @foreach(var lesson in Model.Lessons)
+	                @foreach(var lesson in Model.Course.Lessons)
 	                {
 	                    <tr>
 	                        <td>@lesson.Order</td>
@@ -103,7 +107,7 @@
         </h2>
         <hr>
     </div>
-    <a asp-controller="Lecturer" asp-action="LessonEditor" asp-route-LessonId="@Model.Lessons[0].ID">< class="editButt text-center"><i class="fa fa-pencil" aria-hidden="true">ASDadasdasdasd</i></a>
+    <a asp-controller="Lecturer" asp-action="LessonEditor" asp-route-LessonId="@Model.Course.Lessons[0].ID">< class="editButt text-center"><i class="fa fa-pencil" aria-hidden="true">ASDadasdasdasd</i></a>
     <table class="table">
         <thead>
         <tr>
@@ -113,7 +117,7 @@
         </tr>
         </thead>
         <tbody id="tableLesson">
-        @foreach (var lesson in Model.Lessons)
+        @foreach (var lesson in Model.Course.Lessons)
         {
             <tr class="openLesson" >
                 <td class="numLessonTh">@lesson.Order</td>
