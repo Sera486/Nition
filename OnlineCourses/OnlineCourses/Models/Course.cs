@@ -11,6 +11,7 @@ namespace OnlineCourses.Models
         public ApplicationUser Author { get; set; }
         public List<Subscription> Subscriptions { get; set; }
         public List<Lesson> Lessons { get; set; }
+        public List<Comment> Comments { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime? ModificationDate {get;set; }
         public string Description { get; set; }

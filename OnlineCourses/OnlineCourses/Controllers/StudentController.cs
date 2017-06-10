@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
 
@@ -32,59 +34,54 @@ namespace OnlineCourses.Controllers
             return index;
         }
 
-        [HttpPost("/Subscribe")]
-        public async Task<IActionResult> Subscribe([FromBody] int id)
+        [HttpPost]
+        public IActionResult Subscribe(Course course, string returnUrl = null)
         {
-            if (GetSubscription(id)==null)
+            ViewData["ReturnUrl"] = returnUrl;
+            var user = _context.ApplicationUser.Include(u => u.Subscriptions).First(u => u.Id == GetCurrentUserAsync().Result.Id);
+            if (!user.Subscriptions.Exists(s => s.Course == course))
             {
-                _context.Subscriptions.Add(new Subscription
-                {
-                    Course = _context.Find<Course>(id),
-                    User = GetCurrentUserAsync().Result
-                });
-                await _context.SaveChangesAsync();
-                return Json(new { result = true });
+                var subscription = new Subscription {Course = course, User = user, SubscriptionDate = DateTime.Now};
+                _context.Subscriptions.Update(subscription);
             }
-            return Json(new { result = false, message="User is already subscribing this course" });
+            return RedirectToLocal(returnUrl);
         }
 
-        [HttpPost("/UnSubscribe")]
-        public async Task<IActionResult> UnSubscribe([FromBody] int id)
+        [HttpPost]
+        public IActionResult UnSubscribe(Course course, string returnUrl = null)
         {
-            var index = GetSubscription(id);
-            if (index!=null)
+            ViewData["ReturnUrl"] = returnUrl;
+            var user = _context.ApplicationUser.Include(u => u.Subscriptions).First(u => u.Id == GetCurrentUserAsync().Result.Id);
+            if (user.Subscriptions.Exists(s => s.Course == course))
             {
-                _context.Subscriptions.Remove(index);
-                await _context.SaveChangesAsync();
-                return Json(new { result = true });
+                var c = user.Subscriptions.First(s => s.Course == course&&s.User==user);
+                _context.Subscriptions.Remove(c);
             }
-            return Json(new { result = false, message = "User doesn't subscribing this course" });
+            return RedirectToLocal(returnUrl);
         }
 
-        [HttpPost("/SubscriptionStatus")]
-        public  IActionResult GetSubscriptionStatus([FromBody] int id)
-        {
-            return Json(GetSubscription(id) != null ? new { result = "subscribing" } : new { result = "unsubscribing" });
-        }
-
-        [HttpGet("/SubscriptionList")]
-        public IActionResult GetSubscriptionList()
-        {
-            var user = GetCurrentUserAsync().Result;
-            var subscribedCourses=_context.Subscriptions.Where(e => e.User == user);
-            return Json(subscribedCourses);
-
-        }
         #endregion
+
+        #region Helpers
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+        }
 
         private Task<ApplicationUser> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
         }
 
-        private bool ApplicationUserExists(string id)
-        {
-            return _context.ApplicationUser.Any(e => e.Id == id);
-        }
+        #endregion
+
     }
 }

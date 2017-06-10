@@ -87,26 +87,49 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpPost]
-        public IActionResult PublishCourse(Course courseID, string returnUrl = null)
+        public async Task<IActionResult> PublishCourse(Course courseID, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
 
             var course = _context.Courses.Find(courseID);
             course.PublishStatus = PublishStatus.Published;
             _context.Update(course);
-
+            await _context.SaveChangesAsync();
             return RedirectToLocal(returnUrl);
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> PublishCourse(int ID, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            var course = await _context.Courses.FindAsync(ID);
+            course.PublishStatus = PublishStatus.Published;
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
+            return RedirectToLocal(returnUrl);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> HideCourse(int ID, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            var course = await _context.Courses.FindAsync(ID);
+            course.PublishStatus = PublishStatus.Hidden;
+            _context.Courses.Update(course);
+            return RedirectToLocal(returnUrl);
+        }
         #endregion
 
+        #region Users
+
         [HttpGet]
-        public async Task<IActionResult> Users(int page = 1,string search = null, string role=null)
+        public async Task<IActionResult> Users(int page = 1, string search = null, string role = null)
         {
             var pageSize = 5;
-            
+
             //searching through users
-            var allItems = await SearchUser(_context.ApplicationUser,search, role).ToListAsync();
+            var allItems = await SearchUser(_context.ApplicationUser, search, role).ToListAsync();
 
             //splitting into pages
             var count = allItems.Count;
@@ -121,16 +144,16 @@ namespace OnlineCourses.Controllers
             };
 
             //filling themes selector
-            var themes = new List<SelectListItem>
+            var roles = new List<SelectListItem>
             {
                 new SelectListItem {Text = "Лектор", Value = RolesData.Lecturer},
-                new SelectListItem {Text = "Студент", Value = RolesData.Lecturer},
+                new SelectListItem {Text = "Студент", Value = RolesData.Student},
             };
-            ViewBag.Themes = themes;
+            ViewBag.Roles = roles;
             return View(viewModel);
         }
 
-        private IQueryable<ApplicationUser> SearchUser(IQueryable<ApplicationUser> source,string searchStr, string role)
+        private IQueryable<ApplicationUser> SearchUser(IQueryable<ApplicationUser> source, string searchStr, string role)
         {
             if (!string.IsNullOrWhiteSpace(searchStr))
             {
@@ -139,18 +162,19 @@ namespace OnlineCourses.Controllers
             }
             if (!string.IsNullOrWhiteSpace(searchStr))
             {
-                source = source.Where(c => _userManager.IsInRoleAsync(c,role).Result);
+                source = source.Where(c => _userManager.IsInRoleAsync(c, role).Result);
             }
 
             return source;
         }
 
         [HttpPost]
-        public async Task<IActionResult> LockUser(string ID, string returnUrl=null)
+        public async Task<IActionResult> LockUser(string ID, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             var user = await _userManager.FindByIdAsync(ID);
             await _userManager.SetLockoutEnabledAsync(user, true);
-            await _userManager.SetLockoutEndDateAsync(user,DateTimeOffset.MaxValue);
+            await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
 
             return RedirectToLocal(returnUrl);
         }
@@ -158,6 +182,7 @@ namespace OnlineCourses.Controllers
         [HttpPost]
         public async Task<IActionResult> UnlockUser(string ID, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             var user = await _userManager.FindByIdAsync(ID);
             var result = await _userManager.SetLockoutEnabledAsync(user, false);
 
@@ -168,6 +193,9 @@ namespace OnlineCourses.Controllers
 
             return RedirectToLocal(returnUrl);
         }
+
+        #endregion
+        
 
         private IActionResult RedirectToLocal(string returnUrl)
         {

@@ -12,11 +12,6 @@ namespace OnlineCourses.TagHelpers
 {
     public class CoursePreviewTagHelper:TagHelper
     {
-        private readonly IHostingEnvironment _env;
-        public CoursePreviewTagHelper(IHostingEnvironment env)
-        {
-            _env = env;
-        }
         public Course Course { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

@@ -6,7 +6,6 @@ namespace OnlineCourses.Models
     {
         public int ID { get; set; }
         public ApplicationUser User {get; set;}
-        public Lesson Lesson {get; set;}
         public string Text{get;set;}
         public DateTime Date{get;set;}
     }

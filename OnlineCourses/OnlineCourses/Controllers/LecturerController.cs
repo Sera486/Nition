@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
+using OnlineCourses.Models.Enums;
 using OnlineCourses.Models.LecturerViewModels;
 
 namespace OnlineCourses.Controllers
@@ -100,6 +101,26 @@ namespace OnlineCourses.Controllers
             }
         }
 
+		 public async Task<IActionResult> PublishCourse(int ID, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            var course = await _context.Courses.FindAsync(ID);
+            course.PublishStatus = PublishStatus.Proccesing;
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
+            return RedirectToLocal(returnUrl);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> HideCourse(int ID, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            var course = await _context.Courses.FindAsync(ID);
+            course.PublishStatus = PublishStatus.Hidden;
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
+            return RedirectToLocal(returnUrl);
+        }		  
         [HttpGet]
         public IActionResult LessonEditor(int LessonId)
         {
@@ -127,10 +148,10 @@ namespace OnlineCourses.Controllers
         {
             try
             {
-                Course course = _context.Courses.Find(courseID);
+                Course course = _context.Courses.Include(c=>c.Lessons).First(c=>c.ID==courseID);
                 _context.Lessons.Add(new Lesson()
                 {
-                    Order = _context.Lessons.Where(c => c.Course == course).Max(c => c.Order) + 1,
+                    Order = course.Lessons.Count + 1,
                     Course = course,
                     Title = title,
                     Description = description
@@ -272,9 +293,21 @@ namespace OnlineCourses.Controllers
             }
         }
 
-        private bool ApplicationUserExists(string id)
+		#region Helpers
+
+        private IActionResult RedirectToLocal(string returnUrl)
         {
-            return _context.ApplicationUser.Any(e => e.Id == id);
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
         }
+
+        #endregion
+
     }
 }

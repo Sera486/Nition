@@ -44,14 +44,14 @@
                     <li><h4 style="margin-top:0;">@user.FullName</h4></li>
                     <li>
                         <span class="glyphicon-ban-circle"></span>
-                        <form asp-controller="Admin" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                        <form asp-controller="Admin" method="post">
                             @if (!await UserManager.IsLockedOutAsync(user))
                             {
-                                <input type="submit" style="background: tomato;" asp-action="LockUser" asp-route-ID="@user.Id">
+                                <input type="submit" style="background: tomato;" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
                             }
                             else
                             {
-                                <input type="submit" style="background:chartreuse;" asp-action="UnlockUser" asp-route-ID="@user.Id">
+                                <input type="submit" style="background:chartreuse;" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
                             }
                         </form>
                     </li>

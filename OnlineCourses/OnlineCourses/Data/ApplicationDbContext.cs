@@ -30,6 +30,7 @@ namespace OnlineCourses.Data
             {
                 entity.HasMany(e => e.Lessons).WithOne(e=>e.Course);
                 entity.HasOne(e => e.Author).WithMany(e => e.CreatedCourses);
+                entity.HasMany(c => c.Comments).WithOne();
             });
 
             builder.Entity<CourseTheme>(entity =>
@@ -43,12 +44,12 @@ namespace OnlineCourses.Data
             {
                 entity.HasMany(e => e.TextBlocks).WithOne(e=>e.Lesson);
                 entity.HasMany(e => e.VideoBlocks).WithOne(e=>e.Lesson);
+                entity.HasMany(c => c.Comments).WithOne();
             });
 
             builder.Entity<Comment>(entity =>
             {
                 entity.HasOne(e => e.User).WithMany(e => e.Comments);
-                entity.HasOne(e => e.Lesson).WithMany(e => e.Comments);
             });
 
             builder.Entity<Subscription>(entity =>

@@ -80,11 +80,11 @@ body {
 }
 
 .navbar {
-	background-color: #36393c;
+	background-color: #303030;
 }
 
 .navbar li {
-	background-color: #36393c;
+	background-color: #303030;
 }
 
 
@@ -479,38 +479,82 @@ body {
 	margin-top: 0.5em;
 	color: azure;
 }
-
 .three,
 .four {
 	height: 11.7em;
 }
 
 .one {
-	background-color: #1E8BC3;
+	background-color: #59ABE3;
 }
+
+.popular-them{
+	height: 10em;
+	background-color: #fff;
+	border: solid;
+	border-color: #ebebeb;
+	border width: 0.5vmin;
+	  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popular-them:hover{
+transition: 1s;
+background-color: #c7e8ff;
+}
+.popular-them-item{
+	color:#59ABE3;
+	margin:0 auto;
+}
+#popular-them-div{
+/*	background-color: #f5f5f5;*/
+	margin-bottom: 1vmin;
+}
+
+
 
 .two {
 	padding-left: 1vh;
 	padding-right: 1vh;
-	background-color: #1E8BC3;
+	background-color: #59ABE3;
+	background-image: url(background/default_a11690base.png);
+	background-position: right bottom; 
+    background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 .three {
-	background-color: #1E8BC3;
+	background-color: #59ABE3;
+	background-image: url(background/always-on-div.png);
+	background-position: center bottom;
+    background-repeat: no-repeat;
+	background-size: 50%;
 }
 
 .four {
-	background-color: #1E8BC3;
+	background-color: #59ABE3;
 }
 
 #steps {
 	height: 411px;
-	background-color: red;
-	background-image: url(background/background.png);
+	background-color: #59ABE3;
+	background-image: url(background/bulb.png ), url(background/learning-promo.png);
+   background-repeat: no-repeat;
+    background-position: bottom right, bottom left;
+
+    background-repeat: no-repeat;
+	background-size: 22%,25%;
+	color: white;
+	font-size: 1.5em;
 }
 
 #in_steps {
 	padding-top: 7%;
+}
+
+#menu1,#menu3,#menu2,#menu4,#menu5{
+	transition: 1s;
+	background-color: #498cba;
 }
 
 .process-step .btn:focus {
@@ -632,12 +676,12 @@ li {
 }
 
 #myFooter {
-	background-color: #2c376a;
+	background-color: #044F67;
 	color: white;
 }
 
 #myFooter .footer-copyright {
-	background-color: #383737;
+	background-color: #303030;
 	padding-top: 3px;
 	padding-bottom: 3px;
 	text-align: center;
@@ -828,14 +872,70 @@ select {
 }
 
 #selRole{
-    width: 100%;
+	width: 100%;
 }
 
-#ModalEdit {
-    position:fixed;
-    top:auto;
-    right:0%;
-    left:0%;
-    bottom:0;
-    transition: 2s;  
+#cardUl{
+list-style-type: circle;
+font-size: auto;
+/*	background-color: rebeccapurple;*/
+}
+
+#titleComment{
+/*
+    border-bottom: solid;
+    border-bottom-width: 0.2vmin;
+    border-bottom-color: #0077e2;
+*/
+}
+
+.commentHead{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 1vmin;
+    margin-right: 1vmin;
+}
+#titleComment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.commentHeadEl{
+    margin-left: 1vmin;
+    margin-right: 1vmin;
+}
+.comment{
+    margin-left: 2vmin;
+    margin-right: 2vmin;
+}
+.commentHr{
+    border: none; 
+    color: #0077e2; 
+    background-color: #0077e2; 
+    height: 0.2vmin;
+    margin-bottom: 1vmin;
+    margin-top: 1vmin;
+    
+}
+.commentHrCenter{
+    margin-bottom: 0.5vmin;
+    margin-top: 0.5vmin;
+}
+
+.commentHeadElName{
+    font-size: 1.5em;
+}
+.commentHeadTime{
+    font-size: 1.3em;
+    color: dimgray;
+}
+.commentDiv{
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom:0 ;
+}
+#divContainerComment{
+    background-color: #fafafa;
 }

@@ -109,8 +109,10 @@ namespace OnlineCourses.Controllers
         {
             
             var user = await GetCurrentUserAsync();
-            var source = _context.Courses.Include(c => c.Author).Include(c => c.Lessons)
-                .Include(c => c.Subscriptions);
+            var source = _context.Courses.Include(c => c.Author)
+                .Include(c => c.Lessons)
+                .Include(c => c.Subscriptions)
+                .Include(c=>c.Comments).ThenInclude(c=>c.User);
             Course course = source.Where(c => c.ID == ID).ToList()[0];
             ApplicationUser courseAuthor = _context.ApplicationUser.Where(author => author == course.Author)
                 .ToList()[0];
@@ -157,6 +159,33 @@ namespace OnlineCourses.Controllers
         private Task<ApplicationUser> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(int courseID, string commentText,string returnUrl=null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            var course = _context.Courses.Include(c => c.Comments).First(c=>c.ID==courseID);
+            if (!string.IsNullOrWhiteSpace(commentText))
+            {
+                var user = await GetCurrentUserAsync();
+                course.Comments.Add(new Comment {Date = DateTime.Now, Text = commentText, User = user});
+                _context.Update(course);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToLocal(returnUrl);
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
         }
     }
 }
