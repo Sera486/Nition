@@ -494,7 +494,7 @@ body {
 	border: solid;
 	border-color: #ebebeb;
 	border width: 0.5vmin;
-	  display: flex;
+	display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -924,20 +924,24 @@ font-size: auto;
 .commentHeadElName{
     font-size: 1.5em;
 }
+
 .commentHeadTime{
     font-size: 1.3em;
     color: dimgray;
 }
+
 .commentDiv{
     margin-bottom: 0;
     margin-top: 0;
     padding-top: 0;
     padding-bottom:0 ;
 }
+
 #divContainerComment{
     background-color: #fafafa;
 }
 
+<<<<<<< HEAD
 #ModalEditTitle {
     position:fixed;
     top:auto;
@@ -954,4 +958,76 @@ font-size: auto;
     left: 0%;
     bottom: 0;
     transition: 2s;
+=======
+#divContainerCommentBackColor{
+	background-color: rebeccapurple;
+	width: 100%;
+	height: auto;
+}
+
+
+.add-new-couese-HR{
+	padding: 0;
+	margin: 0;
+}
+
+.no-margin{
+	margin: 0;
+}
+
+.no-padding{
+	padding: 0;
+}
+
+#searchInputUser{
+	width: 100%;
+}
+#searchDivUser{
+	background-color: #fafafa;
+	padding-top: 1.4vmax;
+	padding-bottom: 1.4vmax;
+}
+
+#buttSearchUser{
+	background-color: #138590;
+	color: #fafafa;
+}
+
+#buttSearchUser:hover{
+	background-color: #137680;
+}
+
+.user-list{
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+	border: solid;
+	border-width: 0.2vmin;
+	border-color: #137680;
+	padding: 0.2vmin;
+	text-decoration: none;
+	margin-bottom: 1vmin;
+}
+
+.user-list:hover{
+	text-decoration: none;
+}
+
+.lock-unlockButt{
+    display: inline-block;
+	width: auto;
+	margin-left: 2vmin;
+}
+
+@media (max-width: 769px) {
+	.lock-unlockButt{
+	width: auto;
+	margin-left: 1vmin;
+}
+}
+
+#img-course{
+height: 45vmin;	
+	width: auto;
+>>>>>>> cc4d86f4015140482bb25c2d8443cd6145674cb9
 }

@@ -9,20 +9,21 @@ namespace OnlineCourses.Models.LecturerViewModels
 {
     public class CreateCourseViewModel
     {
-        [Display(Name = "Назва")]
+        [Display(Name = "Назва курсу (заголовок):")]
         [Required(ErrorMessage = "Введіть назву курсу")]
         public string Title { get; set; }
 
-        [Display(Name = "Короткий опис")]
+        [Display(Name = "Опис:")]
         [Required(ErrorMessage = "Введіть опис курсу")]
         public string Description { get; set; }
 
+        [Display(Name = "Виберіть картинку курсу:")]
         public IFormFile Image { get; set; }
 
-        [Display(Name = "Ціна")]
+        [Display(Name = "Ціна курсу:")]
         public double Price { get; set; }
 
-        [Display(Name = "Приблизний час проходження")]
+        [Display(Name = "Приблизний час проходження:")]
         public double Estimate { get; set; }
     }
 }
