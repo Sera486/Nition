@@ -941,7 +941,6 @@ font-size: auto;
     background-color: #fafafa;
 }
 
-<<<<<<< HEAD
 #ModalEditTitle {
     position:fixed;
     top:auto;
@@ -958,7 +957,7 @@ font-size: auto;
     left: 0%;
     bottom: 0;
     transition: 2s;
-=======
+}
 #divContainerCommentBackColor{
 	background-color: rebeccapurple;
 	width: 100%;
@@ -1029,5 +1028,4 @@ font-size: auto;
 #img-course{
 height: 45vmin;	
 	width: auto;
->>>>>>> cc4d86f4015140482bb25c2d8443cd6145674cb9
 }

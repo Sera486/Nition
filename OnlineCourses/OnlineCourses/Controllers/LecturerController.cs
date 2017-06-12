@@ -124,7 +124,7 @@ namespace OnlineCourses.Controllers
         [HttpGet("LessonEditor/{LessonId}")]
         public IActionResult LessonEditor(int LessonId)
         {
-            var lesson = _context.Lessons.Include(l => l.TextBlocks).Include(l => l.VideoBlocks).FirstOrDefault(c=>c.ID==LessonId);
+            var lesson = _context.Lessons.Include(l => l.TextBlocks).Include(l => l.VideoBlocks).Include(l => l.Course).FirstOrDefault(c=>c.ID==LessonId);
             List<InfoBlock> list= lesson.TextBlocks.Cast<InfoBlock>().ToList();
             list.AddRange(lesson.VideoBlocks);
             var viewModel = new LessonViewModel()
