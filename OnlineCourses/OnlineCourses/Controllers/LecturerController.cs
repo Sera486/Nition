@@ -41,8 +41,7 @@ namespace OnlineCourses.Controllers
         {
             return View();
         }
-
-
+        
         // POST: api/Lecturer
         [HttpPost]
         public async Task<IActionResult> CreateCourse(CreateCourseViewModel createCourseViewModel)
@@ -120,22 +119,15 @@ namespace OnlineCourses.Controllers
             _context.Courses.Update(course);
             await _context.SaveChangesAsync();
             return RedirectToLocal(returnUrl);
-        }		  
-        [HttpGet]
+        }	
+        
+        [HttpGet("LessonEditor/{LessonId}")]
         public IActionResult LessonEditor(int LessonId)
         {
-            var lesson = _context.Lessons.Include(l => l.TextBlocks).Include(l => l.VideoBlocks)
-                .Where(l => l.ID == LessonId).ToList()[0];
-            List<InfoBlock> list=new List<InfoBlock>();
-            foreach (var text in lesson.TextBlocks)
-            {
-                list.Add(text);
-            }
-            foreach (var video in lesson.VideoBlocks)
-            {
-                list.Add(video);
-            }
-            var viewModel = new LessonEditorViewModel()
+            var lesson = _context.Lessons.Include(l => l.TextBlocks).Include(l => l.VideoBlocks).FirstOrDefault(c=>c.ID==LessonId);
+            List<InfoBlock> list= lesson.TextBlocks.Cast<InfoBlock>().ToList();
+            list.AddRange(lesson.VideoBlocks);
+            var viewModel = new LessonViewModel()
             {
                 Lesson = lesson,
                 InfoBlocks = list.OrderBy(c => c.Order).ToList()
@@ -144,10 +136,11 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddLesson(int courseID, string title, string description)
+        public async Task<IActionResult> AddLesson(int courseID, string title, string description,  string returnUrl = null)
         {
             try
             {
+                ViewData["ReturnUrl"] = returnUrl;
                 Course course = _context.Courses.Include(c=>c.Lessons).First(c=>c.ID==courseID);
                 _context.Lessons.Add(new Lesson()
                 {
@@ -158,7 +151,7 @@ namespace OnlineCourses.Controllers
                 });
 
                 await _context.SaveChangesAsync();
-                return Json(new { result = true });
+                return RedirectToLocal(returnUrl);
             }
             catch (Exception e)
             {
@@ -167,14 +160,15 @@ namespace OnlineCourses.Controllers
             }
         }
         
-        public async Task<IActionResult> DeleteLesson([FromBody] int lessonID)
+        public async Task<IActionResult> DeleteLesson(int lessonID,  string returnUrl)
         {
             try
             {
+                ViewData["ReturnUrl"] = returnUrl;
                 _context.Lessons.Remove(_context.Lessons.Find(lessonID));
 
                 await _context.SaveChangesAsync();
-                return Json(new { result = true });
+                return RedirectToLocal(returnUrl);
             }
             catch (Exception e)
             {
@@ -185,10 +179,11 @@ namespace OnlineCourses.Controllers
 
         
         [HttpPost]
-        public async Task<IActionResult> AddTextBlock(int lessonId, string text)
+        public async Task<IActionResult> AddTextBlock(int lessonId, string text, string returnUrl)
         {
             try
             {
+                ViewData["ReturnUrl"] = returnUrl;
                 _context.TextBlocks.Add(new TextBlock()
                 {
                     Lesson = _context.Lessons.Find(lessonId),
@@ -196,7 +191,7 @@ namespace OnlineCourses.Controllers
                     Order = _context.TextBlocks.Max(c => c.Order) > _context.VideoBlocks.Max(c => c.Order) ? _context.TextBlocks.Max(c => c.Order)+1 : _context.VideoBlocks.Max(c => c.Order)+1
                 });
                 await _context.SaveChangesAsync();
-                return Json(new { result = true });
+                return RedirectToLocal(returnUrl);
             }
             catch (Exception e)
             {
@@ -206,33 +201,17 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditTextBlock(int textBlockId, string text)
+        public async Task<IActionResult> EditTextBlock(int textBlockId, string text, string returnUrl)
         {
             try
             {
+                ViewData["ReturnUrl"] = returnUrl;
                 var textBlock = _context.TextBlocks.Find(textBlockId);
                 textBlock.Text = text;
                 _context.TextBlocks.Update(textBlock);
 
                 await _context.SaveChangesAsync();
-                return Json(new { result = true });
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return Json(new { result = false });
-            }
-        }
-
-
-        public async Task<IActionResult> DeleteTextBlock(int textBlockID)
-        {
-            try
-            {
-                _context.TextBlocks.Remove(_context.TextBlocks.Find(textBlockID));
-
-                await _context.SaveChangesAsync();
-                return Json(new { result = true });
+                return RedirectToLocal(returnUrl);
             }
             catch (Exception e)
             {
@@ -242,10 +221,68 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddVideoBlock(VideoBlockViewModel model, string returnUrl = null)
+        public async Task<IActionResult> EditDescription(int lessonId, string description, string returnUrl)
         {
             try
             {
+                ViewData["ReturnUrl"] = returnUrl;
+                var lesson = _context.Lessons.Find(lessonId);
+                lesson.Description = description;
+                _context.Lessons.Update(lesson);
+
+                await _context.SaveChangesAsync();
+                return RedirectToLocal(returnUrl);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Json(new { result = false });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTitle(int lessonId, string title, string returnUrl)
+        {
+            try
+            {
+                ViewData["ReturnUrl"] = returnUrl;
+                var lesson = _context.Lessons.Find(lessonId);
+                lesson.Title = title;
+                _context.Lessons.Update(lesson);
+
+                await _context.SaveChangesAsync();
+                return RedirectToLocal(returnUrl);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Json(new { result = false });
+            }
+        }
+
+        public async Task<IActionResult> DeleteTextBlock(int textBlockID, string returnUrl)
+        {
+            try
+            {
+                ViewData["ReturnUrl"] = returnUrl;
+                _context.TextBlocks.Remove(_context.TextBlocks.Find(textBlockID));
+
+                await _context.SaveChangesAsync();
+                return RedirectToLocal(returnUrl);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Json(new { result = false });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddVideoBlock(VideoBlockViewModel model, string returnUrl)
+        {
+            try
+            {
+                ViewData["ReturnUrl"] = returnUrl;
                 // attachment folder path
                 string path = Path.Combine("videos","lessonBlocks",Guid.NewGuid()+Path.GetExtension(model.UploadedFile.FileName));
 
@@ -267,7 +304,7 @@ namespace OnlineCourses.Controllers
                 _context.VideoBlocks.Add(VideoBlock);
                 _context.SaveChanges();
 
-                return Json(new {result = true});
+                return RedirectToLocal(returnUrl);
             }
             catch (Exception e)
             {
@@ -276,15 +313,16 @@ namespace OnlineCourses.Controllers
             }
         }
 
-        public async Task<IActionResult> DeleteVideoBlock(int videoBlockID)
+        public async Task<IActionResult> DeleteVideoBlock(int videoBlockID, string returnUrl)
         {
             try
             {
+                ViewData["ReturnUrl"] = returnUrl;
                 System.IO.File.Delete(Path.Combine(_appEnvironment.WebRootPath,_context.VideoBlocks.Find(videoBlockID).VideoURL));
                 _context.VideoBlocks.Remove(_context.VideoBlocks.Find(videoBlockID));
 
                 await _context.SaveChangesAsync();
-                return Json(new { result = true });
+                return RedirectToLocal(returnUrl);
             }
             catch (Exception e)
             {

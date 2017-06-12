@@ -10,6 +10,7 @@ using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.CourseViewModels;
 using OnlineCourses.Models.Enums;
+using OnlineCourses.Models.LecturerViewModels;
 
 
 namespace OnlineCourses.Controllers
@@ -79,10 +80,18 @@ namespace OnlineCourses.Controllers
             return source;
         }
 
-        [HttpGet]
-        public IActionResult CourseInfo(int id)
+        [HttpGet("Lesson/{LessonId}")]
+        public IActionResult Lesson(int LessonId)
         {
-            return View(_context.Courses.Find(id));
+            var lesson = _context.Lessons.Include(l => l.TextBlocks).Include(l => l.VideoBlocks).FirstOrDefault(c=>c.ID==LessonId);
+            List<InfoBlock> list= lesson.TextBlocks.Cast<InfoBlock>().ToList();
+            list.AddRange(lesson.VideoBlocks);
+            var viewModel = new LessonViewModel()
+            {
+                Lesson = lesson,
+                InfoBlocks = list.OrderBy(c => c.Order).ToList()
+            };
+            return View(viewModel);
         }
         
         public IActionResult Payment(int courseID)
@@ -105,7 +114,7 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpGet("Course/{id}")]
-        public async Task<IActionResult> BuyingCourse(int ID)
+        public async Task<IActionResult> CourseInfo(int ID)
         {
             
             var user = await GetCurrentUserAsync();
@@ -114,15 +123,14 @@ namespace OnlineCourses.Controllers
                 .Include(c => c.Subscriptions)
                 .Include(c=>c.Comments).ThenInclude(c=>c.User);
             Course course = source.Where(c => c.ID == ID).ToList()[0];
-            ApplicationUser courseAuthor = _context.ApplicationUser.Where(author => author == course.Author)
-                .ToList()[0];
+            ApplicationUser courseAuthor = _context.ApplicationUser.First(author => author == course.Author);
 
             if (user != null)
             {
                 user = _context.ApplicationUser.Include(c => c.Subscriptions).ThenInclude(s=>s.Course).First(c => c.Id == user.Id);
                 if (user.Subscriptions.Count(e => e.Course == course) == 0)
                 {
-                    var viewModel = new BuyingCourseViewModel()
+                    var viewModel = new CourseInfoViewModel()
                     {
                         Course = course,
                         Paid = false,
@@ -133,7 +141,7 @@ namespace OnlineCourses.Controllers
                 }
                 else
                 {
-                    var viewModel = new BuyingCourseViewModel()
+                    var viewModel = new CourseInfoViewModel()
                     {
                         Course = course,
                         Paid = true,
@@ -144,7 +152,7 @@ namespace OnlineCourses.Controllers
             }
             else
             {
-                var viewModel = new BuyingCourseViewModel()
+                var viewModel = new CourseInfoViewModel()
                 {
                     Course = course,
                     Paid = false,
@@ -154,11 +162,6 @@ namespace OnlineCourses.Controllers
                 return View(viewModel);
             }
             return View();
-        }
-
-        private Task<ApplicationUser> GetCurrentUserAsync()
-        {
-            return _userManager.GetUserAsync(HttpContext.User);
         }
 
         [HttpPost]
@@ -176,6 +179,11 @@ namespace OnlineCourses.Controllers
             return RedirectToLocal(returnUrl);
         }
 
+        private Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
+        }
+        
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

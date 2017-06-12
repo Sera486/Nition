@@ -1,4 +1,4 @@
-﻿@model OnlineCourses.Models.LecturerViewModels.LessonEditorViewModel
+﻿@model OnlineCourses.Models.LecturerViewModels.LessonViewModel
 
 <body>
 
@@ -13,23 +13,78 @@
 	<!--*****************//////////endMIDDLE///////////*********************-->
 	<!--*****************//////////endMIDDLE///////////*********************-->
 	<!--*****************//////////endMIDDLE///////////*********************-->
-
-
-	<!--*****************//////////COURSE///////////*********************-->
 	<!--*****************//////////COURSE///////////*********************-->
 	<!--*****************//////////COURSE///////////*********************-->
 	    <div class="container-fluid">
 		
 		<!--*****************//////////addCourse///////////*********************-->
-
+	       
 	        <div class="col-md-10 col-md-offset-1 text-center" id="nameCourse-addLesson">
-	            <button type="button" class="btn btn-warning pull-right" id="editButt" id="right-panel-link" href="#right-panel" data-toggle="modal" data-target="#ModalEdit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                <button type="submit" class="btn btn-warning pull-right" id="editButt" id="right-panel-link" href="#right-panel" data-toggle="modal" data-target="#ModalEditTitle"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
 	            <h3>@Model.Lesson.Title</h3>
+	            <!--Modal!!!!!!-->
+	            <div class="modal fade" id="ModalEditTitle" role="dialog">
+	                <div class="modal-dialog">
+	                    <!-- Modal content-->
+	                    <div class="modal-content">
+	                        <div class="modal-body">
+	                            <div class="container">
+	                                <div class="row">
+	                                    <div class="col-xs-12 col-sm-8 col-md-6">
+	                                        <form role="form" asp-controller="Lecturer" asp-action="EditTitle" method="post">
+	                                            <fieldset>
+	                                                <div class="form-group">
+	                                                    <label for="comment">Введіть новий текст:</label>
+	                                                    <input type="hidden" name="lessonId" value="@(Model.Lesson.ID)"/>
+	                                                    <textarea name="title" class="form-control" rows="3" id="commentTextArea">@(Model.Lesson.Title)</textarea>
+	                                                    <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-warning pull-right btn-block">Зберегти зміни</button>
+	                                                    <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-danger pull-right btn-block" data-dismiss="modal">Відмінити</button>
+	                                                </div>
+	                                            </fieldset>
+	                                        </form>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <!--EndModal!!!!!!-->
 	        </div>
-	        <div class="col-md-10 col-md-offset-1" id="nameCourse-addLesson">
-	            <button type="button" class="btn btn-warning pull-right" id="editButt" id="right-panel-link" href="#right-panel" data-toggle="modal" data-target="#ModalEdit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                <h4>@Model.Lesson.Description</h4>
-	        </div>
+	            <div class="col-md-10 col-md-offset-1" id="nameCourse-addLesson">
+	                <button type="submit" class="btn btn-warning pull-right" id="editButt" id="right-panel-link" href="#right-panel" data-toggle="modal" data-target="#ModalEditDescription"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
+	                <h4>@Model.Lesson.Description</h4>
+	                <!--Modal!!!!!!-->
+	                <div class="modal fade" id="ModalEditDescription" role="dialog">
+	                    <div class="modal-dialog">
+	                        <!-- Modal content-->
+	                        <div class="modal-content">
+	                            <div class="modal-body">
+	                                <div class="container">
+	                                    <div class="row">
+	                                        <div class="col-xs-12 col-sm-8 col-md-6">
+	                                            <form role="form" asp-controller="Lecturer" asp-action="EditDescription" method="post">
+	                                                <fieldset>
+	                                                    <div class="form-group">
+	                                                        <label for="comment">Введіть новий текст:</label>
+	                                                        <input type="hidden" name="lessonId" value="@(Model.Lesson.ID)"/>
+	                                                        <textarea name="description" class="form-control" rows="3" id="commentTextArea">@(Model.Lesson.Description)</textarea>
+	                                                        <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-warning pull-right btn-block">Зберегти зміни</button>
+	                                                        <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-danger pull-right btn-block" data-dismiss="modal">Відмінити</button>
+	                                                    </div>
+	                                                </fieldset>
+	                                            </form>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <!--EndModal!!!!!!-->
+	            </div>
             
 	        @foreach (var infoBlock in Model.InfoBlocks)
 	        {

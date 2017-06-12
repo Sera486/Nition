@@ -852,9 +852,7 @@ select {
 	margin: 0;
 }
 
-///////////////////////////
-///////////////////////////
-///////////////////////////
+
 @media (max-width: 991px) {
 .userImgHead{
 	visibility: collapse;
@@ -938,4 +936,22 @@ font-size: auto;
 }
 #divContainerComment{
     background-color: #fafafa;
+}
+
+#ModalEditTitle {
+    position:fixed;
+    top:auto;
+    right:0%;
+    left:0%;
+    bottom:0;
+    transition: 2s;  
+}
+
+#ModalEditDescription {
+    position: fixed;
+    top: auto;
+    right: 0%;
+    left: 0%;
+    bottom: 0;
+    transition: 2s;
 }

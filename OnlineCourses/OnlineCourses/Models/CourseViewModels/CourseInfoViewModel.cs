@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OnlineCourses.Models.CourseViewModels
 {
-    public class BuyingCourseViewModel
+    public class CourseInfoViewModel
     {
         public Course Course { get; set; }
         public Boolean Paid { get; set; }

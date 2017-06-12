@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OnlineCourses.Models.LecturerViewModels
 {
-    public class LessonEditorViewModel
+    public class LessonViewModel
     {
         public Lesson Lesson { get; set; }
         public List<InfoBlock> InfoBlocks { get; set; }
