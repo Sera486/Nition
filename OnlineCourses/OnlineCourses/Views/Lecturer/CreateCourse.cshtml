@@ -1,60 +1,109 @@
-@model OnlineCourses.Models.LecturerViewModels.CreateCourseViewModel
+﻿@model OnlineCourses.Models.LecturerViewModels.CreateCourseViewModel
 
 @{
-    ViewData["Title"] = "CreateCourse";
+    ViewData["Title"] = "Створення курсу";
 }
 
-<h2>CreateCourse</h2>
-
-<form asp-action="CreateCourse" enctype="multipart/form-data">
-    <div class="form-horizontal">
-        <h4>Course</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Title" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Image" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Image" type="file" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Price" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Estimate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Estimate" class="form-control" />
-                <span asp-validation-for="Estimate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"]</h1>
     </div>
-</form>
-
-<div>
-    <a asp-controller="Home" asp-action="Index">�� �������</a>
 </div>
+
+<div class="container-fluid">
+ 
+    <form asp-action="CreateCourse" enctype="multipart/form-data">
+        <div class="form-horizontal">
+            <h2 class="create-course-text-input text-center"><strong>Створити новий курс:</strong></h2>
+            <hr>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="col-md-2 control-label"></label>
+                <div class="col-md-offset-1 col-md-10">
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="add-new-couese-HR">
+            <div class="form-group">
+                <label asp-for="Description" class="col-md-2 control-label"></label>
+                <div class="col-md-offset-1 col-md-10">
+                    <textarea cols="10" rows="5" asp-for="Description" class="form-control"></textarea>
+                   <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="add-new-couese-HR">
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    <hr>
+                    <img  alt="" id="image" class="img-responsive" style="height:22vmin;width:auto;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="col-md-2 control-label"></label>
+                <div class="col-md-offset-1 col-md-10">
+                    <span class="btn btn-success btn-file btn-block">
+                        <input asp-for="Image" type="file" class="form-control" id="files">
+                    </span>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                    <hr>
+                </div>
+            </div>
+            <hr class="add-new-couese-HR">
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-2">
+                    <h4>Виберіть тему курсу:</h4>
+                    <select class="form-control" id="selRole">
+                        <option>тема</option>
+                        <option>тема</option>
+                        <option>тема</option>
+                        <option>тема</option>
+                    </select>
+                </div>
+            </div>
+            <hr class="add-new-couese-HR">
+            <div class="form-group">
+                <label asp-for="Price" class="col-md-2 control-label"></label>
+                <div class="col-md-offset-1 col-md-10">
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="add-new-couese-HR">
+            <div class="form-group">
+                <label asp-for="Estimate" class="col-md-2 control-label"></label>
+                <div class="col-md-offset-1 col-md-10">
+                    <input asp-for="Estimate" class="form-control" />
+                    <span asp-validation-for="Estimate" class="text-danger"></span>
+                </div>
+            </div>
+            <hr>
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    <button type="submit" value="Create" class="btn btn-block btn-primary btn-lg">Створити новий курс</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    <a asp-controller="Home" asp-action="Index">Перейти на головну сторінку</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script>
+        document.getElementById("files").onchange = function () {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // get loaded data and render thumbnail.
+                document.getElementById("image").src = e.target.result;
+            };
+
+            // read the image file as a data URL.
+            reader.readAsDataURL(this.files[0]);
+        };
+    </script>
+}
 
