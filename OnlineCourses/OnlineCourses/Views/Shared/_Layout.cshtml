@@ -52,6 +52,12 @@
                                 Створити курс
                             </a>
                         </li>
+                        <li>
+                            <a asp-controller="Lecturer" asp-action="CourseList">
+                                <span class="glyphicon glyphicon-list"></span>
+                                Мої курси
+                            </a>
+                        </li>
                     }
                 }
             </ul>
@@ -89,19 +95,18 @@
             <div class="col-sm-3 myCols">
                 <h5>Про нас</h5>
                 <ul>
-                    <li><a href="#">Додаткова інформація</a></li>
-                    <li><a href="#">Контакти</a></li>
-                    <li><a href="#">Зв'язок</a></li>
+                    <li><a asp-controller="Home" asp-action="About">Додаткова інформація</a></li>
+                    <li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
                 </ul>
             </div>
-            <div class="col-sm-3 myCols">
+            @*<div class="col-sm-3 myCols">
                 <h5>Допомога</h5>
                 <ul>
                     <li><a href="#">FAQ</a></li>
                     <li><a href="#">Help</a></li>
                     <li><a href="#">Forum</a></li>
                 </ul>
-            </div>
+            </div>*@
             <div class="col-sm-3 myCols">
                 <h5>Курси</h5>
                 <ul>

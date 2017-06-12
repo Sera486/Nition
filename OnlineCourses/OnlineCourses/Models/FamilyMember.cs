@@ -1,4 +1,4 @@
-﻿namespace OnlineCourses.Models.ManageViewModels
+﻿namespace OnlineCourses.Models
 {
     public class FamilyMember
     {

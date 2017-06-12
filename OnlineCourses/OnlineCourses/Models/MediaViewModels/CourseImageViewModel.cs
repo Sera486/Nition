@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace OnlineCourses.Views.Media
+namespace OnlineCourses.Models.MediaViewModels
 {
     public class CourseImageViewModel
     {

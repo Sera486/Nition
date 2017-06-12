@@ -13,6 +13,7 @@ namespace OnlineCourses.TagHelpers
     public class CoursePreviewTagHelper:TagHelper
     {
         public Course Course { get; set; }
+        public bool ShowStatus { get; set; } = false;
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "div";
@@ -25,6 +26,7 @@ namespace OnlineCourses.TagHelpers
                             "<div class=\"col-md-8 col-sm-12\">" +
                                 $"<a href='/Course/{Course.ID}'><strong><h3>{Course.Title}</h3></strong></a>" +
                                 $"<h6>Автор: {Course.Author.FullName}</h6>" +
+                                (ShowStatus?$"<h6>Статус:{Course.PublishStatus}</h6>":"")+
                                 $"<p class=\"text-left\">{Course.Description}</p>" +
                             "</div>" +
                        "</div>";

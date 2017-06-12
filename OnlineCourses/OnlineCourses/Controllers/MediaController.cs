@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
-using OnlineCourses.Views.Media;
+using OnlineCourses.Models.MediaViewModels;
 
 namespace OnlineCourses.Controllers
 {

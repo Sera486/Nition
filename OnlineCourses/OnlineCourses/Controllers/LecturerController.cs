@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
+using OnlineCourses.Models.CourseViewModels;
 using OnlineCourses.Models.Enums;
 using OnlineCourses.Models.LecturerViewModels;
 
@@ -41,8 +43,44 @@ namespace OnlineCourses.Controllers
         {
             return View();
         }
-        
-        // POST: api/Lecturer
+
+        [HttpGet]
+        public async Task<IActionResult> CourseList(int page = 1, string search = "")
+        {
+            var pageSize = 5;
+            //selecting courses with all info
+            IQueryable<Course> source = _context.Courses
+                .Include(course => course.Author)
+                .Include(course => course.CourseThemes);
+
+            //searching through courses
+            var allItems = await SearchCourse(source, search).ToListAsync();
+
+            //splitting into pages
+            var count = allItems.Count;
+            var pageItems = allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var pageViewModel = new PageViewModel(count, page, pageSize);
+
+            var viewModel = new CourseListViewModel
+            {
+                PageViewModel = pageViewModel,
+                Courses = pageItems,
+                SearchString = search
+            };
+            
+            return View(viewModel);
+        }
+        private IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr)
+        {
+            if (!string.IsNullOrWhiteSpace(searchStr))
+            {
+                searchStr = searchStr.ToLower();
+                source = source.Where(c => c.Title.ToLower().Contains(searchStr) || c.Description.ToLower().Contains(searchStr));
+            }
+
+            return source;
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCourse(CreateCourseViewModel createCourseViewModel)
         {
@@ -119,13 +157,15 @@ namespace OnlineCourses.Controllers
             _context.Courses.Update(course);
             await _context.SaveChangesAsync();
             return RedirectToLocal(returnUrl);
-        }	
-        
+        }
+
+        #region Lesson editing
+
         [HttpGet("LessonEditor/{LessonId}")]
         public IActionResult LessonEditor(int LessonId)
         {
-            var lesson = _context.Lessons.Include(l => l.TextBlocks).Include(l => l.VideoBlocks).Include(l => l.Course).FirstOrDefault(c=>c.ID==LessonId);
-            List<InfoBlock> list= lesson.TextBlocks.Cast<InfoBlock>().ToList();
+            var lesson = _context.Lessons.Include(l => l.TextBlocks).Include(l => l.VideoBlocks).Include(l => l.Course).FirstOrDefault(c => c.ID == LessonId);
+            List<InfoBlock> list = lesson.TextBlocks.Cast<InfoBlock>().ToList();
             list.AddRange(lesson.VideoBlocks);
             var viewModel = new LessonViewModel()
             {
@@ -136,12 +176,12 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddLesson(int courseID, string title, string description,  string returnUrl = null)
+        public async Task<IActionResult> AddLesson(int courseID, string title, string description, string returnUrl = null)
         {
             try
             {
                 ViewData["ReturnUrl"] = returnUrl;
-                Course course = _context.Courses.Include(c=>c.Lessons).First(c=>c.ID==courseID);
+                Course course = _context.Courses.Include(c => c.Lessons).First(c => c.ID == courseID);
                 _context.Lessons.Add(new Lesson()
                 {
                     Order = course.Lessons.Count + 1,
@@ -159,8 +199,8 @@ namespace OnlineCourses.Controllers
                 return Json(new { result = false });
             }
         }
-        
-        public async Task<IActionResult> DeleteLesson(int lessonID,  string returnUrl)
+
+        public async Task<IActionResult> DeleteLesson(int lessonID, string returnUrl)
         {
             try
             {
@@ -177,7 +217,7 @@ namespace OnlineCourses.Controllers
             }
         }
 
-        
+
         [HttpPost]
         public async Task<IActionResult> AddTextBlock(int lessonId, string text, string returnUrl)
         {
@@ -188,7 +228,7 @@ namespace OnlineCourses.Controllers
                 {
                     Lesson = _context.Lessons.Find(lessonId),
                     Text = text,
-                    Order = _context.TextBlocks.Max(c => c.Order) > _context.VideoBlocks.Max(c => c.Order) ? _context.TextBlocks.Max(c => c.Order)+1 : _context.VideoBlocks.Max(c => c.Order)+1
+                    Order = _context.TextBlocks.Max(c => c.Order) > _context.VideoBlocks.Max(c => c.Order) ? _context.TextBlocks.Max(c => c.Order) + 1 : _context.VideoBlocks.Max(c => c.Order) + 1
                 });
                 await _context.SaveChangesAsync();
                 return RedirectToLocal(returnUrl);
@@ -284,7 +324,7 @@ namespace OnlineCourses.Controllers
             {
                 ViewData["ReturnUrl"] = returnUrl;
                 // attachment folder path
-                string path = Path.Combine("videos","lessonBlocks",Guid.NewGuid()+Path.GetExtension(model.UploadedFile.FileName));
+                string path = Path.Combine("videos", "lessonBlocks", Guid.NewGuid() + Path.GetExtension(model.UploadedFile.FileName));
 
                 // saving video in avatars folder in wwwroot
                 using (var fileStream = new FileStream(Path.Combine(_appEnvironment.WebRootPath, path), FileMode.Create))
@@ -309,7 +349,7 @@ namespace OnlineCourses.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return Json(new {result = false});
+                return Json(new { result = false });
             }
         }
 
@@ -318,7 +358,7 @@ namespace OnlineCourses.Controllers
             try
             {
                 ViewData["ReturnUrl"] = returnUrl;
-                System.IO.File.Delete(Path.Combine(_appEnvironment.WebRootPath,_context.VideoBlocks.Find(videoBlockID).VideoURL));
+                System.IO.File.Delete(Path.Combine(_appEnvironment.WebRootPath, _context.VideoBlocks.Find(videoBlockID).VideoURL));
                 _context.VideoBlocks.Remove(_context.VideoBlocks.Find(videoBlockID));
 
                 await _context.SaveChangesAsync();
@@ -331,7 +371,10 @@ namespace OnlineCourses.Controllers
             }
         }
 
-		#region Helpers
+        #endregion
+
+
+        #region Helpers
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
