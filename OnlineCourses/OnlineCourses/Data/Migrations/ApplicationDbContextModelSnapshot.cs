@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using OnlineCourses.Data;
+using OnlineCourses.Models.Enums;
 
 namespace OnlineCourses.Data.Migrations
 {
@@ -15,25 +14,27 @@ namespace OnlineCourses.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rc3")
+                .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
+                        .IsUnique()
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
@@ -105,8 +106,6 @@ namespace OnlineCourses.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("AspNetUserRoles");
                 });
 
@@ -127,7 +126,8 @@ namespace OnlineCourses.Data.Migrations
 
             modelBuilder.Entity("OnlineCourses.Models.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
 
@@ -135,19 +135,25 @@ namespace OnlineCourses.Data.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("ImageURL");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
 
@@ -160,7 +166,7 @@ namespace OnlineCourses.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
@@ -172,6 +178,183 @@ namespace OnlineCourses.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.Comment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CourseID");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int?>("LessonID");
+
+                    b.Property<string>("Text");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CourseID");
+
+                    b.HasIndex("LessonID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.Course", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuthorId");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<double>("Estimate");
+
+                    b.Property<string>("ImageURL");
+
+                    b.Property<DateTime?>("ModificationDate");
+
+                    b.Property<double>("Price");
+
+                    b.Property<int>("PublishStatus");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.CourseTheme", b =>
+                {
+                    b.Property<int>("CourseID");
+
+                    b.Property<int>("ThemeID");
+
+                    b.HasKey("CourseID", "ThemeID");
+
+                    b.HasIndex("ThemeID");
+
+                    b.ToTable("CourseThemes");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.Lesson", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CourseID");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsFree");
+
+                    b.Property<int>("Order");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CourseID");
+
+                    b.ToTable("Lessons");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.ManageViewModels.FamilyMember", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("MemberId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MemberId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FamilyMembers");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.Subscription", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CourseID");
+
+                    b.Property<DateTime>("SubscriptionDate");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CourseID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.TextBlock", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("LessonID");
+
+                    b.Property<int>("Order");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("LessonID");
+
+                    b.ToTable("TextBlocks");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.Theme", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Themes");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.VideoBlock", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("LessonID");
+
+                    b.Property<int>("Order");
+
+                    b.Property<string>("VideoURL");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("LessonID");
+
+                    b.ToTable("VideoBlocks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -209,6 +392,84 @@ namespace OnlineCourses.Data.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.Comment", b =>
+                {
+                    b.HasOne("OnlineCourses.Models.Course")
+                        .WithMany("Comments")
+                        .HasForeignKey("CourseID");
+
+                    b.HasOne("OnlineCourses.Models.Lesson")
+                        .WithMany("Comments")
+                        .HasForeignKey("LessonID");
+
+                    b.HasOne("OnlineCourses.Models.ApplicationUser", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.Course", b =>
+                {
+                    b.HasOne("OnlineCourses.Models.ApplicationUser", "Author")
+                        .WithMany("CreatedCourses")
+                        .HasForeignKey("AuthorId");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.CourseTheme", b =>
+                {
+                    b.HasOne("OnlineCourses.Models.Course", "Course")
+                        .WithMany("CourseThemes")
+                        .HasForeignKey("CourseID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("OnlineCourses.Models.Theme", "Theme")
+                        .WithMany("CourseThemes")
+                        .HasForeignKey("ThemeID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.Lesson", b =>
+                {
+                    b.HasOne("OnlineCourses.Models.Course", "Course")
+                        .WithMany("Lessons")
+                        .HasForeignKey("CourseID");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.ManageViewModels.FamilyMember", b =>
+                {
+                    b.HasOne("OnlineCourses.Models.ApplicationUser", "Member")
+                        .WithMany("FamilyMembers")
+                        .HasForeignKey("MemberId");
+
+                    b.HasOne("OnlineCourses.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.Subscription", b =>
+                {
+                    b.HasOne("OnlineCourses.Models.Course", "Course")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("CourseID");
+
+                    b.HasOne("OnlineCourses.Models.ApplicationUser", "User")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.TextBlock", b =>
+                {
+                    b.HasOne("OnlineCourses.Models.Lesson", "Lesson")
+                        .WithMany("TextBlocks")
+                        .HasForeignKey("LessonID");
+                });
+
+            modelBuilder.Entity("OnlineCourses.Models.VideoBlock", b =>
+                {
+                    b.HasOne("OnlineCourses.Models.Lesson", "Lesson")
+                        .WithMany("VideoBlocks")
+                        .HasForeignKey("LessonID");
                 });
         }
     }
