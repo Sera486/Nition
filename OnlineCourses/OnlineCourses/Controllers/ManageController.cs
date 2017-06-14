@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.ManageViewModels;
 using OnlineCourses.Services;
@@ -18,22 +19,28 @@ namespace OnlineCourses.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _context;
         private readonly string _externalCookieScheme;
         private readonly IEmailSender _emailSender;
+        private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
+          ApplicationDbContext context,
           IOptions<IdentityCookieOptions> identityCookieOptions,
           IEmailSender emailSender,
+          ISmsSender smsSender,
           ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _emailSender = emailSender;
+            _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
+            _context = context;
         }
 
         //
@@ -55,13 +62,24 @@ namespace OnlineCourses.Controllers
             {
                 return View("Error");
             }
+
+            List<Course> courses = new List<Course>();
+
+            if (User.IsInRole("Lecturer"))
+            {
+                courses = _context.Courses.Where(e => e.Author == user).ToList();
+            }
+            else if (User.IsInRole("Student"))
+            {
+                courses = _context.Subscriptions.Where(e => e.User == user).Select(e => e.Course).ToList();
+            }
+
             var model = new IndexViewModel
             {
                 HasPassword = await _userManager.HasPasswordAsync(user),
-                PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
-                TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
-                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
+                Courses = courses
             };
             return View(model);
         }
@@ -110,7 +128,7 @@ namespace OnlineCourses.Controllers
                 return View("Error");
             }
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
-           // await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
+            await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
             return RedirectToAction(nameof(VerifyPhoneNumber), new { PhoneNumber = model.PhoneNumber });
         }
 
@@ -336,6 +354,13 @@ namespace OnlineCourses.Controllers
                 await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
             }
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
+        }
+
+        [HttpGet("Profile")]
+        public IActionResult Profile(string id)
+        {
+            var user = _context.ApplicationUser.Find(id);
+            return View(user);
         }
 
         #region Helpers

@@ -1,0 +1,46 @@
+﻿@model OnlineCourses.Models.LecturerViewModels.LessonViewModel
+
+<body>
+
+	<!--*****************//////////MIDDLE///////////*********************-->
+	<!--*****************//////////MIDDLE///////////*********************-->
+	<!--*****************//////////MIDDLE///////////*********************-->
+	<div class="container-fluid" id="gap">
+		<div class="col-md-12" id="gap-in">
+			<h1>@Model.Lesson.Title</h1>
+		</div>
+	</div>
+	<!--*****************//////////endMIDDLE///////////*********************-->
+	<!--*****************//////////endMIDDLE///////////*********************-->
+	<!--*****************//////////endMIDDLE///////////*********************-->
+
+
+	<!--*****************//////////COURSE///////////*********************-->
+	<!--*****************//////////COURSE///////////*********************-->
+	<!--*****************//////////COURSE///////////*********************-->
+	    <div class="container-fluid">
+		
+		<!--*****************//////////addCourse///////////*********************-->
+
+	        <div class="col-md-10 col-md-offset-1 text-center" id="nameCourse-addLesson">
+	            <h3>@Model.Lesson.Title</h3>
+	        </div>
+	        <div class="col-md-10 col-md-offset-1" id="nameCourse-addLesson">
+	           <h4>@Model.Lesson.Description</h4>
+	        </div>
+            
+	        @foreach (var infoBlock in Model.InfoBlocks)
+	        {
+	            <div class="col-md-10 col-md-offset-1" id="nameCourse-addLesson">
+	                @if (infoBlock is TextBlock)
+	                {  
+	                    <h4>@((infoBlock as TextBlock).Text)</h4>
+	                }
+	                else
+	                {
+	                    <video controls style="max-width: 100%;height: auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
+	                }
+	            </div>               
+	        }
+		</div>
+</body>

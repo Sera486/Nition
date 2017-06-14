@@ -1,0 +1,306 @@
+﻿@addTagHelper "OnlineCourses.TagHelpers.CommentTagHelper, OnlineCourses"
+@using OnlineCourses.Models.Enums
+@model  OnlineCourses.Models.CourseViewModels.CourseInfoViewModel
+@inject UserManager<ApplicationUser> UserManager
+<body>
+
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@Model.Course.Title</h1>
+    </div>
+</div>
+
+<div class="container-fluid">
+<div class="col-md-12">
+    <hr class="hr-min">
+    <div class="container-fluid row"></div>
+    <div class="col-md-3 row">
+        <!--*****************//////////author(img+name)///////////*********************-->
+        <ul class="list-inline">
+            <li>
+                <figure>
+                    <img src= "~/@Model.Course.Author.ValidImageURL" class="img-responsive img-circle" alt="author" id ="authorImgHead">
+                    <figcaption>Лектор:</figcaption>
+                </figure>
+            </li>
+            <li>
+                <h4 style="margin-top:0;">@Model.Course.Author.FullName</h4></li>
+        </ul>
+    </div>
+    <!--*****************//////////ours+numberVideo+numberPeopleBay///////////*********************-->
+    <div class="col-md-4" id="About-course">
+        <ul class="list-inline">
+            <li>
+                <figure class="about-1">
+                    <i class="fa fa-clock-o" aria-hidden="true" style="font-size:57px"></i>
+                    <figcaption>@Model.Course.Estimate год</figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure class="about-1">
+                    <i class="fa fa-file-video-o" aria-hidden="true" style="font-size:57px"></i>
+                    <figcaption>@Model.Course.Lessons.Count</figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure class="about-1">
+                    <i class="fa fa-users" aria-hidden="true" style="font-size:57px"></i>
+                    <figcaption>@Model.Course.Subscriptions.Count</figcaption>
+                </figure>
+            </li>
+        </ul>
+    </div>
+    <!--*****************//////////price///////////*********************-->
+    <div class="col-md-2">
+        <h2>Price</h2>
+        <h4>@Model.Course.Price</h4>
+    </div>
+    <!--*****************//////////buttonBay///////////*********************-->
+    @if (!Model.Paid && Model.IsStudent)
+    {
+        <div class="col-md-3">
+
+            <form asp-controller="Course" asp-action="Payment">
+                <span>
+                    <input type="hidden" name="courseID" value="@Model.Course.ID"/>
+                    <button type="submit" class="btn btn-primary btn-block" id="buyButt">Купити цей курс</button>
+                </span>
+            </form>
+
+        </div>
+    }
+        @*Publish and hide functions for author*@
+    @if(Model.IsAuthor){
+
+        <div class="col-md-3">
+            <form method="post">
+                <span>
+                    @if (Model.Course.PublishStatus == PublishStatus.Hidden)
+                    {
+                        <h4>Статус: Приховано</h4>
+                        <button type="submit" asp-controller="Lecturer" asp-action="PublishCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Подати на розгляд</button>
+                    }
+                    @if (Model.Course.PublishStatus == PublishStatus.Proccesing)
+                    {
+                        <h4>Статус: Знаходитья на розгляді</h4>
+                        <button type="submit" asp-controller="Lecturer" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
+                    }
+                    @if (Model.Course.PublishStatus == PublishStatus.Published)
+                    {
+                        <h4>Статус: Опубліковано</h4>
+                        <button type="submit" asp-controller="Lecturer" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
+                    }
+                </span>
+            </form>
+        </div>
+    }
+    @*Publish and hide functions for admin*@
+    @if (User.Identity.IsAuthenticated&&User.IsInRole("Admin"))
+    {
+        <div class="col-md-3">
+            <form method="post">
+                <span>
+                    @if (Model.Course.PublishStatus == PublishStatus.Hidden)
+                    {
+                        <h4>Статус: Приховано</h4>
+                        <button type="submit" asp-controller="Admin" asp-action="PublishCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Подати на розгляд</button>
+                    }
+                    @if (Model.Course.PublishStatus == PublishStatus.Proccesing)
+                    {
+                        <h4>Статус: Знаходиться на розгляді</h4>
+                        <button type="submit" asp-controller="Admin" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
+                    }
+                    @if (Model.Course.PublishStatus == PublishStatus.Published)
+                    {
+                        <h4>Статус: Опубліковано</h4>
+                        <button type="submit" asp-controller="Admin" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
+                    }
+                </span>
+            </form>
+        </div>
+    }
+</div>
+<!--*****************//////////courseIMG///////////*********************-->
+<div class="col-md-6 col-md-offset-3">
+    <img src="~/@Model.Course.ValidImageURL" alt="img-course" style="margin: 0 auto;" class="text-center" id="img-course">
+</div>
+@if(!Model.Paid && !Model.IsAuthor)
+{
+    <div class="col-md-3">
+        <span>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Урок №</th>
+                    <th>Назва уроку</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach(var lesson in Model.Course.Lessons)
+                {
+                    <tr>
+                        <td>@lesson.Order</td>
+                        <td>@lesson.Title</td>
+                    </tr>
+                }
+                </tbody>
+            </table>	
+        </span>
+    </div>
+}
+<!--*****************//////////allDescription///////////*********************-->
+<div class="col-md-12" style="margin:1vh">
+    <span>
+        @Model.Course.Description
+    </span>
+</div>
+@if (Model.Paid || Model.IsAuthor)
+{
+    if (Model.IsAuthor)
+    {
+        <div class="col-md-12 text-center">
+            <h2><strong>Перелік уроків:</strong>
+            </h2>
+            <hr>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Урок№</th>
+                <th>Назва</th>
+                <th>Короткий опис</th>
+            </tr>
+            </thead>
+            <tbody id="tableLesson">
+            @foreach (var lesson in Model.Course.Lessons)
+            {
+                <tr class="openLesson" data-href="/LessonEditor/@lesson.ID">@*Относительный путь не конфетка, но вполне пойдёт*@
+                    <td class="numLessonTh">@lesson.Order</td>
+                    <td class="nameLessonTh">@lesson.Title</td>
+                    <td class="shortDescTh">@lesson.Description</td>
+                    @if (Model.IsAuthor)
+                    {
+                        <a asp-controller="Lecturer" asp-action="LessonEditor" asp-route-LessonId="@lesson.ID"><td class="editButt text-center"><i class="fa fa-pencil" aria-hidden="true"></i></td></a>
+                        <td class="delButt text-center"><i class="fa fa-times" aria-hidden="true"></i></td>
+                    }
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="col-md-12 text-center">
+            <h2>
+                <strong>Перелік уроків:</strong>
+            </h2>
+            <hr>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Урок№</th>
+                    <th>Назва</th>
+                    <th>Короткий опис</th>
+                </tr>
+            </thead>
+            <tbody id="tableLesson">
+                @foreach (var lesson in Model.Course.Lessons)
+                {
+                    <tr class="openLesson" data-href="/Lesson/@lesson.ID">
+                        @*Относительный путь не конфетка, но вполне пойдёт*@
+                    <td class="numLessonTh">@lesson.Order</td>
+                    <td class="nameLessonTh">@lesson.Title</td>
+                    <td class="shortDescTh">@lesson.Description</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+    
+@if (Model.IsAuthor)
+{
+    <div class="col-md-6 col-md-offset-3 " id="addLessonForm">
+        <form class="form-horizontal" asp-controller="Lecturer" asp-action="AddLesson" method="post">
+            <input type="hidden" name="courseID" value="@Model.Course.ID"/>
+        <input type="hidden" name="returnUrl" value="~/Course/@Model.Course.ID" />
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <hr>
+                    <h4>Назва уроку</h4>
+                    <textarea class="form-control" id="nameLesson" name="title" placeholder=""></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <hr>
+                    <h4>Опис уроку</h4>
+                    <textarea class="form-control" id="descLesson" name="description" placeholder=""></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-danger btn-block btn-lg" id="confirmAddLesson">Додати урок</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default btn-block btn-lg" id="clearAddLesson">Очистити</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="col-md-12 text-center" id="emptyInput">
+                Зоповніть усі поля
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3">
+        <span>
+            <button type="button" class="btn btn-primary btn-block SeeMore" id="showCourseButt" value="addLesson">Додати урок</button>
+        </span>
+    </div>
+}
+    
+        
+<!--*****************//////////comments///////////*********************-->       
+<div id="divContainerComment">
+    <div class="container-fluid col-md-10 col-md-offset-1" id="divContainerComment">
+        <div id="titleComment">
+            <h2>Коментарі</h2>
+        </div>
+        <!--*****************//////////commentForm///////////*********************-->
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-md-10 col-md-offset-1">
+                <form asp-controller="Course" asp-action="AddComment" asp-route-courseID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    <div class="form-group">
+                        <label for="comment">Залиште свій коментар:</label>
+                        <textarea name="commentText" class="form-control" rows="5" id="commentTextArea" ></textarea>
+                        <button style="margin-top: 1vmin;" type="submit" class="btn btn-primary pull-right">Підтвердити</button>
+                    </div>
+                </form>
+            </div>
+        }
+        <!--*****************//////////commentInfo///////////*********************-->
+        <div class="col-md-12 commentDiv row">
+            <hr class="commentHr">    
+        </div>
+
+        @foreach (var comment in Model.Course.Comments)
+        {
+            <comment comment="@comment"></comment>
+        }
+        <!--*****************//////////otherCommentEnd///////////*********************-->
+
+        <hr class="commentHr">
+    </div>
+    <!--*****************//////////endComments///////////*********************-->
+</div>
+        
+        
+        
+</div>
+</body>

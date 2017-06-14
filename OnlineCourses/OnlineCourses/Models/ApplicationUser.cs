@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using OnlineCourses.Models.ManageViewModels;
 
 namespace OnlineCourses.Models
 {
@@ -11,5 +9,13 @@ namespace OnlineCourses.Models
     {
         public string FirstName {get; set;}
         public string LastName {get; set;}
+        public string ImageURL{get; set;}
+        public List<Subscription> Subscriptions { get; set; }
+        public List<Course> CreatedCourses { get; set; }
+        public List<Comment> Comments { get; set; }
+        public List<FamilyMember> FamilyMembers { get; set; }
+
+        public string FullName => $"{LastName} {FirstName}";
+        public string ValidImageURL => string.IsNullOrWhiteSpace(ImageURL) ? "img/no_image.png" : ImageURL;
     }
 }

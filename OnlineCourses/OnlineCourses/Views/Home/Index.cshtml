@@ -1,0 +1,205 @@
+﻿@{
+    ViewData["Title"] = "Головна";
+}
+<!--slider -->
+<div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="5000">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#bootstrap-touch-slider" data-slide-to="0" class="active"></li>
+        <li data-target="#bootstrap-touch-slider" data-slide-to="1"></li>
+        <li data-target="#bootstrap-touch-slider" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper For Slides -->
+    <div class="carousel-inner" role="listbox">
+        <!-- Third Slide -->
+
+        <div class="item active">
+
+            <!-- Slide Background -->
+            <img src="~/img/training.jpg" class="slide-image" />
+            
+            <div class="bs-slider-overlay"></div>
+
+            <div class="container">
+                <div class="row">
+                    <!-- Slide Text Layer -->
+                    <div class="slide-text slide_style_left">
+                        <h1 data-animation="animated zoomInRight">Найкращі лекції</h1>
+                        <p data-animation="animated fadeInLeft">Великий вибір бізнес лекцій на різноманітну тематику.</p>
+                        <a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Популярні курси</a>
+                        <!--                                <a href=""  class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Slide -->
+
+        <!-- Second Slide -->
+        <div class="item">
+
+            <!-- Slide Background -->
+            <img src="img/150.jpg" alt="Bootstrap Touch Slider" class="slide-image" />
+            <div class="bs-slider-overlay"></div>
+            <!-- Slide Text Layer -->
+            <div class="slide-text slide_style_center">
+                <h1 data-animation="animated flipInX">Більше ніж 1000 лекцій</h1>
+                <p data-animation="animated lightSpeedIn">Кожен зможе знайти цікаву та потрібну лекцію.</p>
+                <a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInUp">Переглянути усі курси</a>
+                <!-- <a href="" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">select two</a>-->
+            </div>
+        </div>
+        <!-- End of Slide -->
+
+        <!-- Third Slide -->
+        <div class="item">
+            <!-- Slide Background -->
+            <img src="img/c700x420.jpg" alt="Bootstrap Touch Slider" class="slide-image" /> *
+            <div class="bs-slider-overlay"></div>
+            <!-- Slide Text Layer -->
+            <div class="slide-text slide_style_right">
+                <h1 data-animation="animated zoomInLeft">Можливість переглянути лекції людей із реальним досвідом роботи</h1>
+                <p data-animation="animated fadeInRight">Унікальні лекції від успішних людей.</p>
+                <a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Що ми пропонуємо</a>
+                <!--                        <a href="" target="_blank" class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
+            </div>
+        </div>
+        <!-- End of Slide -->
+    </div>
+    <!-- End of Wrapper For Slides -->
+    <!-- Left Control -->
+    <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
+        <span class="fa fa-angle-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+
+    <!-- Right Control -->
+    <a class="right carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="next">
+        <span class="fa fa-angle-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<!-- End  bootstrap-touch-slider Slider -->
+
+
+<div class="container-fluid" id="containerfirst">
+    <div class="container" class="aos-all" id=s econdcontainer>
+        <div class="col-md-12 aos-item" data-aos="zoom-in">
+            <h1>Що ми пропонуємо</h1></div>
+        <div class="col-md-4 Oportunities aos-item nopadding one" data-aos="fade-up">
+            <h3>Що ви отримуєте</h3>
+            <strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам у вашій подільшій справі.
+            <ul>
+                <li>dsgasdf</li>
+            </ul>
+        </div>
+        <div class="col-md-4 Oportunities aos-item nopadding two" data-aos="fade-up-right">
+            <h3>Що ви отримуєте</h3>
+            <strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+        <div class="col-md-4 Oportunities aos-item nopadding three" data-aos="fade-up">
+            <h3>Що ви отримуєте</h3>
+            <strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+        <div class="col-md-4 Oportunities aos-item nopadding four" data-aos="fade-up-left">
+            <h3>Що ви отримуєте</h3>
+            <strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+    </div>
+</div>
+
+
+<!--Steps-->
+<div id="steps">
+    <div class="container" id="in_steps">
+        <div class="row">
+            <div class="process">
+                <div class="process-row nav nav-tabs">
+                    <div class="process-step">
+                        <button type="button" class="btn btn-info btn-circle" data-toggle="tab" href="#menu1"><i class="fa fa-sign-in fa-3x"></i></button>
+                        <p><small>Пройти<br />реєстрацію</small></p>
+                    </div>
+                    <div class="process-step">
+                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu2"><i class="fa fa-search fa-3x"></i></button>
+                        <p><small>Знайти<br />потрібний курс</small></p>
+                    </div>
+                    <div class="process-step">
+                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu3"><i class="fa fa-credit-card" style="font-size:36px"></i></button>
+                        <p><small>Оплатити<br />курс</small></p>
+                    </div>
+                    <div class="process-step">
+                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu4"><i class="fa fa-cogs fa-3x"></i></button>
+                        <p><small>Пройти курс<br />...</small></p>
+                    </div>
+                    <div class="process-step">
+                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu5"><i class="fa fa-check fa-3x"></i></button>
+                        <p><small>Отримати<br />результат)))</small></p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div id="menu1" class="tab-pane fade active in">
+                    <h3>Реєстрація</h3>
+                    <p>Пойдіть стандартну реєстрацію та вибирийте потрібний курс.</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                        <!--     <li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>-->
+                    </ul>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <h3>Пошук курсів</h3>
+                    <p>Вм можете підібрати потрібний вам курс</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                        <!--
+                        <li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
+                        <li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>
+                        -->
+                    </ul>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                    <h3>Оплата</h3>
+                    <p>Виберіть метод оплати та оплатіть курс.</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                        <!--
+                        <li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
+                        <li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>
+                        -->
+                    </ul>
+                </div>
+                <div id="menu4" class="tab-pane fade">
+                    <h3>Ви отримуєте курс</h3>
+                    <p>Вибраний курс вам доступний, ви можете переглянути його.</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                        <!--
+                        <li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
+                        <li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>
+                        -->
+                    </ul>
+                </div>
+                <div id="menu5" class="tab-pane fade">
+                    <h3>Пост перегляд</h3>
+                    <p>Ви отримуєте потрібні знання та навички.</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                        <!--
+                        <li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
+                        <li><button type="button" class="btn btn-success"><i class="fa fa-check"></i> Done!</button></li>
+                        -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /#myCarousel -->
+@await Component.InvokeAsync("PopularCoursesList")
+
+@section Scripts{
+    <script type="text/jscript" src="~/vendors/aos.js"></script>
+    <script>
+        AOS.init({
+            easing: 'ease-in-out-sine'
+        });
+        $(document).ready(function () {
+            $('.carousel').carousel({
+                interval: 6000
+            });
+        });
+    </script>
+}
