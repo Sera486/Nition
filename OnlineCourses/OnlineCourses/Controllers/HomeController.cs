@@ -16,9 +16,11 @@ namespace OnlineCourses.Controllers
     public class HomeController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
-        public HomeController(UserManager<ApplicationUser> userManager)
+        private ApplicationDbContext _context;
+        public HomeController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
         public async Task<IActionResult> Index()
         {
@@ -29,7 +31,8 @@ namespace OnlineCourses.Controllers
                 if (role[0] == RolesData.Admin)
                     return RedirectToAction(nameof(AdminController.Index), "Admin");
             }
-            return View();
+            
+            return View(await _context.Themes.ToListAsync());
         }
 
         public IActionResult About()

@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace OnlineCourses.Models.CourseViewModels
+namespace OnlineCourses.Models.AdminViewModels
 {
-    public class CourseViewModel:IEnumerable<Course>
+    public class CourseListViewModel:IEnumerable<Course>
     {
         public IEnumerable<Course> Courses { get; set; }
         public PageViewModel PageViewModel { get; set; }
         public string SearchString { get; set; }
-        public bool SearchInDescription { get; set; }
-        public int ThemeID { get; set; }
+        public bool isGlobal { get; set; }
 
         public IEnumerator<Course> GetEnumerator()
         {

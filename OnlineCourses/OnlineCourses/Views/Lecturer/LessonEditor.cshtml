@@ -32,12 +32,11 @@
 	                            <div class="container">
 	                                <div class="row">
 	                                    <div class="col-xs-12 col-sm-8 col-md-6">
-	                                        <form role="form" asp-controller="Lecturer" asp-action="EditTitle" method="post">
+	                                        <form role="form" asp-controller="Lecturer" asp-action="EditTitle" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
 	                                            <fieldset>
 	                                                <div class="form-group">
 	                                                    <label for="comment">Введіть новий текст:</label>
 	                                                    <input type="hidden" name="lessonId" value="@(Model.Lesson.ID)"/>
-	                                                    <input type="hidden" name="returnUrl" value="~/LessonEditor/@Model.Lesson.ID" />
 	                                                    <textarea name="title" class="form-control" rows="3" id="commentTextArea">@(Model.Lesson.Title)</textarea>
 	                                                    <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-warning pull-right btn-block">Зберегти зміни</button>
 	                                                    <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-danger pull-right btn-block" data-dismiss="modal">Відмінити</button>
@@ -66,12 +65,11 @@
 	                                <div class="container">
 	                                    <div class="row">
 	                                        <div class="col-xs-12 col-sm-8 col-md-6">
-	                                            <form role="form" asp-controller="Lecturer" asp-action="EditDescription" method="post">
+	                                            <form role="form" asp-controller="Lecturer" asp-action="EditDescription" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
 	                                                <fieldset>
 	                                                    <div class="form-group">
 	                                                        <label for="comment">Введіть новий текст:</label>
 	                                                        <input type="hidden" name="lessonId" value="@(Model.Lesson.ID)"/>
-	                                                        <input type="hidden" name="returnUrl" value="~/LessonEditor/@Model.Lesson.ID" />
 	                                                        <textarea name="description" class="form-control" rows="3" id="commentTextArea">@(Model.Lesson.Description)</textarea>
 	                                                        <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-warning pull-right btn-block">Зберегти зміни</button>
 	                                                        <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-danger pull-right btn-block" data-dismiss="modal">Відмінити</button>
@@ -95,9 +93,8 @@
 	                {  
 	                    <button type="submit" class="btn btn-warning pull-right" id="editButt" id="right-panel-link" href="#right-panel" data-toggle="modal" data-target="#ModalEdit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 	                    
-                        <form asp-controller="Lecturer" asp-action="DeleteTextBlock" method="post">
+                        <form asp-controller="Lecturer" asp-action="DeleteTextBlock" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
                             <input type="hidden" name="textBlockID" value="@(infoBlock.ID)" />
-                            <input type="hidden" name="returnUrl" value="~/LessonEditor/@Model.Lesson.ID" />
 	                        <button type="submit" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button>
 	                    </form>
 	                    <h4>@((infoBlock as TextBlock).Text)</h4>
@@ -111,12 +108,11 @@
 	                                    <div class="container">
 	                                        <div class="row">
 	                                            <div class="col-xs-12 col-sm-8 col-md-6">
-	                                                <form role="form" asp-controller="Lecturer" asp-action="EditTextBlock" method="post">
+	                                                <form role="form" asp-controller="Lecturer" asp-action="EditTextBlock" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
 	                                                    <fieldset>
 	                                                            <div class="form-group">
 	                                                                <label for="comment">Введіть новий текст:</label>
 	                                                                <input type="hidden" name="textBlockId" value="@(infoBlock.ID)"/>
-	                                                                <input type="hidden" name="returnUrl" value="~/LessonEditor/@Model.Lesson.ID" />
 	                                                                    <textarea name="text" class="form-control" rows="3" id="commentTextArea">@((infoBlock as TextBlock).Text)</textarea>
 	                                                                    <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-warning pull-right btn-block">Зберегти зміни</button>
 	                                                                <button style="margin-top: 1vmin; margin-bottom: 1vmin;" type="submit" class="btn btn-danger pull-right btn-block" data-dismiss="modal">Відмінити</button>
@@ -134,9 +130,8 @@
 	                }
 	                else
 	                {
-	                    <form asp-controller="Lecturer" asp-action="DeleteVideoBlock" method="post">
+	                    <form asp-controller="Lecturer" asp-action="DeleteVideoBlock" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
 	                        <input type="hidden" name="videoBlockID" value="@(infoBlock.ID)" />
-	                        <input type="hidden" name="returnUrl" value="~/LessonEditor/@Model.Lesson.ID" />
 	                        <button type="submit" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button>
 	                    </form>
 	                    <video controls style="max-width: 100%;height: auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
@@ -162,7 +157,7 @@
 		            </div>
 		        </div>
 		    </form>
-		    <form class="form-horizontal" asp-controller="Course" asp-action="CourseInfo" asp-route-ID="@Model.Lesson.Course.ID" method="get">
+		    <form class="form-horizontal" asp-controller="Course" asp-action="CourseInfo" asp-route-id="@Model.Lesson.Course.ID" method="get">
                 <div class="form-group">
 				    <div class="col-md-12">
 				        <button type="submit" class="btn btn-primary btn-block btn-lg" id="confirmLesson">Готово</button>
@@ -172,9 +167,8 @@
 		</div>
 
 		<div class="col-md-6 col-md-offset-3 " id="addTextLessonForm">
-			<form class="form-horizontal" asp-controller="Lecturer" asp-action="AddTextBlock" method="post">
+			<form class="form-horizontal" asp-controller="Lecturer" asp-action="AddTextBlock" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
 			    <input type="hidden" name="lessonId" value="@Model.Lesson.ID" />
-			    <input type="hidden" name="returnUrl" value="~/LessonEditor/@Model.Lesson.ID" />
                 <div class="form-group">
 					<div class="col-sm-offset-1 col-sm-10">
 						<hr>
@@ -198,9 +192,8 @@
 
 
 		<div class="col-md-6 col-md-offset-3 " id="addVideoLessonForm">
-		    <form class="form-horizontal" asp-controller="Lecturer" asp-action="AddVideoBlock" enctype="multipart/form-data" method="post">
+		    <form class="form-horizontal" asp-controller="Lecturer" asp-action="AddVideoBlock" asp-route-returnUrl="@ViewData["ReturnUrl"]" enctype="multipart/form-data" method="post">
 		        <input type="hidden" name="lessonId" value="@Model.Lesson.ID" />
-		        <input type="hidden" name="returnUrl" value="~/LessonEditor/@Model.Lesson.ID" />
 		        <div class="form-group">
 		            <div class="col-sm-offset-1 col-sm-10">
 	                        <div class="col-md-12">

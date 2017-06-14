@@ -1,7 +1,13 @@
-﻿@{
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model List<Theme>
+@{
     ViewData["Title"] = "Головна";
 }
-<!--slider -->
+
+<!--*****************//////////SLIDER///////////*********************-->
+<!--*****************//////////SLIDER///////////*********************-->
+<!--*****************//////////SLIDER///////////*********************-->
 <div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="5000">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -9,18 +15,44 @@
         <li data-target="#bootstrap-touch-slider" data-slide-to="1"></li>
         <li data-target="#bootstrap-touch-slider" data-slide-to="2"></li>
     </ol>
-
     <!-- Wrapper For Slides -->
     <div class="carousel-inner" role="listbox">
         <!-- Third Slide -->
-
         <div class="item active">
-
             <!-- Slide Background -->
-            <img src="~/img/training.jpg" class="slide-image" />
-            
+            <img src="img/c700x420.jpg" alt="Bootstrap Touch Slider" class="slide-image" /> *
             <div class="bs-slider-overlay"></div>
+            <!-- Slide Text Layer -->
+            <div class="slide-text slide_style_right">
+                <h1 data-animation="animated zoomInLeft">Можливість переглянути лекції людей із реальним досвідом роботи</h1>
+                <p data-animation="animated fadeInRight">Унікальні лекції від успішних людей.</p>
+                <a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Що ми пропонуємо</a>
+                <!--                        <a href="" target="_blank" class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
+            </div>
+        </div>
+        <!-- End of Slide -->
 
+        <!-- Second Slide -->
+        <div class="item">
+            <!-- Slide Background -->
+            <img src="img/150.jpg" alt="Bootstrap Touch Slider" class="slide-image" />
+            <div class="bs-slider-overlay"></div>
+            <!-- Slide Text Layer -->
+            <div class="slide-text slide_style_center">
+                <h1 data-animation="animated flipInX">Більше ніж 1000 лекцій</h1>
+                <p data-animation="animated lightSpeedIn">Кожен зможе знайти цікаву та потрібну лекцію.</p>
+                <a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInUp">Переглянути усі курси</a>
+                <!--                        <a href="" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">select two</a>-->
+            </div>
+        </div>
+        <!-- End of Slide -->
+
+        <!-- Third Slide -->
+        <div class="item">
+            <!-- Slide Background -->
+            <!-- Slide Background -->
+            <img src="img/training.jpg" class="slide-image" />
+            <div class="bs-slider-overlay"></div>
             <div class="container">
                 <div class="row">
                     <!-- Slide Text Layer -->
@@ -31,37 +63,6 @@
                         <!--                                <a href=""  class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- End of Slide -->
-
-        <!-- Second Slide -->
-        <div class="item">
-
-            <!-- Slide Background -->
-            <img src="img/150.jpg" alt="Bootstrap Touch Slider" class="slide-image" />
-            <div class="bs-slider-overlay"></div>
-            <!-- Slide Text Layer -->
-            <div class="slide-text slide_style_center">
-                <h1 data-animation="animated flipInX">Більше ніж 1000 лекцій</h1>
-                <p data-animation="animated lightSpeedIn">Кожен зможе знайти цікаву та потрібну лекцію.</p>
-                <a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInUp">Переглянути усі курси</a>
-                <!-- <a href="" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">select two</a>-->
-            </div>
-        </div>
-        <!-- End of Slide -->
-
-        <!-- Third Slide -->
-        <div class="item">
-            <!-- Slide Background -->
-            <img src="img/c700x420.jpg" alt="Bootstrap Touch Slider" class="slide-image" /> *
-            <div class="bs-slider-overlay"></div>
-            <!-- Slide Text Layer -->
-            <div class="slide-text slide_style_right">
-                <h1 data-animation="animated zoomInLeft">Можливість переглянути лекції людей із реальним досвідом роботи</h1>
-                <p data-animation="animated fadeInRight">Унікальні лекції від успішних людей.</p>
-                <a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Що ми пропонуємо</a>
-                <!--                        <a href="" target="_blank" class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
             </div>
         </div>
         <!-- End of Slide -->
@@ -79,34 +80,74 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<!-- End  bootstrap-touch-slider Slider -->
+<!--*****************//////////endSLIDER///////////*********************-->
+<!--*****************//////////endSLIDER///////////*********************-->
+<!--*****************//////////endSLIDER///////////*********************-->
 
 
+
+<!--*****************//////////CARD///////////*********************-->
+<!--*****************//////////CARD///////////*********************-->
+<!--*****************//////////CARD///////////*********************-->
 <div class="container-fluid" id="containerfirst">
     <div class="container" class="aos-all" id=s econdcontainer>
+        <!--
         <div class="col-md-12 aos-item" data-aos="zoom-in">
             <h1>Що ми пропонуємо</h1></div>
+        -->
         <div class="col-md-4 Oportunities aos-item nopadding one" data-aos="fade-up">
-            <h3>Що ви отримуєте</h3>
-            <strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам у вашій подільшій справі.
+            <h3>Що ви отримуєте:</h3>
             <ul>
-                <li>dsgasdf</li>
+                <li id="cardUl"><strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам у вашій подільшій справі.</li>
+                <li id="cardUl"><strong>Унікаль курси</strong> Курси, які допоможуть вашій справі. Усі наші курси проходять модерацію та перевірку</li>
+                <li id="cardUl"><strong>Кваліфіковані лектори</strong></li>
+                <li id="cardUl"><strong>Унікальний досвід та інформація</strong></li>
             </ul>
         </div>
         <div class="col-md-4 Oportunities aos-item nopadding two" data-aos="fade-up-right">
-            <h3>Що ви отримуєте</h3>
-            <strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+            <h3>Отримайте необхідні знання вдома</h3>
+            <strong>Ніяких семінарів та тренінгів.</strong> Потрібна інформація у зручному для Вас місці.</div>
         <div class="col-md-4 Oportunities aos-item nopadding three" data-aos="fade-up">
-            <h3>Що ви отримуєте</h3>
-            <strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+            <h3>Завжди під рукою</h3>
+            <strong>Унікальні курси.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
         <div class="col-md-4 Oportunities aos-item nopadding four" data-aos="fade-up-left">
             <h3>Що ви отримуєте</h3>
             <strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
     </div>
 </div>
+<!--*****************//////////endCARD///////////*********************-->
+<!--*****************//////////endCARD///////////*********************-->
+<!--*****************//////////endCARD///////////*********************-->
+
+<div class="container-fluid text-center" id="popular-them-div">
+    <div class="col-md-12">
+        <h1><strong>Популярні теми</strong></h1>
+			
+    </div>
+    <div class="container-fluid">
+        <div class="container col-md-10 col-md-offset-1 ">
+            @foreach (var theme in Model)
+            {
+                <a asp-controller="Course" asp-action="Index" asp-route-theme="@theme.ID">
+                    <div class="col-sm-3 popular-them">
+                        <figure>
+                            <i class="fa fa-facebook fa-3x popular-them-item"></i>
+                            <figcaption>
+                                <p><strong>@theme.Name</strong>
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>
 
 
-<!--Steps-->
+<!--*****************//////////STEPS///////////*********************-->
+<!--*****************//////////STEPS///////////*********************-->
+<!--*****************//////////STEPS///////////*********************-->
 <div id="steps">
     <div class="container" id="in_steps">
         <div class="row">
@@ -186,6 +227,9 @@
         </div>
     </div>
 </div>
+<!--*****************//////////endSTEPS///////////*********************-->
+<!--*****************//////////endSTEPS///////////*********************-->
+<!--*****************//////////endSTEPS///////////*********************-->
 
 <!-- /#myCarousel -->
 @await Component.InvokeAsync("PopularCoursesList")

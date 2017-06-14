@@ -2,11 +2,16 @@
 @using OnlineCourses.Models.Enums
 @model  OnlineCourses.Models.CourseViewModels.CourseInfoViewModel
 @inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["ReturnUrl"] = $"~/Course/{Model.Course.ID}";
+    ViewData["Title"] = Model.Course.Title;
+}
+
 <body>
 
 <div class="container-fluid" id="gap">
     <div class="col-md-12" id="gap-in">
-        <h1>@Model.Course.Title</h1>
+        <h1>@ViewData["Title"]</h1>
     </div>
 </div>
 
@@ -103,12 +108,12 @@
                     @if (Model.Course.PublishStatus == PublishStatus.Hidden)
                     {
                         <h4>Статус: Приховано</h4>
-                        <button type="submit" asp-controller="Admin" asp-action="PublishCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Подати на розгляд</button>
+                        <button type="submit" asp-controller="Admin" asp-action="PublishCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Опублікувати</button>
                     }
                     @if (Model.Course.PublishStatus == PublishStatus.Proccesing)
                     {
                         <h4>Статус: Знаходиться на розгляді</h4>
-                        <button type="submit" asp-controller="Admin" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
+                        <button type="submit" asp-controller="Admin" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Опублікувати</button>
                     }
                     @if (Model.Course.PublishStatus == PublishStatus.Published)
                     {
@@ -222,7 +227,7 @@
 @if (Model.IsAuthor)
 {
     <div class="col-md-6 col-md-offset-3 " id="addLessonForm">
-        <form class="form-horizontal" asp-controller="Lecturer" asp-action="AddLesson" method="post">
+        <form class="form-horizontal" asp-controller="Lecturer" asp-action="AddLesson" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <input type="hidden" name="courseID" value="@Model.Course.ID"/>
         <input type="hidden" name="returnUrl" value="~/Course/@Model.Course.ID" />
             <div class="form-group">

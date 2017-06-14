@@ -17,8 +17,11 @@ namespace OnlineCourses.Models.LecturerViewModels
         [Required(ErrorMessage = "Введіть опис курсу")]
         public string Description { get; set; }
 
-        [Display(Name = "Виберіть картинку курсу:")]
+        [Display(Name = "Оберіть картинку курсу:")]
         public IFormFile Image { get; set; }
+
+        [Display(Name = "Оберіть тему курсу")]
+        public int ThemeID { get; set; }
 
         [Display(Name = "Ціна курсу:")]
         public double Price { get; set; }

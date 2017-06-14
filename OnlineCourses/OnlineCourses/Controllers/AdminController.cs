@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.AdminViewModels;
-using OnlineCourses.Models.CourseViewModels;
 using OnlineCourses.Models.Enums;
 
 
@@ -44,47 +43,42 @@ namespace OnlineCourses.Controllers
         #region Courses
 
         [HttpGet]
-        public async Task<IActionResult> Course(int page = 1, string search = "", bool global = false)
+        public async Task<IActionResult> CourseList(int page = 1, string search = "", bool global = false)
         {
             var pageSize = 5;
             //selecting courses with all info
             IQueryable<Course> source = _context.Courses
                 .Include(course => course.Author)
                 .Include(course => course.CourseThemes);
+            if(!global) source = source.Where(c => c.PublishStatus == PublishStatus.Proccesing);
 
             //searching through courses
-            var allItems = await SearchCourse(source, search, global).ToListAsync();
+            var allItems = await CourseController.SearchCourse(source, search).ToListAsync();
 
             //splitting into pages
             var count = allItems.Count;
             var pageItems = allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             var pageViewModel = new PageViewModel(count, page, pageSize);
 
-            var viewModel = new CourseViewModel
+            var viewModel = new CourseListViewModel
             {
                 PageViewModel = pageViewModel,
                 Courses = pageItems,
-                SearchString = search
+                SearchString = search,
+                isGlobal = global
             };
 
             //filling themes selector
-            var themes = _context.Themes.Select(t => new SelectListItem { Text = t.Name, Value = t.ID.ToString() }).ToList();
+            var themes = _context.Themes
+                .Select(t => new SelectListItem
+                {
+                    Text = t.Name,
+                    Value = t.ID.ToString()
+                }).ToList();
             ViewBag.Themes = themes;
             return View(viewModel);
         }
 
-        private IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr, bool isGlobal)
-        {
-            if (!isGlobal)
-                source = source.Where(c => c.PublishStatus == PublishStatus.Proccesing);
-            if (!string.IsNullOrWhiteSpace(searchStr))
-            {
-                searchStr = searchStr.ToLower();
-                source = source.Where(c => c.Title.ToLower().Contains(searchStr) || c.Description.ToLower().Contains(searchStr));
-            }
-
-            return source;
-        }
 
         [HttpPost]
         public async Task<IActionResult> PublishCourse(Course courseID, string returnUrl = null)
@@ -124,7 +118,7 @@ namespace OnlineCourses.Controllers
         #region Users
 
         [HttpGet]
-        public async Task<IActionResult> Users(int page = 1, string search = null, string role = null)
+        public async Task<IActionResult> UserList(int page = 1, string search = null, string role = null)
         {
             var pageSize = 5;
 
@@ -150,6 +144,7 @@ namespace OnlineCourses.Controllers
                 new SelectListItem {Text = "Студент", Value = RolesData.Student},
             };
             ViewBag.Roles = roles;
+            ViewData["ReturnUrl"] = $"~/Admin/UserList?page={page}&search={search}&role={role}";
             return View(viewModel);
         }
 
@@ -158,11 +153,11 @@ namespace OnlineCourses.Controllers
             if (!string.IsNullOrWhiteSpace(searchStr))
             {
                 searchStr = searchStr.ToLower();
-                source = source.Where(c => c.UserName.ToLower().Contains(searchStr));
+                source = source.Where(u => u.UserName.ToLower().Contains(searchStr));
             }
-            if (!string.IsNullOrWhiteSpace(searchStr))
+            if (!string.IsNullOrWhiteSpace(role))
             {
-                source = source.Where(c => _userManager.IsInRoleAsync(c, role).Result);
+                source = source.Where(u => _userManager.IsInRoleAsync(u, role).Result);
             }
 
             return source;
