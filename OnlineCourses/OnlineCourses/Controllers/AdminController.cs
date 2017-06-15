@@ -120,7 +120,7 @@ namespace OnlineCourses.Controllers
         [HttpGet]
         public async Task<IActionResult> UserList(int page = 1, string search = null, string role = null)
         {
-            var pageSize = 5;
+            var pageSize = 15;
 
             //searching through users
             var allItems = await SearchUser(_context.ApplicationUser, search, role).ToListAsync();

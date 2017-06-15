@@ -1,4 +1,5 @@
-﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+﻿@using OnlineCourses.Data
+@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +45,7 @@
                 </li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    if (User.IsInRole("Lecturer"))
+                    if (User.IsInRole(RolesData.Lecturer))
                     {
                         <li>
                             <a asp-controller="Lecturer" asp-action="CreateCourse">
@@ -56,6 +57,17 @@
                             <a asp-controller="Lecturer" asp-action="CourseList">
                                 <span class="glyphicon glyphicon-list"></span>
                                 Мої курси
+                            </a>
+                        </li>
+                    }
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole(RolesData.Student))
+                    {
+                        <li>
+                            <a asp-controller="Student" asp-action="FamilyList">
+                                Сім'я
                             </a>
                         </li>
                     }
