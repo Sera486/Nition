@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using OnlineCourses.Models;
-using OnlineCourses.Models.ManageViewModels;
 
 namespace OnlineCourses.Data
 {
@@ -31,13 +31,15 @@ namespace OnlineCourses.Data
                 entity.HasMany(e => e.Lessons).WithOne(e=>e.Course);
                 entity.HasOne(e => e.Author).WithMany(e => e.CreatedCourses);
                 entity.HasMany(c => c.Comments).WithOne();
+                entity.Property(c=>c.CreationDate).HasColumnType("Date").HasDefaultValueSql("GetDate()");
+                entity.Property(c => c.ModificationDate).HasColumnType("Date").HasDefaultValueSql("GetDate()");
             });
 
             builder.Entity<CourseTheme>(entity =>
             {
-                entity.HasKey(e => new {e.CourseID, e.ThemeID});
-                entity.HasOne(e => e.Course).WithMany(e => e.CourseThemes).HasForeignKey(e=>e.CourseID);
-                entity.HasOne(e => e.Theme).WithMany(e => e.CourseThemes).HasForeignKey(e=>e.ThemeID);
+                entity.HasKey(e => new { e.CourseID, e.ThemeID });
+                entity.HasOne(e => e.Course).WithMany(e => e.CourseThemes).HasForeignKey(e => e.CourseID);
+                entity.HasOne(e => e.Theme).WithMany(e => e.CourseThemes).HasForeignKey(e => e.ThemeID);
             });
             
             builder.Entity<Lesson>(entity =>
@@ -50,6 +52,7 @@ namespace OnlineCourses.Data
             builder.Entity<Comment>(entity =>
             {
                 entity.HasOne(e => e.User).WithMany(e => e.Comments);
+                entity.Property(c => c.Date).HasColumnType("Date").HasDefaultValueSql("GetDate()");
             });
 
             builder.Entity<Subscription>(entity =>
@@ -60,9 +63,9 @@ namespace OnlineCourses.Data
 
             builder.Entity<FamilyMember>(entity =>
             {
-                entity.ToTable("FamilyMembers");
-                entity.HasOne(e => e.User).WithMany();
-                entity.HasOne(e => e.Member).WithMany(e => e.FamilyMembers);
+                entity.HasKey(e => new { e.UserID, e.MemberID });
+                entity.HasOne(e => e.User).WithMany(e => e.FamilyMembers).HasForeignKey(e => e.UserID).OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.Member).WithMany().HasForeignKey(e => e.MemberID).OnDelete(DeleteBehavior.Restrict);
             });
         }
 

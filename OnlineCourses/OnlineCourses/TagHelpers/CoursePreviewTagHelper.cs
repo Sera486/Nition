@@ -20,7 +20,7 @@ namespace OnlineCourses.TagHelpers
             
             string coursePreviewContent = 
                  "<div class=\"container col-md-12 col-lg-8 col-lg-offset-2\" id=\"course-one\">" +
-                            "<div class=\"col-md-4 col-sm-12\" id=\"img-prjDiv\">" +
+                            "<div class=\"col-md-4 col-sm-12\" id=\"img-prjDiv\" class=\"img-responsive\">" +
                                 $"<img src=\'/{Course.ValidImageURL}\' alt=\"prjImg\" id=\"img-prj\" class=\"img-responsive\">" +
                             "</div>" +
                             "<div class=\"col-md-8 col-sm-12\">" +

@@ -1,12 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "Про нас";
 }
 <!--*****************//////////MIDDLE///////////*********************-->
 <!--*****************//////////MIDDLE///////////*********************-->
 <!--*****************//////////MIDDLE///////////*********************-->
 <div class="container-fluid" id="gap">
     <div class="col-md-12" id="gap-in">
-        <h1>Про нас</h1>
+        <h1>@ViewData["Title"]</h1>
     </div>
 </div>
 <!--*****************//////////endMIDDLE///////////*********************-->
@@ -31,7 +31,7 @@
     </div>
 
     <div class="col-md-8 col-md-offset-2 text-center">
-        <strong><h2>“Я знаю що я нічого не знаю але інші не знають і цього - Сократ”.</h2></strong>
+        <strong><h2>“Ви отримуєте від життя лише те, що наважуєтеся попросити. Не бійтеся підвищувати планку”.</h2></strong>
     </div>
 
     <div class="col-md-2 col-md-offset-5">
@@ -43,11 +43,15 @@
     </div>
 
     <div class="row col-md-10 col-md-offset-1" id="aboutUsText">
-        <div class="col-md-6"><strong><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis id corporis reprehenderit facilis suscipit, unde asperiores perferendis at impedit, itaque, perspiciatis repudiandae, quo quis voluptatum. Itaque dolores, modi pariatur suscipit.</p></strong>
-            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error illo ducimus, eveniet, molestias repellat quaerat! Eum eveniet, molestiae ducimus. Adipisci pariatur, doloremque accusantium nobis in quasi praesentium labore asperiores distinctio.
+        <div class="col-md-6"><strong>
+                <p>Ви отримуєте від життя лише те, що наважуєтеся попросити. Не бійтеся підвищувати планку.</p>
+            </strong>
+            <p> Якщо ви знаходитесь на нашому сайті, то ви знаєте чого хочете від життя.
             </p>
         </div>
-        <div class="col-md-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium enim, sed consequuntur, dignissimos tempore illum deserunt. Perferendis harum, maxime nesciunt consequuntur optio voluptate, ipsum, laborum, obcaecati voluptates aliquid praesentium deleniti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur doloremque labore ratione porro fugit, est, aperiam excepturi vel laudantium autem mollitia soluta aut rerum, molestias consequatur aliquam quaerat sit facere.</div>
+        <div class="col-md-6">
+            Напевно у кожної людини є певні прагення і бажання, яких вона хоче досягнути. І напевно б усі того досягали, якби знали як. Якщо ви такої ж думки, тоді ласкаво просимо до нас!
+        </div>
     </div>
 
     <div class="row col-md-10 col-md-offset-1">
@@ -57,7 +61,7 @@
     <div class="row text-center col-md-8 col-md-offset-2 slideanim">
         <div class="col-md-4 cards">
             <figire>
-                <img src="img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
+                <img src="~/img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
                 <figcaption class="name">Roman Gumenuk</figcaption>
                 <hr class="hr-in-card">
                 <figcaption class="profesion">Roman Gumenuk</figcaption>
@@ -65,7 +69,7 @@
         </div>
         <div class="col-md-4 cards">
             <figire>
-                <img src="img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
+                <img src="~/img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
                 <figcaption class="name">Roman Gumenuk</figcaption>
                 <hr class="hr-in-card">
                 <figcaption class="profesion">Roman Gumenuk</figcaption>
@@ -73,7 +77,7 @@
         </div>
         <div class="col-md-4 cards">
             <figire>
-                <img src="img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
+                <img src="~/img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
                 <figcaption class="name">Roman Gumenuk</figcaption>
                 <hr class="hr-in-card">
                 <figcaption class="profesion">Roman Gumenuk</figcaption>
@@ -84,7 +88,7 @@
     <div class="row text-center col-md-8 col-md-offset-2 slideanim">
         <div class="col-md-4 cards col-md-offset-2">
             <figire>
-                <img src="img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
+                <img src="~/img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
                 <figcaption class="name">Roman Gumenuk</figcaption>
                 <hr class="hr-in-card">
                 <figcaption class="profesion">Roman Gumenuk</figcaption>
@@ -92,7 +96,7 @@
         </div>
         <div class="col-md-4 cards">
             <figire>
-                <img src="img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
+                <img src="~/img/polybreno_1500.jpg" alt="Team" class="teamFoto img-responsive img-circle">
                 <figcaption class="name">Roman Gumenuk</figcaption>
                 <hr class="hr-in-card">
                 <figcaption class="profesion">Roman Gumenuk</figcaption>
@@ -105,7 +109,7 @@
     <div class="row col-md-10 col-md-offset-1 onCenter">
 		
         <div class="col-md-3 ">
-            <img src="img/Company-culture-dos-and-donts.png" alt="" id="imgWd">	  
+            <img src="~/img/Company-culture-dos-and-donts.png" alt="" id="imgWd">	  
         </div>
 			
         <div class="col-md-5 ">

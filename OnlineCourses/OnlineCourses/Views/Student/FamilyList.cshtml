@@ -1,0 +1,87 @@
+﻿@model OnlineCourses.Models.Student.FamilyListViewModel
+@{
+    ViewData["Title"] = "Сім'я";
+}
+
+    <div class="container-fluid" id="gap">
+        <div class="col-md-12" id="gap-in">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+    </div>
+
+<h4>Ваша сім'я</h4>
+@foreach (var member in Model.FamilyMembers)
+{
+    <div class="user-list">
+        <figure>
+            <img src="~/@member.ValidImageURL" class="img-responsive img-circle" alt="author" id="authorImgHead">
+            <figcaption>@member.FullName</figcaption>
+        </figure>
+        <form method="post">
+            <button asp-controller="Student" asp-action="RemoveFamilyMember" asp-route-memberID="@member.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">Видалити</button>
+        </form>
+    </div>
+}
+
+<div id="searchDiv">
+    <div class="container-fluid">
+
+        <div class="col-md-10 col-md-offset-1">
+            <form asp-controller="Student" asp-action="FamilyList" method="get" class="form-inline">
+                <div class="form-group col-md-5 col-sm-12">
+                    <input name="search" type="text" class="form-control" id="searchInput" placeholder="Введіть логін користувача" value="@Model.SearchString">
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <button type="submit" class="btn btn-default btn-block" id="buttSearch">Пошук</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="container-fluid">
+    @foreach (var user in Model.Users)
+    {
+        <a asp-controller="Manage" asp-action="Profile" asp-route-id="@user.Id">
+            <div class="container col-md-12 col-lg-8 col-lg-offset-2">
+                <!--*****************//////////author(userList)///////////*********************-->
+                    
+                <div class="user-list">
+                    <figure>
+                        <img src="~/@user.ValidImageURL" class="img-responsive img-circle" alt="author" id="authorImgHead">
+                        <figcaption>@user.FullName</figcaption>
+                    </figure>
+                    <form method="post" asp-controller="Student" asp-action="AddFamilyMember" asp-route-memberID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+                        <button class="btn btn-danger lock-unlockButt" type="submit">
+                            <span class="glyphicon glyphicon-lock"></span> Додати в сім'ю
+                        </button>
+                       </form>
+                </div>
+
+            </div>
+        </a>
+    }
+</div>
+
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-controller="Admin" asp-action="UserList"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-search="@(Model.SearchString)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-controller="Admin" asp-action="UserList"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-search="@(Model.SearchString)"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
