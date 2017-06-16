@@ -10,6 +10,8 @@ namespace OnlineCourses.Models
         public string FirstName {get; set;}
         public string LastName {get; set;}
         public string ImageURL{get; set;}
+        public string AboutMe { get; set; }
+        public string Contacts { get; set; }
         public List<Subscription> Subscriptions { get; set; }
         public List<Course> CreatedCourses { get; set; }
         public List<Comment> Comments { get; set; }

@@ -10,7 +10,7 @@
                 </a>
             </li>
             <li>
-                <a asp-controller="Manage" asp-action="Index" title="Manage">@UserManager.GetUserName(User)</a>
+                <a asp-controller="Manage" asp-action="Index" title="Manage" asp-route-id="@UserManager.GetUserAsync(User).Result.Id">@UserManager.GetUserName(User)</a>
             </li>
             <li>
                 <form method="post">

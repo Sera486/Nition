@@ -43,45 +43,21 @@ namespace OnlineCourses.Controllers
             _context = context;
         }
 
-        //
-        // GET: /Manage/Index
-        [HttpGet]
-        public async Task<IActionResult> Index(ManageMessageId? message = null)
+        
+        public async Task<IActionResult> Index(string id)
         {
-            ViewData["StatusMessage"] =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
-
-            var user = await GetCurrentUserAsync();
-            if (user == null)
+            ApplicationUser user = _context.ApplicationUser.Find(id);
+            if (await _userManager.IsInRoleAsync(user, RolesData.Lecturer))
             {
-                return View("Error");
+                return View("LecturerAccount", _context.ApplicationUser.Include(a => a.CreatedCourses).ThenInclude(s => s.Author).First(c => c.Id == id));
             }
-
-            List<Course> courses = new List<Course>();
-
-            if (User.IsInRole("Lecturer"))
+            else if (await _userManager.IsInRoleAsync(user, RolesData.Student))
             {
-                courses = _context.Courses.Where(e => e.Author == user).ToList();
+                return View("StudentAccount",
+                    _context.ApplicationUser.Include(a => a.Subscriptions).ThenInclude(s => s.Course).ThenInclude(s => s.Author)
+                        .First(c => c.Id == id));
             }
-            else if (User.IsInRole("Student"))
-            {
-                courses = _context.Subscriptions.Where(e => e.User == user).Select(e => e.Course).ToList();
-            }
-
-            var model = new IndexViewModel
-            {
-                HasPassword = await _userManager.HasPasswordAsync(user),
-                Logins = await _userManager.GetLoginsAsync(user),
-                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
-                Courses = courses
-            };
-            return View(model);
+            return View("Error");
         }
 
         //

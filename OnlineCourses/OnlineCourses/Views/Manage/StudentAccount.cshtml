@@ -1,0 +1,59 @@
+﻿@addTagHelper "OnlineCourses.TagHelpers.CoursePreviewTagHelper, OnlineCourses"
+@model ApplicationUser
+@{
+    ViewData["Title"] = "Manage your account";
+}
+
+<h2>@ViewData["Title"].</h2>
+<p class="text-success">@ViewData["StatusMessage"]</p>
+
+<div class="container-fluid" id="gapUserInfo">
+    <div class="col-md-12" id="gapUserInfo-in">
+        <h1>@Model.UserName</h1>
+    </div>
+</div>
+<!--*****************//////////endMIDDLE///////////*********************-->
+<!--*****************//////////endMIDDLE///////////*********************-->
+<!--*****************//////////endMIDDLE///////////*********************-->
+<style>
+    .nav-tabs li a {
+        color: #777;
+    }
+</style>
+<div class="container-fluid">
+
+    <div class="row col-md-10 col-md-offset-1" id="imgUser">
+        <div class="col-sm-1 animated slideInLeft" style=" margin-left: 30;">
+            <img class="img-responsive img-circle" width="auto" height="100" src="~/@Model.ValidImageURL" alt="..." />
+        </div>
+        <div class="col-sm-4 animated slideInLeft">
+            <h1>@Model.FullName</h1>
+        </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#menu1">Особисті дані та контакти</a></li>
+            <li><a data-toggle="tab" href="#menu2">Куплені курси</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="menu1" class="tab-pane fade in active">
+                <hr>
+                <strong>Email:</strong> @Model.Email
+                <hr>
+                <strong>Контакти:</strong> @Model.Contacts
+                <hr>
+                <strong>Про себе:</strong> @Model.AboutMe
+                <hr>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                @foreach (var sub in Model.Subscriptions)
+                {
+                <course-preview course="@sub.Course"></course-preview>
+                }
+            </div>
+        </div>
+    </div>
+</div>
