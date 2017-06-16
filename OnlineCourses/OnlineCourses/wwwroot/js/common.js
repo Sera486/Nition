@@ -238,3 +238,11 @@ $("#cancleAddVideo").click(function () {
     $('#addTextLessonForm').hide();
     $('#addVideoLessonForm').hide();
 });
+
+
+///////////////// add COURSE text|vydeo //////////////////
+function editBlock() {
+    $("#editBlock").append('<div class="col-md-10 col-md-offset-1"><form><div class="form-group"><label for="comment">Змінити текст:</label><textarea class="form-control" rows="3" id="commentTextArea"></textarea><button style="margin-top:1vmin;margin-bottm:1vmin;" type="submit" class="btn btn-info pull-right">Підтвердити</button></div></form>');
+};
+
+
