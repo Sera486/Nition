@@ -4,14 +4,15 @@
     ViewData["Title"] = "Manage your account";
 }
 
-<h2>@ViewData["Title"].</h2>
-<p class="text-success">@ViewData["StatusMessage"]</p>
-
-<div class="container-fluid" id="gapUserInfo">
-    <div class="col-md-12" id="gapUserInfo-in">
-        <h1>@Model.UserName</h1>
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"].</h1>
+        <p class="text-success">@ViewData["StatusMessage"]</p>
+        <h2>@Model.UserName</h2>
     </div>
 </div>
+
+
 <!--*****************//////////endMIDDLE///////////*********************-->
 <!--*****************//////////endMIDDLE///////////*********************-->
 <!--*****************//////////endMIDDLE///////////*********************-->
