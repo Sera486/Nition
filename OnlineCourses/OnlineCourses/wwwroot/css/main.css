@@ -18,6 +18,16 @@ body {
 
 }
 
+#svgImg {
+    height: 65px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    transition: 0.5s;
+}
+
 #ModalEdit {
     position: fixed;
     top: auto;
@@ -642,7 +652,7 @@ body {
 
 #menu1, #menu3, #menu2, #menu4, #menu5 {
     transition: 1s;
-    background-color: #498cba;
+    background-color: #fcfeff;
 }
 
 .process-step .btn:focus {
@@ -924,6 +934,7 @@ select {
     height: 30vh;
     background-color: #3a3b3b;
     background-image: url(background/blue-bg.png);
+    margin-bottom: 1vmin;
 }
 
 #gap2 {
@@ -1369,3 +1380,62 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e6a83', end
 	}
 }
 
+#BtnUp {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1199;
+    border: 11px;
+    background-color: rgb(158, 158, 158);
+    opacity: 0.8;
+    color: black;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 10px 16px;
+}
+
+    #BtnUp:hover {
+        background-color: #555;
+    }
+.edit-butt-account-div {
+    margin:2vmin;
+}
+.edit-butt-account {
+    border: solid;
+    border-color: #044F67;
+    border-width: 0.2vmin;
+}
+#menu10, #menu9, #menu8, #menu7, #menu6 {
+    transition: 1s;
+    background-color: #2095b5;
+    width: 60vw;
+    margin-left: 10vw;
+}
+#Logout{
+    background-color:transparent;
+    border:none;
+    color:white;
+    padding-top:7.7px;
+    font-size:1.02em;
+    transition:0.2s;
+}
+
+#Logout:hover {
+    font-size: 1.05em; 
+}
