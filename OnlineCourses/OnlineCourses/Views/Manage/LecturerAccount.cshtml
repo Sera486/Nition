@@ -1,17 +1,17 @@
 ﻿@addTagHelper "OnlineCourses.TagHelpers.CoursePreviewTagHelper, OnlineCourses"
 @model ApplicationUser
 @{
-    ViewData["Title"] = "Manage your account";
+    ViewData["Title"] = "Профіль користувача(лектор)";
 }
 
-<h2>@ViewData["Title"].</h2>
-<p class="text-success">@ViewData["StatusMessage"]</p>
-
-<div class="container-fluid" id="gapUserInfo">
-    <div class="col-md-12" id="gapUserInfo-in">
-        <h1>@Model.UserName</h1>
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"].</h1>
+        <p class="text-success">@ViewData["StatusMessage"]</p>
+        <h2>@Model.UserName</h2>
     </div>
 </div>
+
 <!--*****************//////////endMIDDLE///////////*********************-->
 <!--*****************//////////endMIDDLE///////////*********************-->
 <!--*****************//////////endMIDDLE///////////*********************-->
@@ -22,12 +22,13 @@
 </style>
 <div class="container-fluid">
 
-    <div class="row col-md-10 col-md-offset-1" id="imgUser">
+    <div class="row col-md-10 col-md-offset-1" id="imgUser" style="margin-bottom:2vmin;">
         <div class="col-sm-1 animated slideInLeft" style=" margin-left: 30;">
             <img class="img-responsive img-circle" width="auto" height="100" src="~/@Model.ValidImageURL" alt="..." />
         </div>
         <div class="col-sm-4 animated slideInLeft">
             <h1>@Model.FullName</h1> </div>
+        <div class="col-sm-4 animated slideInLeft edit-butt-account-div"><button class="btn btn-default btn-lg edit-butt-account text-center">Редагувати профіль</button></div>  
     </div>
 
     <div class="col-md-10 col-md-offset-1">
@@ -51,12 +52,13 @@
                 <hr>
             </div>
             <div id="menu2" class="tab-pane fade">
-                <div class="container col-md-12 col-lg-8 col-lg-offset-2" id="course-one">
+               
                     @foreach (var course in Model.CreatedCourses)
-                    {
-                        <course-preview course="@course"></course-preview>
-                    }
+                    {  <div class="container col-md-12 col-lg-8 col-lg-offset-2">
+                    <course-preview course="@course"></course-preview>
                 </div>
+                    }
+               
             </div>
         </div>
     </div>

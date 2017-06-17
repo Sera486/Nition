@@ -15,6 +15,16 @@
 	<!--*****************//////////endMIDDLE///////////*********************-->
 	<!--*****************//////////COURSE///////////*********************-->
 	<!--*****************//////////COURSE///////////*********************-->
+    <style>
+        #ModalEdit {
+            position: fixed;
+            top: auto;
+            right: 0%;
+            left: 0%;
+            bottom: 0;
+            transition: 2s;
+        }
+    </style>
 	    <div class="container-fluid">
 		
 		<!--*****************//////////addCourse///////////*********************-->
@@ -22,7 +32,8 @@
 	        <div class="col-md-10 col-md-offset-1 text-center" id="nameCourse-addLesson">
                 <button type="submit" class="btn btn-warning pull-right" id="editButt" id="right-panel-link" href="#right-panel" data-toggle="modal" data-target="#ModalEditTitle"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 
-	            <h3>@Model.Lesson.Title</h3>
+	            <h1>@Model.Lesson.Title</h1>
+
 	            <!--Modal!!!!!!-->
 	            <div class="modal fade" id="ModalEditTitle" role="dialog">
 	                <div class="modal-dialog">
@@ -97,7 +108,7 @@
                             <input type="hidden" name="textBlockID" value="@(infoBlock.ID)" />
 	                        <button type="submit" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button>
 	                    </form>
-	                    <h4>@((infoBlock as TextBlock).Text)</h4>
+	                    <p style="font-size:1.3em;">@((infoBlock as TextBlock).Text)</p>
 
 	                    <!--Modal!!!!!!-->
 	                    <div class="modal fade" id="ModalEdit" role="dialog">
@@ -134,7 +145,7 @@
 	                        <input type="hidden" name="videoBlockID" value="@(infoBlock.ID)" />
 	                        <button type="submit" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button>
 	                    </form>
-	                    <video controls style="max-width: 100%;height: auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
+	                    <video class="text-center" controls style="max-width: 550px;height: auto; margin-left:33%;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
 	                }
 	            </div>               
                 

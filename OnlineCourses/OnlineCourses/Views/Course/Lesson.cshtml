@@ -23,7 +23,8 @@
 		<!--*****************//////////addCourse///////////*********************-->
 
 	        <div class="col-md-10 col-md-offset-1 text-center" id="nameCourse-addLesson">
-	            <h3>@Model.Lesson.Title</h3>
+	            <h1>@Model.Lesson.Title</h1>
+                <hr class="under-hr text-center">
 	        </div>
 	        <div class="col-md-10 col-md-offset-1" id="nameCourse-addLesson">
 	           <h4>@Model.Lesson.Description</h4>
@@ -35,10 +36,11 @@
 	                @if (infoBlock is TextBlock)
 	                {  
 	                    <h4>@((infoBlock as TextBlock).Text)</h4>
+                        <hr class="no-margin no-padding"/>
 	                }
 	                else
 	                {
-	                    <video controls style="max-width: 100%;height: auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
+	                    <video class="text-center" controls style="max-width: 100%;height: auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
 	                }
 	            </div>               
 	        }
