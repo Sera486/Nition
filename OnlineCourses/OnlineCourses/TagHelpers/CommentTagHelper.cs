@@ -13,6 +13,8 @@ namespace OnlineCourses.TagHelpers
     public class CommentTagHelper:TagHelper
     {
         public Comment Comment { get; set; }
+        public bool CanDelete { get; set; } = true;
+        public string ReturnUrl { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "div";
@@ -24,6 +26,11 @@ namespace OnlineCourses.TagHelpers
                         $"<div class='commentHeadEl commentHeadElName'>{Comment.User.FullName}</div>" +
                         $"<div class='commentHeadEl commentHeadElTime'>{Comment.Date}</div>" +
                     "</div>" +
+                    (CanDelete ? $"<form method='post' action=\"/Course/DeleteComment?commentID={Comment.ID}&returnUrl={ReturnUrl}\">" +
+                                 "<button type='submit'>" +
+                                 "  <span class='glyphicon glyphicon-trash'></span>" +
+                                 "</button>" +
+                                 "</form>" : "") +
                     "<hr class='commentHrCenter'>" +
 
                         "<div class='row'>" +

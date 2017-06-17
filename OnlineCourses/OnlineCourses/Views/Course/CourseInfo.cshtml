@@ -1,4 +1,6 @@
 ﻿@addTagHelper "OnlineCourses.TagHelpers.CommentTagHelper, OnlineCourses"
+@using Microsoft.AspNetCore.Http
+@using OnlineCourses.Data
 @using OnlineCourses.Models.Enums
 @model  OnlineCourses.Models.CourseViewModels.CourseInfoViewModel
 @inject UserManager<ApplicationUser> UserManager
@@ -296,7 +298,10 @@
 
         @foreach (var comment in Model.Course.Comments)
         {
-            <comment comment="@comment"></comment>
+            <comment comment="@comment"
+                     return-url="@ViewData["ReturnUrl"]" @*Только админ и сам пользователь может тереь коменты*@
+                     can-delete="@(User.IsInRole(RolesData.Admin) || comment.User.Id == UserManager.GetUserId(User))">
+            </comment>
         }
         <!--*****************//////////otherCommentEnd///////////*********************-->
 

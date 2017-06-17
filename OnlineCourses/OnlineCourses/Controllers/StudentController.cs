@@ -25,17 +25,6 @@ namespace OnlineCourses.Controllers
             _userManager = userManager;
         }
 
-        #region Subcription
-
-        private  Subscription GetSubscription(int courseId)
-        {
-            var user =  GetCurrentUserAsync().Result;
-            var index = _context.Subscriptions.FirstOrDefault(e => e.User.Id == user.Id && e.Course.ID == courseId);
-            return index;
-        }
-
-        #endregion
-
         #region Family sharring
 
         [HttpGet]
