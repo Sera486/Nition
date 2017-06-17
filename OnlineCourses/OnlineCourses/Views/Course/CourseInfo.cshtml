@@ -18,23 +18,20 @@
 
 <div class="container-fluid">
 <div class="col-md-12">
-    <hr class="hr-min">
     <div class="container-fluid row"></div>
-    <div class="col-md-3 row">
+    <div class="col-md-3 row head">
         <!--*****************//////////author(img+name)///////////*********************-->
         <ul class="list-inline">
-            <li>
-                <figure>
+            <li class="text-center">
+                <figure class="text-center" id="authorAboout">
                     <img src= "~/@Model.Course.Author.ValidImageURL" class="img-responsive img-circle" alt="author" id ="authorImgHead">
-                    <figcaption>Лектор:</figcaption>
+                    <figcaption class="text-center">@Model.Course.Author.FullName:</figcaption>
                 </figure>
             </li>
-            <li>
-                <h4 style="margin-top:0;">@Model.Course.Author.FullName</h4></li>
         </ul>
     </div>
     <!--*****************//////////ours+numberVideo+numberPeopleBay///////////*********************-->
-    <div class="col-md-4" id="About-course">
+    <div class="col-md-4 head" id="About-course">
         <ul class="list-inline">
             <li>
                 <figure class="about-1">
@@ -57,9 +54,9 @@
         </ul>
     </div>
     <!--*****************//////////price///////////*********************-->
-    <div class="col-md-2">
-        <h2>Price</h2>
-        <h4>@Model.Course.Price</h4>
+    <div class="col-md-2 head">
+        <h2>Ціна</h2>
+        <h4>@Model.Course.Price<strong>₴</strong></h4>
     </div>
     <!--*****************//////////buttonBay///////////*********************-->
     @if (!Model.Paid && Model.IsStudent)
@@ -72,13 +69,12 @@
                     <button type="submit" class="btn btn-primary btn-block" id="buyButt">Купити цей курс</button>
                 </span>
             </form>
-
         </div>
     }
         @*Publish and hide functions for author*@
     @if(Model.IsAuthor){
 
-        <div class="col-md-3">
+        <div class="col-md-3 head">
             <form method="post">
                 <span>
                     @if (Model.Course.PublishStatus == PublishStatus.Hidden)
@@ -127,7 +123,7 @@
     }
 </div>
 <!--*****************//////////courseIMG///////////*********************-->
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-9 row head text-center">
     <img src="~/@Model.Course.ValidImageURL" alt="img-course" style="margin: 0 auto;" class="text-center" id="img-course">
 </div>
 @if(!Model.Paid && !Model.IsAuthor)
@@ -155,11 +151,12 @@
     </div>
 }
 <!--*****************//////////allDescription///////////*********************-->
-<div class="col-md-12" style="margin:1vh">
+<div class="col-md-12" id="all-about-course">
     <span>
         @Model.Course.Description
     </span>
 </div>
+
 @if (Model.Paid || Model.IsAuthor)
 {
     if (Model.IsAuthor)
@@ -304,7 +301,7 @@
         }
         <!--*****************//////////otherCommentEnd///////////*********************-->
 
-        <hr class="commentHr">
+       
     </div>
     <!--*****************//////////endComments///////////*********************-->
 </div>

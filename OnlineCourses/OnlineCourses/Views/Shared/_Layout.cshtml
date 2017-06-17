@@ -30,7 +30,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img class="img-responsive" src="~/img/9gag1600.png" alt=""></a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img id="svgImg" class="img-responsive" src="~/img/logo2.svg" alt="logo"></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
 
@@ -100,8 +100,8 @@
                 <h5>Для початку</h5>
                 <ul>
                     <li><a asp-controller="Home" asp-action="Index">Домашня сторінка</a></li>
-                    <li><a asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]">Увійти</a></li>
-                    <li><a asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Зареєструватись</a></li>
+                    <li><a asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]"> Увійти</a></li>
+                    <li><a asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"> Зареєструватись</a></li>
                 </ul>
             </div>
             <div class="col-sm-4 myCols">

@@ -1,7 +1,7 @@
 ﻿@addTagHelper "OnlineCourses.TagHelpers.CoursePreviewTagHelper, OnlineCourses"
 @model ApplicationUser
 @{
-    ViewData["Title"] = "Manage your account";
+    ViewData["Title"] = "Профіль користувача(студент)";
 }
 
 <div class="container-fluid" id="gap">
@@ -23,13 +23,14 @@
 </style>
 <div class="container-fluid">
 
-    <div class="row col-md-10 col-md-offset-1" id="imgUser">
+    <div class="row col-md-10 col-md-offset-1" id="imgUser" style="margin-bottom:2vmin;">
         <div class="col-sm-1 animated slideInLeft" style=" margin-left: 30;">
             <img class="img-responsive img-circle" width="auto" height="100" src="~/@Model.ValidImageURL" alt="..." />
         </div>
         <div class="col-sm-4 animated slideInLeft">
             <h1>@Model.FullName</h1>
         </div>
+        <div class="col-sm-4 animated slideInLeft edit-butt-account-div"><button class="btn btn-default btn-lg edit-butt-account text-center">Редагувати профіль</button></div>  
     </div>
 
     <div class="col-md-10 col-md-offset-1">
