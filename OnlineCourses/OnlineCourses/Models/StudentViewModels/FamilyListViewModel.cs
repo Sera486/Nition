@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace OnlineCourses.Models.Student
+namespace OnlineCourses.Models.StudentViewModels
 {
     public class FamilyListViewModel
     {

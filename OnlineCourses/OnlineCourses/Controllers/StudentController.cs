@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -7,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
-using OnlineCourses.Models.Enums;
-using OnlineCourses.Models.Student;
+using OnlineCourses.Models.StudentViewModels;
 
 
 namespace OnlineCourses.Controllers

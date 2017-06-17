@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace OnlineCourses.Models.AdminViewModels
+﻿namespace OnlineCourses.Models.AdminViewModels
 {
     public class IndexViewModel
     {

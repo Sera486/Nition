@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using OnlineCourses.Models.ManageViewModels;
 
 namespace OnlineCourses.Models
 {

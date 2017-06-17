@@ -4,11 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.AdminViewModels;
@@ -17,6 +15,7 @@ using OnlineCourses.Models.Enums;
 
 namespace OnlineCourses.Controllers
 {
+    [Authorize(Roles = RolesData.Admin)]
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
