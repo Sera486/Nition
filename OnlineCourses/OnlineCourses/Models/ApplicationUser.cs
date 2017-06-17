@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using OnlineCourses.Models.ManageViewModels;
 
 namespace OnlineCourses.Models
 {
@@ -16,7 +16,14 @@ namespace OnlineCourses.Models
         public List<Course> CreatedCourses { get; set; }
         public List<Comment> Comments { get; set; }
         public List<FamilyMember> FamilyMembers { get; set; }
+        /*
+        public List<Subscription> ValidSubscriptions=> FamilyMembers == null
+                    ? Subscriptions
+                    : Subscriptions
+                        .Concat(FamilyMembers.SelectMany(m => m.Member.Subscriptions)).Distinct().ToList();
+         */
 
+        
         public string FullName => $"{LastName} {FirstName}";
         public string ValidImageURL => string.IsNullOrWhiteSpace(ImageURL) ? "img/no_image.png" : ImageURL;
     }

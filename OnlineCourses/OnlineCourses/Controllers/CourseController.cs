@@ -187,6 +187,19 @@ namespace OnlineCourses.Controllers
             return RedirectToLocal(returnUrl);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteComment(int commentID, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            //TODO: никакой проверки прав на удаление, опасность
+            var comment =new Comment{ID = commentID};
+
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
+
+            return RedirectToLocal(returnUrl);
+        }
+
         private Task<ApplicationUser> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);

@@ -25,7 +25,6 @@
     <Content Include="wwwroot\css\main.css" />
     <Content Include="wwwroot\css\main.min.css" />
     <Content Include="wwwroot\css\user-info.css" />
-    <Content Include="wwwroot\img\no_image.png" />
     <Content Include="wwwroot\js\common.js" />
     <Content Include="wwwroot\js\effetsFile.js" />
     <Content Include="wwwroot\vendors\css\main.css" />
@@ -58,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\images\courseLogos\" />
+    <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\videos\lessonBlocks\" />
   </ItemGroup>
   <ItemGroup>

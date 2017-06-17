@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using OnlineCourses.Data;
-using OnlineCourses.Models.Enums;
 
 namespace OnlineCourses.Data.Migrations
 {
