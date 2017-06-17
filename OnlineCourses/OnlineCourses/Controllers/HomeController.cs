@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,11 +31,21 @@ namespace OnlineCourses.Controllers
             return View(await _context.Themes.ToListAsync());
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> About()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var dictionary = new Dictionary<ApplicationUser, int>();
+            foreach (var user in _context.ApplicationUser)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Lecturer"))
+                {
+                    dictionary.Add(user, 0);
+                }
+            }
+            foreach (var course in _context.Courses.Include(c => c.Subscriptions).Include(c => c.Author))
+            {
+                 dictionary[course.Author] = dictionary[course.Author] + course.Subscriptions.Count;
+            }
+            return View(dictionary);
         }
 
         public IActionResult Contact()

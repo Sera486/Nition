@@ -19,6 +19,7 @@ namespace OnlineCourses.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private int popularCoursesCount = 12;
 
         public CourseController(
             UserManager<ApplicationUser> userManager,
@@ -65,6 +66,35 @@ namespace OnlineCourses.Controllers
             ViewBag.Themes = themes;
             return View(viewModel);
         }
+
+        [HttpGet("PopularCourses")]
+        public async Task<IActionResult> PopularCourses(int page=1)
+        {
+            var pageSize = 5;
+            //selecting courses with all info
+            IQueryable<Course> source = _context.Courses
+                .Include(course => course.Author).Include(course => course.Subscriptions)
+                .Where(c => c.PublishStatus == PublishStatus.Published)
+                .OrderByDescending(c => c).ThenByDescending(c => c .Subscriptions.Count);
+            
+            if (_context.Courses.Count() < popularCoursesCount)
+            {
+                popularCoursesCount = _context.Courses.Count();
+            }
+            
+            source = source.Take(popularCoursesCount);
+            var pageItems = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var pageViewModel = new PageViewModel(popularCoursesCount, page, pageSize);
+
+            var viewModel = new PopularCoursesViewModel()
+            {
+                PageViewModel = pageViewModel,
+                Courses = pageItems
+            };
+            
+            return View(viewModel);
+        }
+
 
         public static IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr, int themeID=0, ApplicationUser author=null)
         {
