@@ -162,8 +162,11 @@ namespace OnlineCourses.Controllers
 
             if (user != null)
             {
-                user = _context.ApplicationUser.Include(c => c.Subscriptions).ThenInclude(s=>s.Course).First(c => c.Id == user.Id);
-                if (user.Subscriptions.Count(e => e.Course == course) == 0)
+                user = _context.ApplicationUser
+                    .Include(c => c.Subscriptions).ThenInclude(s=>s.Course)
+                    .Include(u=>u.FamilyMembers).ThenInclude(fm=>fm.User).ThenInclude(u=>u.Subscriptions).ThenInclude(s=>s.Course)
+                    .First(c => c.Id == user.Id);
+                if (user.ValidSubscriptions().Count(e => e.Course == course) == 0)
                 {
                     var viewModel = new CourseInfoViewModel()
                     {

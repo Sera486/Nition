@@ -106,6 +106,7 @@ namespace OnlineCourses.Controllers
                         userName = user.UserName;
                     }
                 }
+
                 //Checking if email is confirmed
                 var userEmailCofirmationCheck = await _userManager.FindByEmailAsync(model.Login);
                 if (userEmailCofirmationCheck != null)
