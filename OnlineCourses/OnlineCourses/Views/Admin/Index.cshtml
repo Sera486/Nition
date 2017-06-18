@@ -1,6 +1,16 @@
 ﻿@model OnlineCourses.Models.AdminViewModels.IndexViewModel
 @{ Layout = "_LayoutAdmin"; }
 
+@{ ViewData["Title"] = "Головна" }
+<!--*****************//////////MIDDLE///////////*********************-->
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<!--*****************//////////endMIDDLE///////////*********************-->
+
+
 До розгляду:
 Курси:@Model.CoursesCount
 Проблемні коментарі:@Model.CommentsCount

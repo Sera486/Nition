@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OnlineCourses.Data;
 using OnlineCourses.Models;
 using OnlineCourses.Models.AccountViewModels;
 using OnlineCourses.Services;
@@ -161,17 +162,17 @@ namespace OnlineCourses.Controllers
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
-                switch (model.Role)
-                {
-                    case "Lecturer":
-                        await _userManager.AddToRoleAsync(user, _roleManager.FindByNameAsync("Lecturer").Result.Name);
-                        break;
-                    case "Student":
-                        await _userManager.AddToRoleAsync(user, _roleManager.FindByNameAsync("Student").Result.Name);
-                        break;
-                }
                 if (result.Succeeded)
                 {
+                    switch (model.Role)
+                    {
+                        case "Lecturer":
+                            await _userManager.AddToRoleAsync(user, RolesData.Lecturer);
+                            break;
+                        case "Student":
+                            await _userManager.AddToRoleAsync(user, RolesData.Student);
+                            break;
+                    }
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
