@@ -58,6 +58,19 @@ namespace OnlineCourses.Controllers
             }
             return View("Error");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditAccountInfo(string id)
+        {
+            return View(_context.ApplicationUser.Find(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAccountInfo(EditAccountInfoViewModel model)
+        {
+
+            return View();
+        }
         
         //
         // GET: /Manage/ChangePassword
