@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace OnlineCourses.Controllers
             return View(await _context.Themes.ToListAsync());
         }
 
-        public async Task<IActionResult> About()
+        public async Task<IActionResult> BestLecturers()
         {
             var dictionary = new Dictionary<ApplicationUser, int>();
             foreach (var user in _context.ApplicationUser)
@@ -45,7 +46,17 @@ namespace OnlineCourses.Controllers
             {
                  dictionary[course.Author] = dictionary[course.Author] + course.Subscriptions.Count;
             }
-            return View(dictionary);
+
+            dictionary = dictionary.OrderByDescending(d => d.Value).Take(6).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            var lecturers = dictionary.Select(d => d.Key).ToList();
+
+            return View(lecturers);
+        }
+
+        public async Task<IActionResult> About()
+        {
+            return View();
         }
 
         public IActionResult Contact()
