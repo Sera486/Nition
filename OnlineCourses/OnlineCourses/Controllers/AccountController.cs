@@ -106,6 +106,17 @@ namespace OnlineCourses.Controllers
                         userName = user.UserName;
                     }
                 }
+                //Checking if email is confirmed
+                var userEmailCofirmationCheck = await _userManager.FindByEmailAsync(model.Login);
+                if (userEmailCofirmationCheck != null)
+                {
+                    if (!await _userManager.IsEmailConfirmedAsync(userEmailCofirmationCheck))
+                    {
+                        return RedirectToLocal("~/Account/ConfirmRequired");
+                    }
+                }
+
+
                 var result = await _signInManager.PasswordSignInAsync(userName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -132,14 +143,16 @@ namespace OnlineCourses.Controllers
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        public IActionResult Register()
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            var vm = new RegisterViewModel();
-            vm.Roles = new List<SelectListItem>
+            ViewData["ReturnUrl"] = "Account/ConfirmRequired";
+            var vm = new RegisterViewModel
             {
-                new SelectListItem() {Text = "Студент", Value = "Student"},
-                new SelectListItem() {Text = "Лектор", Value = "Lecturer"}
+                Roles = new List<SelectListItem>
+                {
+                    new SelectListItem() {Text = "Студент", Value = "Student"},
+                    new SelectListItem() {Text = "Лектор", Value = "Lecturer"}
+                }
             };
             return View(vm);
         }
@@ -173,9 +186,18 @@ namespace OnlineCourses.Controllers
                             await _userManager.AddToRoleAsync(user, RolesData.Student);
                             break;
                     }
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    //email verification
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action(
+                        "ConfirmEmail",
+                        "Account",
+                        new { userId = user.Id, code = code },
+                        protocol: HttpContext.Request.Scheme);
+                    AuthMessageSender emailService = new AuthMessageSender();
+                    await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                        $"Підтвердіть реєстрацію пройшовши по лінку: <a href='{callbackUrl}'>link</a>");
+
+                    return RedirectToLocal("~/Account/ConfirmRequired");
                 }
                 AddErrors(result);
             }
@@ -254,6 +276,13 @@ namespace OnlineCourses.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ConfirmRequired()
         {
             return View();
         }

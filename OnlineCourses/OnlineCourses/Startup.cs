@@ -42,6 +42,7 @@ namespace OnlineCourses
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
+                    options.SignIn.RequireConfirmedEmail = true;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;

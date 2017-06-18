@@ -1,10 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Confirm Email";
+    ViewData["Title"] = "Підтвердження пошти";
 }
 
-<h2>@ViewData["Title"].</h2>
+<!--*****************//////////MIDDLE///////////*********************-->
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<!--*****************//////////endMIDDLE///////////*********************-->
+
 <div>
     <p>
-        Thank you for confirming your email. Please <a asp-controller="Account" asp-action="Login">Click here to Log in</a>.
+        Дякуємо за підтвердження вашого пошти. <a asp-controller="Account" asp-action="Login">Натисніть щоб ввійти</a>.
     </p>
 </div>

@@ -1,4 +1,4 @@
-﻿@model ApplicationUser
+﻿@model EditAccountInfoViewModel
 @{
     ViewData["Title"] = "Редагування профілю";
 }
@@ -11,7 +11,7 @@
 
 <div class="row col-md-10 col-md-offset-1" id="imgUser">
     <div class="col-sm-1 animated slideInLeft">
-        <img class="img-responsive img-circle" width="auto" height="100" src="~/@Model.ValidImageURL" alt="..." />
+        <img class="img-responsive img-circle" width="auto" height="100" src="~/@Model.ValidImageUrl" alt="..." />
     </div>
     <div class="col-sm-4 animated slideInLeft">
         <h1>@Model.UserName</h1>
@@ -19,104 +19,110 @@
 </div>
 
 <div class="col-sm-offset-1 col-sm-10 animated slideInLeft">
-    <h1></h1>
+    <h4>@Model.Message</h4>
 </div>
 
 
 <div class="container">
-        <h2>Змінити данні профілю</h2>
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">Основна інформація</a></li>
-            <li><a data-toggle="tab" href="#menu111">Додаткові контакти</a></li>
+    <h2>Змінити дані профілю</h2>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Основна інформація</a></li>
+        <li><a data-toggle="tab" href="#menu111">Додаткові контакти</a></li>
+        @if (User.IsInRole("Lecturer"))
+        {
             <li><a data-toggle="tab" href="#menu112">Інформація про Вас</a></li>
-            <li><a data-toggle="tab" href="#menu113">Змінити пароль</a></li>
-        </ul>
+        }
+        <li><a data-toggle="tab" href="#menu113">Змінити пароль</a></li>
+    </ul>
     <div class="tab-content">
-        <form asp-controller="Manage" asp-action="EditAccountInfo" method="post">
-            <div id="home" class="tab-pane fade in active">
-                <h3>Змінити основні дані</h3>
-                <form class="form-horizontal animated slideInLeft" action="">
-                    <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight">
-                            <h4>Ім'я:</h4>
-                            <input type="text" class="form-control" id="usr" placeholder="Введіть ім'я" asp-for="FirstName" value="@Model.FirstName">
-                        </div>
+        <div id="home" class="tab-pane fade in active">
+            <h3>Змінити основні дані</h3>
+            <form class="form-horizontal animated slideInLeft" asp-controller="Manage" asp-action="EditAccountInfoMainData" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight">
+                        <h4>Ім'я:</h4>
+                        <input type="text" class="form-control" id="usr" placeholder="Введіть ім'я" asp-for="FirstName" value="@Model.FirstName">
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight">
-                            <h4>Прізвище:</h4>
-                            <input type="text" class="form-control" id="usrSurnm" placeholder="Введіть прізвище" asp-for="LastName" value="@Model.LastName">
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight">
+                        <h4>Прізвище:</h4>
+                        <input type="text" class="form-control" id="usrSurnm" placeholder="Введіть прізвище" asp-for="LastName" value="@Model.LastName">
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight">
-                            <h4>Email:</h4>
-                            <input type="email" class="form-control" id="email" placeholder="Введіть email" asp-for="Email" value="@Model.Email">
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight">
+                        <h4>Email:</h4>
+                        <input type="email" class="form-control" id="email" placeholder="Введіть email" asp-for="Email" value="@Model.Email">
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight">
-                            <h4>Змінити аватар:</h4>
-                            <span class="btn btn-default btn-file btn-block">
-                                <div class="col-md-offset-1 col-md-10 text-center">
-                                    <img id="image" class="img-responsive text-center" style="border-radius: 7px; height: 22vmin; width: auto;">
-                                </div>
-                                <input asp-for="ImageURL" type="file" class="form-control" id="files accept=" image/x-png,image/gif,image/jpeg"">
-                            </span>
-                            <span asp-validation-for="ImageURL" class="text-danger"></span>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight">
+                        <h4>Змінити аватар:</h4>
+                        <span class="btn btn-default btn-file btn-block">
+                            <div class="col-md-offset-1 col-md-10 text-center">
+                                <img id="image" class="img-responsive text-center" style="border-radius: 7px; height: 22vmin; width: auto;">
+                            </div>
+                            <input asp-for="Image" type="file" class="form-control" id="files" accept="image/x-png,image/gif,image/jpeg">
+                        </span>
+                        <span asp-validation-for="Image" class="text-danger"></span>
                     </div>
-                    <hr>
-                    <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight slideInUp">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Підтвердити</button>
-                        </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight slideInUp">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Підтвердити</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
 
 
-            <div id="menu111" class="tab-pane fade">
-                <h3>Змінити/додати контакти</h3>
-                <form class="form-horizontal animated slideInLeft" action="">
-                    <div id="other-contacts-div" class="animated slideInRight">
-                        <div class="form-group">
-                            <div class="col-sm-12 animated slideInRight">
-                                <h4>Facebook:</h4>
-                                <input type="email" class="form-control" id="email" placeholder="посилання на facebook" asp-for="Facebook" value="@Model.Facebook">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12 animated slideInRight">
-                                <h4>Twitter:</h4>
-                                <input type="email" class="form-control" id="email" placeholder="посилання на twitter" asp-for="Twitter" value="@Model.Twitter">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12 animated slideInRight">
-                                <h4>Linkedin:</h4>
-                                <input type="email" class="form-control" id="email" placeholder="посилання на linkedin" asp-for="Linkedin" value="@Model.Linkedin">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12 animated slideInRight">
-                                <h4>Skype:</h4>
-                                <input type="email" class="form-control" id="email" placeholder="посилання на skype" asp-for="Skype" value="@Model.Skype">
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
+        <div id="menu111" class="tab-pane fade">
+            <h3>Змінити/додати контакти</h3>
+            <form class="form-horizontal animated slideInLeft" asp-controller="Manage" asp-action="EditAccountInfoContacts" method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div id="other-contacts-div" class="animated slideInRight">
                     <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight slideInUp">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Підтвердити</button>
+                        <div class="col-sm-12 animated slideInRight">
+                            <h4>Facebook:</h4>
+                            <input type="text" class="form-control" id="facebook" placeholder="посилання на facebook" asp-for="Facebook" value="@Model.Facebook">
                         </div>
                     </div>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 animated slideInRight">
+                            <h4>Twitter:</h4>
+                            <input type="text" class="form-control" id="twitter" placeholder="посилання на twitter" asp-for="Twitter" value="@Model.Twitter">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 animated slideInRight">
+                            <h4>Linkedin:</h4>
+                            <input type="text" class="form-control" id="linkedin" placeholder="посилання на linkedin" asp-for="Linkedin" value="@Model.Linkedin">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 animated slideInRight">
+                            <h4>Skype:</h4>
+                            <input type="text" class="form-control" id="skype" placeholder="посилання на skype" asp-for="Skype" value="@Model.Skype">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight slideInUp">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Підтвердити</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-
+        @if (User.IsInRole("Lecturer"))
+        {
             <div id="menu112" class="tab-pane fade">
-                <form class="form-horizontal animated slideInLeft" action="">
+                <form class="form-horizontal animated slideInLeft" asp-controller="Manage" asp-action="EditAccountInfoAboutMe" method="post">
+                    <input type="hidden" name="Id" value="@Model.Id"/>
                     <div class="form-group">
                         <div class="col-sm-12 animated slideInRight">
                             <h4>Про себе:</h4>
@@ -131,36 +137,35 @@
                     </div>
                 </form>
             </div>
-    </form>
+        }
 
+        <div id="menu113" class="tab-pane fade">
+            <h3>Змінити пароль</h3>
+            <form class="form-horizontal animated slideInLeft" asp-controller="Manage" asp-action="ChangePassword" method="post">
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight">
+                        <h4>Пароль:</h4>
+                        <input type="password" class="form-control" id="pwd" placeholder="Введіть старий пароль" name="OldPassword">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight">
 
-            <div id="menu113" class="tab-pane fade">
-                <h3>Змінити пароль</h3>
-                <form class="form-horizontal animated slideInLeft" action="">
-                    <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight">
-                            <h4>Пароль:</h4>
-                            <input type="password" class="form-control" id="pwd" placeholder="Введіть старий пароль" name="pwd">
-                        </div>
+                        <input type="password" class="form-control" id="pwd" placeholder="Введіть новий пароль" name="NewPassword">
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight">
-
-                            <input type="password" class="form-control" id="pwd" placeholder="Введіть новий пароль" name="pwd">
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight">
+                        <input type="password" class="form-control" id="pwdTwo" placeholder="Підтвердіть пароль" name="ConfirmPassword">
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight">
-                            <input type="password" class="form-control" id="pwdTwo" placeholder="Підтвердіть пароль" name="pwdTwo">
-                        </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-12 animated slideInRight slideInUp">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Підтвердити</button>
                     </div>
-                    <hr>
-                    <div class="form-group">
-                        <div class="col-sm-12 animated slideInRight slideInUp">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Підтвердити</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
+    </div>
 </div>

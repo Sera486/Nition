@@ -75,12 +75,6 @@
 	border width: 1vh;
 }
 
- img{
-	height: 160px;
-	padding: 2px;
-	width: auto;
-}
-
 @media (max-width: 767px) {
 #course-one{
 	height: 333px;
@@ -96,6 +90,7 @@
 	 border: solid;
 	border-color: #e8e8e8;
 	border width: 1vh;
+	
 }
 }
 
@@ -108,6 +103,11 @@
 }
 }
 
-#img-prj{
+#img-prjDiv{
 	 margin: 0 auto;
+}
+ #img-prj{
+	height: 160px;
+	padding: 2px;
+	width: auto;
 }

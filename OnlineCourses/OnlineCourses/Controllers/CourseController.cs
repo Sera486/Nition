@@ -209,7 +209,7 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpPost]
-        public async void AddComment(int courseID, string commentText)
+        public async Task AddComment(int courseID, string commentText)
         {
             var course = _context.Courses.Include(c => c.Comments).First(c=>c.ID==courseID);
             if (!string.IsNullOrWhiteSpace(commentText))
@@ -222,7 +222,7 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpPost]
-        public async void DeleteComment(int commentID)
+        public async Task DeleteComment(int commentID)
         {
             //TODO: никакой проверки прав на удаление, опасность
             var comment =new Comment{ID = commentID};
