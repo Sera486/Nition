@@ -71,6 +71,8 @@
 <!--*****************//////////endSLIDER///////////*********************-->
 <!--*****************//////////endSLIDER///////////*********************-->
 <!--*****************//////////endSLIDER///////////*********************-->
+
+
 <!--*****************//////////CARD///////////*********************-->
 <!--*****************//////////CARD///////////*********************-->
 <!--*****************//////////CARD///////////*********************-->
@@ -111,7 +113,7 @@
                 <a asp-controller="Course" asp-action="Index" asp-route-theme="@theme.ID">
                     <div class="col-sm-3 popular-them">
                         <figure>
-                            <i class="fa fa-facebook fa-3x popular-them-item"></i>
+                            <img src="~/@theme.ValidImageURL" class="popular-them-item"/>
                             <figcaption>
                                 <p>
                                     <strong>@theme.Name</strong>

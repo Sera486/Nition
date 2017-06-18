@@ -592,6 +592,7 @@ body {
     }
 
 .popular-them-item {
+    height: 5em;
     color: #59ABE3;
     margin: 0 auto;
 }

@@ -209,9 +209,8 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddComment(int courseID, string commentText,string returnUrl=null)
+        public async void AddComment(int courseID, string commentText)
         {
-            ViewData["ReturnUrl"] = returnUrl;
             var course = _context.Courses.Include(c => c.Comments).First(c=>c.ID==courseID);
             if (!string.IsNullOrWhiteSpace(commentText))
             {
@@ -220,20 +219,17 @@ namespace OnlineCourses.Controllers
                 _context.Update(course);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToLocal(returnUrl);
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteComment(int commentID, string returnUrl = null)
+        public async void DeleteComment(int commentID)
         {
-            ViewData["ReturnUrl"] = returnUrl;
             //TODO: никакой проверки прав на удаление, опасность
             var comment =new Comment{ID = commentID};
 
             _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
-
-            return RedirectToLocal(returnUrl);
+            
         }
 
         [HttpPost]

@@ -196,7 +196,7 @@ namespace OnlineCourses.Controllers
             try
             {
                 ViewData["ReturnUrl"] = returnUrl;
-                _context.Lessons.Remove(_context.Lessons.Find(lessonID));
+                _context.Lessons.Remove(new Lesson{ID = lessonID});
 
                 await _context.SaveChangesAsync();
                 return RedirectToLocal(returnUrl);

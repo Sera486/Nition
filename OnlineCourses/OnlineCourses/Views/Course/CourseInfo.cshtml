@@ -178,14 +178,11 @@
             @foreach (var lesson in Model.Course.Lessons)
             {
                 <tr class="openLesson" data-href="/LessonEditor/@lesson.ID">@*Относительный путь не конфетка, но вполне пойдёт*@
-                    <td class="numLessonTh">@lesson.Order</td>
-                    <td class="nameLessonTh">@lesson.Title</td>
-                    <td class="shortDescTh">@lesson.Description</td>
-                    @if (Model.IsAuthor)
-                    {
-                        <a asp-controller="Lecturer" asp-action="LessonEditor" asp-route-LessonId="@lesson.ID"><td class="editButt text-center"><i class="fa fa-pencil" aria-hidden="true"></i></td></a>
-                        <td class="delButt text-center"><i class="fa fa-times" aria-hidden="true"></i></td>
-                    }
+                    <td class="numLessonTh" >@lesson.Order</td>
+                    <td class="nameLessonTh" >@lesson.Title</td>
+                    <td class="shortDescTh" >@lesson.Description</td>
+
+                    <td class="delButt text-center"><i class="fa fa-times" aria-hidden="true"></i></td>
                 </tr>
             }
             </tbody>
@@ -272,7 +269,6 @@
 <div id="divContainerComment">
     <div class="container-fluid col-md-10 col-md-offset-1" id="divContainerComment">
         <div id="titleComment">
-            <button id="deleteComment">TMP</button>
             <h2>Коментарі</h2>
         </div>
       

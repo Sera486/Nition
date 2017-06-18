@@ -67,6 +67,7 @@
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\images\courseLogos\" />
+    <Folder Include="wwwroot\images\themeImages\" />
     <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\videos\lessonBlocks\" />
   </ItemGroup>
