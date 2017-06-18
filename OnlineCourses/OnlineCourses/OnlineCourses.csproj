@@ -14,9 +14,18 @@
 
   <ItemGroup>
     <Compile Remove="Models\HomeViewModels\**" />
+    <Compile Remove="wwwroot\lib\**" />
     <Content Remove="Models\HomeViewModels\**" />
+    <Content Remove="wwwroot\lib\**" />
     <EmbeddedResource Remove="Models\HomeViewModels\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
     <None Remove="Models\HomeViewModels\**" />
+    <None Remove="wwwroot\lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\OnlineCourses20170618011143 - FTP.pubxml" />
+    <None Remove="Properties\PublishProfiles\OnlineCourses20170618011143 - Web Deploy.pubxml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +65,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\images\courseLogos\" />
     <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\videos\lessonBlocks\" />

@@ -202,6 +202,12 @@ namespace OnlineCourses.Controllers
             return View();
         }
 
+        [HttpGet("ViewComponent/CommentList/{courseID}")]
+        public IActionResult CommentListViewComponent(int courseID)
+        {
+            return ViewComponent("CommentList", courseID );
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddComment(int courseID, string commentText,string returnUrl=null)
         {
@@ -226,6 +232,38 @@ namespace OnlineCourses.Controllers
 
             _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
+
+            return RedirectToLocal(returnUrl);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MarkComment(int commentID, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+
+            var comment = await _context.Comments.FindAsync(commentID);
+            if (comment != null)
+            {
+                comment.Status=CommentStatus.Offensive;
+                _context.Comments.Update(comment);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToLocal(returnUrl);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnmarkComment(int commentID, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+
+            var comment = await _context.Comments.FindAsync(commentID);
+            if (comment != null)
+            {
+                comment.Status = CommentStatus.Normal;
+                _context.Comments.Update(comment);
+                await _context.SaveChangesAsync();
+            }
 
             return RedirectToLocal(returnUrl);
         }

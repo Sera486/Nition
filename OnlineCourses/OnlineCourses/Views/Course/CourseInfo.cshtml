@@ -201,22 +201,22 @@
         </div>
         <table class="table">
             <thead>
-                <tr>
-                    <th>Урок№</th>
-                    <th>Назва</th>
-                    <th>Короткий опис</th>
-                </tr>
+            <tr>
+                <th>Урок№</th>
+                <th>Назва</th>
+                <th>Короткий опис</th>
+            </tr>
             </thead>
             <tbody id="tableLesson">
-                @foreach (var lesson in Model.Course.Lessons)
-                {
-                    <tr class="openLesson" data-href="/Lesson/@lesson.ID">
-                        @*Относительный путь не конфетка, но вполне пойдёт*@
+            @foreach (var lesson in Model.Course.Lessons)
+            {
+                <tr class="openLesson" data-href="/Lesson/@lesson.ID">
+                    @*Относительный путь не конфетка, но вполне пойдёт*@
                     <td class="numLessonTh">@lesson.Order</td>
                     <td class="nameLessonTh">@lesson.Title</td>
                     <td class="shortDescTh">@lesson.Description</td>
                 </tr>
-                }
+            }
             </tbody>
         </table>
     }
@@ -227,7 +227,7 @@
     <div class="col-md-6 col-md-offset-3 " id="addLessonForm">
         <form class="form-horizontal" asp-controller="Lecturer" asp-action="AddLesson" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <input type="hidden" name="courseID" value="@Model.Course.ID"/>
-        <input type="hidden" name="returnUrl" value="~/Course/@Model.Course.ID" />
+            <input type="hidden" name="returnUrl" value="~/Course/@Model.Course.ID" />
             <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-10">
                     <hr>
@@ -272,41 +272,58 @@
 <div id="divContainerComment">
     <div class="container-fluid col-md-10 col-md-offset-1" id="divContainerComment">
         <div id="titleComment">
+            <button id="deleteComment">TMP</button>
             <h2>Коментарі</h2>
         </div>
+      
         <!--*****************//////////commentForm///////////*********************-->
         @if (User.Identity.IsAuthenticated)
         {
             <div class="col-md-10 col-md-offset-1">
-                <form asp-controller="Course" asp-action="AddComment" asp-route-courseID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-                    <div class="form-group">
-                        <label for="comment">Залиште свій коментар:</label>
-                        <textarea name="commentText" class="form-control" rows="5" id="commentTextArea" ></textarea>
-                        <button style="margin-top: 1vmin;" type="submit" class="btn btn-primary pull-right">Підтвердити</button>
-                    </div>
-                </form>
+                <div class="form-group">
+                    <label for="comment">Залиште свій коментар:</label>
+                    <textarea name="commentText" class="form-control" rows="5" id="commentTextArea"></textarea>
+                    <button id="addCommentButton" courseID="@Model.Course.ID" style="margin-top: 1vmin;" class="btn btn-primary pull-right">Підтвердити</button>
+                </div>
             </div>
         }
-        <!--*****************//////////commentInfo///////////*********************-->
-        <div class="col-md-12 commentDiv row">
-            <hr class="commentHr">    
+        
+        <div id="divContainerCommentInner">
         </div>
 
-        @foreach (var comment in Model.Course.Comments)
-        {
-            <comment comment="@comment"
-                     return-url="@ViewData["ReturnUrl"]" @*Только админ и сам пользователь может тереь коменты*@
-                     can-delete="@(User.IsInRole(RolesData.Admin) || comment.User.Id == UserManager.GetUserId(User))">
-            </comment>
-        }
-        <!--*****************//////////otherCommentEnd///////////*********************-->
-
-       
     </div>
     <!--*****************//////////endComments///////////*********************-->
+
 </div>
         
-        
-        
+<!--*****************//////////endComments///////////*********************-->
+      
 </div>
 </body>
+
+@section Scripts{
+    
+    <script type="text/javascript" src="~/vendors/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $('#addCommentButton').click(function (event) {
+
+                $.post(
+                    '/Course/AddComment?courseID=' +
+                    $('#addCommentButton').attr('courseID') +
+                    '&commentText=' +
+                    $('#commentTextArea').val()
+                );
+                $('#commentTextArea').val("");
+                event.preventDefault();
+            });
+        });
+
+        var container = $("#divContainerCommentInner");
+        var refreshComponent = function () {
+            $.get("/ViewComponent/CommentList/"+@Model.Course.ID, function (data) { container.html(data); });
+        };
+
+        $(function () { window.setInterval(refreshComponent, 3000); });
+    </script>
+}
