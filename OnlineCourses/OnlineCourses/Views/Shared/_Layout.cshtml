@@ -111,20 +111,12 @@
                     <li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
                 </ul>
             </div>
-            @*<div class="col-sm-3 myCols">
-                <h5>Допомога</h5>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Help</a></li>
-                    <li><a href="#">Forum</a></li>
-                </ul>
-            </div>*@
             <div class="col-sm-4 myCols">
                 <h5>Курси</h5>
                 <ul>
-                    <li><a href="#">Усі курси</a></li>
-                    <li><a href="#">Популярні курси</a></li>
-                    <li><a href="#">Останні курси</a></li>
+                    <li><a asp-controller="Course" asp-action="Index">Усі курси</a></li>
+                    <li><a asp-controller="Course" asp-action="PopularCourses">Популярні курси</a></li>
+                    <li><a href="#">Нові курси</a></li>
                 </ul>
             </div>
         </div>
