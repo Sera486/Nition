@@ -112,8 +112,7 @@ namespace OnlineCourses.Controllers
                 {
                     if (!await _userManager.IsEmailConfirmedAsync(userEmailCofirmationCheck))
                     {
-                        ModelState.AddModelError(string.Empty, "Ви не підтвердили свій email");
-                        return View(model);
+                        return RedirectToAction(nameof(AccountController.ConfirmRequired), "Account");
                     }
                 }
 
