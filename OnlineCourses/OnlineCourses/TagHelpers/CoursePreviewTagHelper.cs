@@ -17,13 +17,12 @@ namespace OnlineCourses.TagHelpers
                                 $"<img src=\'/{Course.ValidImageURL}\' alt=\"prjImg\" id=\"img-prj\" class=\"img-responsive\">" +
                             "</div>" +
                             "<div class=\"col-md-8 col-sm-12\">" +
-                                $"<a href='/Course/{Course.ID}'><strong><h3>{Course.Title}</h3></strong></a>" +
-                                $"<h6>Автор: {Course.Author.FullName}</h6>" +
-                                (ShowStatus?$"<h6>Статус:{Course.PublishStatus}</h6>":"")+
-                                $"<p class=\"text-left\">{Course.Description}</p>" +
+                                $"<a href='/Course/{Course.ID}'><strong><h2>{Course.Title}</h2></strong></a>" +
+                                $"<h4>Автор: {Course.Author.FullName}</h4>" +
+                                (ShowStatus?$"<h5>Статус:{Course.PublishStatus}</h5>":"")+
+                                $"<p style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' class=\"text-left\">{Course.Description}</p>" +
                             "</div>" +
-                       "</div>";
-            output.Content.SetHtmlContent(coursePreviewContent);
+                       "</div>"; output.Content.SetHtmlContent(coursePreviewContent);
         }
     }
 }

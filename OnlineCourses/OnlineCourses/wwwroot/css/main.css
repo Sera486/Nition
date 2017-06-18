@@ -616,6 +616,16 @@ body {
     margin-bottom: 1.5vmin;
 }
 
+.text-hr {
+    padding: 0;
+    margin: 0;
+    border: none;
+    color: #59ABE3;
+    background-color: #59ABE3;
+    height: 0.3vmin;
+    margin: 0 auto;
+    margin-bottom: 1.5vmin;
+}
 
 
 /*
@@ -1439,4 +1449,56 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e6a83', end
 
 #Logout:hover {
     font-size: 1.05em; 
+}
+
+
+.card-lector-all {
+    background-color: #f2f2f2;
+}
+.card-lector {
+    border: solid;
+    border-width: 1.1vmin;
+    border-color: #f2f2f2;
+    background-color: white;
+}
+    .card-lector:hover {
+        zoom: 1.002;
+    }
+
+.hr-card-lector {
+    padding: 0;
+    margin: 0;
+    border: none;
+    color: #f2f2f2;
+    background-color: #f2f2f2;
+    height: 0.3vmin;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 0.1vmin;
+    margin-top: 0.1vmin;
+}
+
+.shadow {
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+    padding: 10px;
+}
+
+.btn-lector-card {
+    background: white;
+    color: black;
+    border-width: 0.2vmin;
+    border-color: #044F67;
+    transition: 0.9s;
+}
+
+    .btn-lector-card:hover {
+        color: white;
+        background-color: #044F67;
+        border-width: 0.1vmin;
+        border-color: white;
+    }
+
+.card-lector-name{
+    font-size:1.5em;
 }

@@ -17,11 +17,13 @@
 
         <div class="col-md-10 col-md-offset-1">
             <form asp-controller="Lecturer" asp-action="CourseList" method="get" class="form-inline">
-                <div class="form-group col-md-5 col-sm-12">
-                    <input name="search" type="text" class="form-control" id="searchInput" placeholder="Пошук" value="@Model.SearchString">
-                </div>
-                <div class="col-md-3 col-sm-12">
-                    <button type="submit" class="btn btn-default btn-block" id="buttSearch">Пошук</button>
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="form-group col-md-8  col-sm-12 no-margin no-padding">
+                        <input name="search" type="text" class="form-control" id="searchInput" placeholder="Пошук" value="@Model.SearchString">
+                    </div>
+                    <div class="col-md-4 col-sm-12 no-padding no-margin">
+                        <button type="submit" class="btn btn-default btn-block" id="buttSearch">Пошук</button>
+                    </div>
                 </div>
             </form>
         </div>
