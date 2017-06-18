@@ -112,7 +112,7 @@ namespace OnlineCourses.Controllers
                 {
                     if (!await _userManager.IsEmailConfirmedAsync(userEmailCofirmationCheck))
                     {
-                        return RedirectToAction(nameof(AccountController.ConfirmRequired), "Account");
+                        return RedirectToLocal("~/Account/ConfirmRequired");
                     }
                 }
 
