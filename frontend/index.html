@@ -22,9 +22,9 @@
 
 <body>
 
-<!--*****************//////////NAVBAR///////////*********************-->
-<!--*****************//////////NAVBAR///////////*********************-->
-<!--*****************//////////NAVBAR///////////*********************-->  
+	<!--*****************//////////NAVBAR///////////*********************-->
+	<!--*****************//////////NAVBAR///////////*********************-->
+	<!--*****************//////////NAVBAR///////////*********************-->
 	<nav class="navbar navbar-inverse navbar-fixed-top normal" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
@@ -49,8 +49,11 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="registration.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li class="userImgHead">
+						<a class="navbar-brand userImgHead" href="#"><img id="imgHead" style="margin-bottom: 24px;" class="img-responsive img-circle userImgHead" src="img/Convict_Lake_Autumn_View_uhd.jpg" alt=""></a>
+					</li>
+					<li><a href="registration.html"><span class="glyphicon glyphicon-user"></span> Зареєструватися</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span> Увійти</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<div id="nav-social-icon" class="col-md-12" nopadding>
@@ -66,14 +69,14 @@
 		</div>
 		<!--/.contatiner -->
 	</nav>
-<!--*****************//////////endNAVBAR///////////*********************-->
-<!--*****************//////////endNAVBAR///////////*********************-->
-<!--*****************//////////endNAVBAR///////////*********************-->  
+	<!--*****************//////////endNAVBAR///////////*********************-->
+	<!--*****************//////////endNAVBAR///////////*********************-->
+	<!--*****************//////////endNAVBAR///////////*********************-->
 
 
-<!--*****************//////////SLIDER///////////*********************-->
-<!--*****************//////////SLIDER///////////*********************-->
-<!--*****************//////////SLIDER///////////*********************-->  
+	<!--*****************//////////SLIDER///////////*********************-->
+	<!--*****************//////////SLIDER///////////*********************-->
+	<!--*****************//////////SLIDER///////////*********************-->
 	<div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="5000">
 		<!-- Indicators -->
 		<ol class="carousel-indicators">
@@ -86,18 +89,14 @@
 			<!-- Third Slide -->
 			<div class="item active">
 				<!-- Slide Background -->
-				<img src="img/training.jpg" class="slide-image" />
+				<img src="img/c700x420.jpg" alt="Bootstrap Touch Slider" class="slide-image" /> *
 				<div class="bs-slider-overlay"></div>
-				<div class="container">
-					<div class="row">
-						<!-- Slide Text Layer -->
-						<div class="slide-text slide_style_left">
-							<h1 data-animation="animated zoomInRight">Найкращі лекції</h1>
-							<p data-animation="animated fadeInLeft">Великий вибір бізнес лекцій на різноманітну тематику.</p>
-							<a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Популярні курси</a>
-							<!--                                <a href=""  class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
-						</div>
-					</div>
+				<!-- Slide Text Layer -->
+				<div class="slide-text slide_style_right">
+					<h1 data-animation="animated zoomInLeft">Можливість переглянути лекції людей із реальним досвідом роботи</h1>
+					<p data-animation="animated fadeInRight">Унікальні лекції від успішних людей.</p>
+					<a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Що ми пропонуємо</a>
+					<!--                        <a href="" target="_blank" class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
 				</div>
 			</div>
 			<!-- End of Slide -->
@@ -120,14 +119,19 @@
 			<!-- Third Slide -->
 			<div class="item">
 				<!-- Slide Background -->
-				<img src="img/c700x420.jpg" alt="Bootstrap Touch Slider" class="slide-image" /> *
+				<!-- Slide Background -->
+				<img src="img/training.jpg" class="slide-image" />
 				<div class="bs-slider-overlay"></div>
-				<!-- Slide Text Layer -->
-				<div class="slide-text slide_style_right">
-					<h1 data-animation="animated zoomInLeft">Можливість переглянути лекції людей із реальним досвідом роботи</h1>
-					<p data-animation="animated fadeInRight">Унікальні лекції від успішних людей.</p>
-					<a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Що ми пропонуємо</a>
-					<!--                        <a href="" target="_blank" class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
+				<div class="container">
+					<div class="row">
+						<!-- Slide Text Layer -->
+						<div class="slide-text slide_style_left">
+							<h1 data-animation="animated zoomInRight">Найкращі лекції</h1>
+							<p data-animation="animated fadeInLeft">Великий вибір бізнес лекцій на різноманітну тематику.</p>
+							<a href="" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Популярні курси</a>
+							<!--                                <a href=""  class="btn btn-primary" data-animation="animated fadeInRight">select two</a>-->
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- End of Slide -->
@@ -145,46 +149,125 @@
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
-<!--*****************//////////endSLIDER///////////*********************-->
-<!--*****************//////////endSLIDER///////////*********************-->
-<!--*****************//////////endSLIDER///////////*********************--> 
+	<!--*****************//////////endSLIDER///////////*********************-->
+	<!--*****************//////////endSLIDER///////////*********************-->
+	<!--*****************//////////endSLIDER///////////*********************-->
 
 
 
-<!--*****************//////////CARD///////////*********************-->
-<!--*****************//////////CARD///////////*********************-->
-<!--*****************//////////CARD///////////*********************--> 
+	<!--*****************//////////CARD///////////*********************-->
+	<!--*****************//////////CARD///////////*********************-->
+	<!--*****************//////////CARD///////////*********************-->
 	<div class="container-fluid" id="containerfirst">
 		<div class="container" class="aos-all" id=s econdcontainer>
+			<!--
 			<div class="col-md-12 aos-item" data-aos="zoom-in">
 				<h1>Що ми пропонуємо</h1></div>
+-->
 			<div class="col-md-4 Oportunities aos-item nopadding one" data-aos="fade-up">
-				<h3>Що ви отримуєте</h3>
-				<strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам у вашій подільшій справі.
+				<h3>Що ви отримуєте:</h3>
 				<ul>
-					<li>dsgasdf</li>
+					<li id="cardUl"><strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам у вашій подільшій справі.</li>
+					<li id="cardUl"><strong>Унікаль курси</strong> Курси, які допоможуть вашій справі. Усі наші курси проходять модерацію та перевірку</li>
+					<li id="cardUl"><strong>Кваліфіковані лектори</strong></li>
+					<li id="cardUl"><strong>Унікальний досвід та інформація</strong></li>
 				</ul>
 			</div>
 			<div class="col-md-4 Oportunities aos-item nopadding two" data-aos="fade-up-right">
-				<h3>Що ви отримуєте</h3>
-				<strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+				<h3>Отримайте необхідні знання вдома</h3>
+				<strong>Ніяких семінарів та тренінгів.</strong> Потрібна інформація у зручному для Вас місці.</div>
 			<div class="col-md-4 Oportunities aos-item nopadding three" data-aos="fade-up">
-				<h3>Що ви отримуєте</h3>
-				<strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
+				<h3>Завжди під рукою</h3>
+				<strong>Унікальні курси.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
 			<div class="col-md-4 Oportunities aos-item nopadding four" data-aos="fade-up-left">
 				<h3>Що ви отримуєте</h3>
 				<strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам ц вашій подільшій справі.</div>
 		</div>
 	</div>
-<!--*****************//////////endCARD///////////*********************-->
-<!--*****************//////////endCARD///////////*********************-->
-<!--*****************//////////endCARD///////////*********************--> 
+	<!--*****************//////////endCARD///////////*********************-->
+	<!--*****************//////////endCARD///////////*********************-->
+	<!--*****************//////////endCARD///////////*********************-->
+
+	<div class="container-fluid text-center" id="popular-them-div">
+		<div class="col-md-12">
+			<h1><strong>Популярні теми</strong></h1>
+			
+		</div>
+		<div class="container-fluid">
+			<div class="container col-md-10 col-md-offset-1 ">
+				<div class="col-sm-3 popular-them">
+					<figure>
+						<i class="fa fa-facebook fa-3x popular-them-item"></i>
+						<figcaption>
+							<p><strong>Them</strong></p>
+						</figcaption>
+					</figure>
+				</div>
+	<div class="col-sm-3 popular-them">
+					<figure>
+						<i class="fa fa-facebook fa-3x popular-them-item"></i>
+						<figcaption>
+							<p><strong>Them</strong></p>
+						</figcaption>
+					</figure>
+				</div>
+	<div class="col-sm-3 popular-them">
+					<figure>
+						<i class="fa fa-facebook fa-3x popular-them-item"></i>
+						<figcaption>
+							<p><strong>Them</strong></p>
+						</figcaption>
+					</figure>
+				</div>
+					<div class="col-sm-3 popular-them">
+					<figure>
+						<i class="fa fa-facebook fa-3x popular-them-item"></i>
+						<figcaption>
+							<p><strong>Them</strong></p>
+						</figcaption>
+					</figure>
+				</div>
+
+					<div class="col-sm-3 popular-them">
+					<figure>
+						<i class="fa fa-facebook fa-3x popular-them-item"></i>
+						<figcaption>
+							<p><strong>Them</strong></p>
+						</figcaption>
+					</figure>
+				</div>
+					<div class="col-sm-3 popular-them">
+					<figure>
+						<i class="fa fa-facebook fa-3x popular-them-item"></i>
+						<figcaption>
+							<p><strong>Them</strong></p>
+						</figcaption>
+					</figure>
+				</div>
+					<div class="col-sm-3 popular-them">
+					<figure>
+						<i class="fa fa-facebook fa-3x popular-them-item"></i>
+						<figcaption>
+							<p><strong>Them</strong></p>
+						</figcaption>
+					</figure>
+				</div>
+					<div class="col-sm-3 popular-them">
+					<figure>
+						<i class="fa fa-facebook fa-3x popular-them-item"></i>
+						<figcaption>
+							<p><strong>Them</strong></p>
+						</figcaption>
+					</figure>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-
-<!--*****************//////////STEPS///////////*********************-->
-<!--*****************//////////STEPS///////////*********************-->
-<!--*****************//////////STEPS///////////*********************--> 
+	<!--*****************//////////STEPS///////////*********************-->
+	<!--*****************//////////STEPS///////////*********************-->
+	<!--*****************//////////STEPS///////////*********************-->
 	<div id="steps">
 		<div class="container" id="in_steps">
 			<div class="row">
@@ -264,18 +347,20 @@
 			</div>
 		</div>
 	</div>
-<!--*****************//////////endSTEPS///////////*********************-->
-<!--*****************//////////endSTEPS///////////*********************-->
-<!--*****************//////////endSTEPS///////////*********************--> 
+	<!--*****************//////////endSTEPS///////////*********************-->
+	<!--*****************//////////endSTEPS///////////*********************-->
+	<!--*****************//////////endSTEPS///////////*********************-->
 
 
-<!--*****************//////////POPULAR-COURSES///////////*********************-->
-<!--*****************//////////POPULAR-COURSES///////////*********************-->
-<!--*****************//////////POPULAR-COURSES///////////*********************--> 
+	<!--*****************//////////POPULAR-COURSES///////////*********************-->
+	<!--*****************//////////POPULAR-COURSES///////////*********************-->
+	<!--*****************//////////POPULAR-COURSES///////////*********************-->
 	<div class="carousel slide aos-all  aos-item" data-aos="fade-up" data-aos-anchor-placement="center-bottom" id="myCarousel">
 		<div class="container" class="aos-all" id=s econdcontainer>
-			<div class="col-md-12 aos-item">
-				<h1>Популярні лекції</h1></div>
+			<div class="col-md-12 aos-item text-center">
+				<h1><strong>Популярні лекції</strong></h1>
+				<hr></div>
+				
 		</div>
 		<div class="carousel-inner">
 			<div class="item active">
@@ -283,7 +368,7 @@
 					<li class="col-sm-3">
 						<div class="fff">
 							<div class="thumbnail">
-								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+								<a href="#"><img id="popular-course-Img" class="img-responsive" src="img/1340305905201.png" alt=""></a>
 							</div>
 							<div class="caption">
 								<h4>Лекція про йога Івана і його кота Євдакима</h4>
@@ -295,7 +380,7 @@
 					<li class="col-sm-3">
 						<div class="fff">
 							<div class="thumbnail">
-								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+								<a href="#"><img id="popular-course-Img" class="img-responsive" src="img/Convict_Lake_Autumn_View_uhd.jpg" alt=""></a>
 							</div>
 							<div class="caption">
 								<h4>Лекція про йога Івана і його кота Євдакима</h4>
@@ -307,7 +392,7 @@
 					<li class="col-sm-3">
 						<div class="fff">
 							<div class="thumbnail">
-								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+								<a href="#"><img id="popular-course-Img" class="img-responsive" src="img/c700x420.jpg" alt=""></a>
 							</div>
 							<div class="caption">
 								<h4>Лекція про йога Івана і його кота Євдакима</h4>
@@ -319,7 +404,7 @@
 					<li class="col-sm-3">
 						<div class="fff">
 							<div class="thumbnail">
-								<a href="#"><img src="img/1340305905201.png" alt=""></a>
+								<a href="#"><img id="popular-course-Img" class="img-responsive" src="img/Company-culture-dos-and-donts.png" alt=""></a>
 							</div>
 							<div class="caption">
 								<h4>Лекція про йога Івана і його кота Євдакима</h4>
@@ -406,23 +491,15 @@
      <footer id="myFooter">
         <div class="container">
             <div class="row">
-                <div class="col-sm-3 myCols">
-                    <h5>Для початку</h5>
-                    <ul>
-                        <li><a href="#">Домашня сторінка</a></li>
-				<li><a href="#">Увійти</a></li>
-				<li><a href="#">Зареєструватись</a></li>
-			</ul>
-	</div>
-	<div class="col-sm-3 myCols">
+	<div class="col-sm-4 myCols">
 		<h5>Про нас</h5>
 		<ul>
 			<li><a href="#">Додаткова інформація</a></li>
-			<li><a href="#">Контакти</a></li>
-			<li><a href="#">Зв'язок</a></li>
-		</ul>
+				<li><a href="#">Контакти</a></li>
+				<li><a href="#">Зв'язок</a></li>
+			</ul>
 	</div>
-	<div class="col-sm-3 myCols">
+	<div class="col-sm-4 myCols">
 		<h5>Допомога</h5>
 		<ul>
 			<li><a href="#">FAQ</a></li>
@@ -430,7 +507,7 @@
 			<li><a href="#">Forum</a></li>
 		</ul>
 	</div>
-	<div class="col-sm-3 myCols">
+	<div class="col-sm-4 myCols">
 		<h5>Курси</h5>
 		<ul>
 			<li><a href="#">Усі курси</a></li>
@@ -449,15 +526,15 @@
 		<p>© 2017 </p>
 	</div>
 	</footer>
-	
-<!--*****************//////////endFOOTER///////////*********************-->
-<!--*****************//////////endFOOTER///////////*********************-->
-<!--*****************//////////endFOOTER///////////*********************-->   
+
+	<!--*****************//////////endFOOTER///////////*********************-->
+	<!--*****************//////////endFOOTER///////////*********************-->
+	<!--*****************//////////endFOOTER///////////*********************-->
 
 
-<!--*****************//////////MODAL-LOGIN///////////*********************-->
-<!--*****************//////////MODAL-LOGIN///////////*********************-->
-<!--*****************//////////MODAL-LOGIN///////////*********************--> 
+	<!--*****************//////////MODAL-LOGIN///////////*********************-->
+	<!--*****************//////////MODAL-LOGIN///////////*********************-->
+	<!--*****************//////////MODAL-LOGIN///////////*********************-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
@@ -507,9 +584,9 @@
 			</div>
 		</div>
 	</div>
-<!--*****************//////////endMODAL-LOGIN///////////*********************-->
-<!--*****************//////////endMODAL-LOGIN///////////*********************-->
-<!--*****************//////////endMODAL-LOGIN///////////*********************--> 
+	<!--*****************//////////endMODAL-LOGIN///////////*********************-->
+	<!--*****************//////////endMODAL-LOGIN///////////*********************-->
+	<!--*****************//////////endMODAL-LOGIN///////////*********************-->
 
 	<script type="text/javascript" src="vendors/jquery.min.js"></script>
 	<script type="text/javascript" src="vendors/js/bootstrap.min.js"></script>
@@ -521,7 +598,7 @@
 		});
 		$(document).ready(function () {
 			$('.carousel').carousel({
-				interval: 6000
+				interval: 11119000
 			})
 		});
 	</script>

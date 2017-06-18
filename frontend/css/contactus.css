@@ -3,7 +3,6 @@
 	height: 30vh;
 	background-color: #3a3b3b;
 	margin-top: 1vh;
-	margin-bottom: 1vh;
 	background-image: url(background/blue-bg.png);
 }
 
@@ -22,10 +21,6 @@
 	color: white;
 }
 
- input,button,select{
-    -webkit-border-radius: 0px !important;
-    -moz-border-radius: 0px !important;
-    border-radius: 0px !important;
-}
+
 
 

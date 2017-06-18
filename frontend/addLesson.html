@@ -83,149 +83,113 @@
 	<!--*****************//////////endMIDDLE///////////*********************-->
 
 
-	<!--*****************//////////Somethink///////////*********************-->
-	<!--*****************//////////Somethink///////////*********************-->
-	<!--*****************//////////Somethink///////////*********************-->
-	<div class="container-fluid">
-		<!--
-	@addTagHelper "OnlineCourses.TagHelpers.CoursePreviewTagHelper, OnlineCourses"
-@using OnlineCourses.Models.AdminViewModels
-@inject UserManager<ApplicationUser> UserManager
-@model UserListViewModel
-@{
-    ViewData["Title"] = "Курси";
-}
--->
+	<!--*****************//////////COURSE///////////*********************-->
+	<!--*****************//////////COURSE///////////*********************-->
+	<!--*****************//////////COURSE///////////*********************-->
 
-		<div id="searchDivUser">
-			<div class="container-fluid">
+		
+	    <div class="container-fluid">
+		
+		<!--*****************//////////addCourse///////////*********************-->
 
-				<div class="col-md-10 col-md-offset-1">
-					<form asp-controller="Admin" asp-action="Users" method="get" class="form-inline">
-						<div class="form-group col-md-7 col-sm-12 no-margin no-padding">
-							<input name="search" type="text" class="form-control" id="searchInputUser" placeholder="Введіть логін користувача">
-						</div>
-						<div class="col-md-2 col-sm-6 no-margin no-padding">
-							<select name="role" asp-items="@ViewBag.Roles" class="form-control" id="selRole">
-								<option value="">Оберіть роль</option>
-							</select>
-						</div>
-						<div class="col-md-3 col-sm-12 no-margin no-padding">
-							<button type="submit" class="btn btn-default btn-block" id="buttSearchUser">Пошук</button>
-						</div>
-					</form>
+		<div class="col-md-10 col-md-offset-1 text-center" id="nameCourse-addLesson">
+		 <button type="button" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button>
+		 <button type="button" class="btn btn-warning pull-right" id="right-panel-link" href="#right-panel" onclick="editBlock()"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+			<h3>Назва уроку</h3>
+		</div>
+    	 		
+		<div class="col-md-10 col-md-offset-1 text-center" id="nameCourse-addLesson">
+		 <button type="button" class="btn btn-danger pull-right" id="right-panel-link" href="#right-panel"><i class="fa fa-times" aria-hidden="true"></i></button>
+		 <button type="button" class="btn btn-warning pull-right" id="editButt" id="right-panel-link" href="#right-panel" onclick="editBlock()"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+			<h4>Опис уроку Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit inventore voluptates dignissimos dolores modi, atque numquam aspernatur odit nobis illum magni eos labore molestias optio. Error autem possimus, sunt velit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos quas ipsam, minus eius quaerat impedit voluptatem fuga rerum sit ullam mollitia porro, laboriosam iure ab fugiat placeat quidem animi dolorum?</h4>
+		</div>
+		<div id="editBlock" class="col-md-10 col-md-offset-1"></div> 
+		<!--*****************//////////newCourse///////////*********************-->
+		<hr>
+		<div class="col-md-10 col-md-offset-1" id="newCourse"></div>
+        <hr>
+		<div class="col-md-6 col-md-offset-3 " id="createLessonForm">
+			<form class="form-horizontal" action="">
+<hr>
+				<div class="form-group">
+					<div class="col-md-6">
+						<button type="button" class="btn-success btn-lg btn-block" id="addTextButt">Додати текст</button>
+					</div>
+					<div class="col-md-6">
+						<button type="button" class="btn-success btn-lg btn-block" id="addVideoButt">Додати відео</button>
+					</div>
 				</div>
-
-			</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-primary btn-block btn-lg" id="confirmLesson">Готово</button>
+					</div>
+				</div>
+			</form>
 		</div>
 
-		<div class="container-fluid">
-			<!--
-    @foreach (var user in Model)
-    {
--->
-			<a asp-controller="Manage" asp-action="Profile" asp-route-id="@user.Id">
-				<div class="container col-md-12 col-lg-8 col-lg-offset-2">
-					<!--*****************//////////author(userList)///////////*********************-->
-					<div class="user-list">
-						<figure>
-							<img src="img/polybreno_1500.jpg" class="img-responsive img-circle" alt="author" id="authorImgHead">
-							<figcaption>@user.FullName</figcaption>
-						</figure>
-						<span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
-						<button class="btn btn-danger lock-unlockButt" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="glyphicon glyphicon-lock"></span> Заблокувати
-						</button>
-						
-						<button class="btn btn-warning lock-unlockButt" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="fa fa-unlock-alt"></span> Розблокувати
-						</button>
-					</div>
-				
-						<div class="user-list">
-						<figure>
-							<img src="img/polybreno_1500.jpg" class="img-responsive img-circle" alt="author" id="authorImgHead">
-							<figcaption>@user.FullName</figcaption>
-						</figure>
-						<span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
-						<button class="btn btn-danger lock-unlockButt" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="glyphicon glyphicon-lock"></span> Заблокувати
-						</button>
-						
-						<button class="btn btn-warning lock-unlockButt" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="fa fa-unlock-alt"></span> Розблокувати
-						</button>
-					</div>
-					
-							<div class="user-list">
-						<figure>
-							<img src="img/polybreno_1500.jpg" class="img-responsive img-circle" alt="author" id="authorImgHead">
-							<figcaption>@user.FullName</figcaption>
-						</figure>
-						<span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
-						<button class="btn btn-danger lock-unlockButt" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="glyphicon glyphicon-lock"></span> Заблокувати
-						</button>
-						
-						<button class="btn btn-warning lock-unlockButt" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="fa fa-unlock-alt"></span> Розблокувати
-						</button>
-					</div>
-				
-<!--
-				<div class="user-list">
-						<figure>
-							<img src="img/polybreno_1500.jpg" class="img-responsive img-circle" alt="author" id="authorImgHead">
-							<figcaption>@user.FullName</figcaption>
-						</figure>
-						<span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
-						@if (!await UserManager.IsLockedOutAsync(user)) {
-						<button class="btn btn-danger lock-unlockButt" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="glyphicon glyphicon-lock"></span> Заблокувати
-						</button>
-						} else {
-						<button class="btn btn-warning lock-unlockButt" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="fa fa-unlock-alt"></span> Розблокувати
-						</button> }
-					</div>
-					
--->
-				</div>
-			</a>
-<!--			}-->
-		</div>
-		<!--
 
-@if (Model.PageViewModel.HasPreviousPage)
-{
-    <a asp-controller="Admin" asp-action="Users"
-       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-       asp-route-search="@(Model.SearchString)"
-       asp-route-role="@(Model.Role)"
-       class="btn btn-default btn">
-        <i class="glyphicon glyphicon-chevron-left"></i>
-        Назад
-    </a>
-}
-@if (Model.PageViewModel.HasNextPage)
-{
-    <a asp-controller="Admin" asp-action="Users"
-       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-       asp-route-search="@(Model.SearchString)"
-       asp-route-role="@(Model.Role)"
-       class="btn btn-default btn">
-        Вперед
-        <i class="glyphicon glyphicon-chevron-right"></i>
-    </a>
-}
--->
+		<div class="col-md-6 col-md-offset-3 " id="addTextLessonForm">
+			<form class="form-horizontal" action="">
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-10">
+						<hr>
+						<h4>Введіть текст текст</h4>
+						<textarea class="form-control" id="addLessonText" name="addLessonText" placeholder=""></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-10">
+						<div class="col-md-6">
+							<button type="button" class="btn btn-success btn-block btn-lg" id="confirmAddLessonText">Додати текст</button>
+						</div>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-default btn-block btn-lg" id="cancleAddText">Відмінити</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+
+		<div class="col-md-6 col-md-offset-3 " id="addVideoLessonForm">
+			<form class="form-horizontal" action="">
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-10">
+					<div class="col-md-12">
+						<hr>
+						<span class="btn btn-info btn-file btn-block btn-lg">
+                       Знайти відео... . <input type="file" id="addFile">
+                        </span>
+					</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-10">
+						<div class="col-md-6">
+							<button type="button" class="btn btn-success btn-block btn-lg" id="confirmAddLessonVideo">Додати відео</button>
+						</div>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-default btn-block btn-lg" id="cancleAddVideo">Відмінити</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
 	</div>
+	<!--
+		<div class="col-md-6 col-md-offset-3">
+			<span>
+			<button type="button" class="btn btn-primary btn-block SeeMore" id="showCourseButt" value="addLesson">Додати урок</button>	
+			</span>
+		</div>
+-->
 
-
-
-	<!--*****************//////////endSomethink///////////*********************-->
-	<!--*****************//////////endSomethink///////////*********************-->
-	<!--*****************//////////endSomethink///////////*********************-->
+	<!--*****************//////////endCOURSE///////////*********************-->
+	<!--*****************//////////endCOURSE///////////*********************-->
+	<!--*****************//////////endCOURSE///////////*********************-->
 
 	<!--*****************//////////FOOTER///////////*********************-->
 	<!--*****************//////////FOOTER///////////*********************-->
@@ -349,6 +313,11 @@
 	<script>
 		AOS.init({
 			easing: 'ease-in-out-sine'
+		});
+		$(document).ready(function () {
+			$('.carousel').carousel({
+				interval: 6000
+			})
 		});
 	</script>
 </body>
