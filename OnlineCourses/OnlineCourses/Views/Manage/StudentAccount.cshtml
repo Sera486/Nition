@@ -1,14 +1,14 @@
 ﻿@addTagHelper "OnlineCourses.TagHelpers.CoursePreviewTagHelper, OnlineCourses"
 @model ApplicationUser
 @{
-    ViewData["Title"] = "Профіль користувача(студент)";
+    ViewData["Title"] = "Студент";
 }
 
 <div class="container-fluid" id="gap">
     <div class="col-md-12" id="gap-in">
-        <h1>@ViewData["Title"].</h1>
+        <h1>@Model.UserName</h1>
         <p class="text-success">@ViewData["StatusMessage"]</p>
-        <h2>@Model.UserName</h2>
+        <h2>@ViewData["Title"]</h2>
     </div>
 </div>
 
@@ -30,7 +30,9 @@
         <div class="col-sm-4 animated slideInLeft">
             <h1>@Model.FullName</h1>
         </div>
-        <div class="col-sm-4 animated slideInLeft edit-butt-account-div"><button class="btn btn-default btn-lg edit-butt-account text-center">Редагувати профіль</button></div>  
+        <form asp-controller="Manage" asp-action="EditAccountInfo" asp-route-id="@Model.Id" method="get">
+            <button type="submit" class="btn btn-default btn-lg edit-butt-account text-center">Редагувати профіль</button>
+        </form>
     </div>
 
     <div class="col-md-10 col-md-offset-1">
@@ -45,9 +47,13 @@
                 <hr>
                 <strong>Email:</strong> @Model.Email
                 <hr>
-                <strong>Контакти:</strong> @Model.Contacts
+                <strong>Facebook:</strong> @Model.Facebook
                 <hr>
-                <strong>Про себе:</strong> @Model.AboutMe
+                <strong>Twitter:</strong> @Model.Twitter
+                <hr>
+                <strong>Linkedin:</strong> @Model.Linkedin
+                <hr>
+                <strong>Skype:</strong> @Model.Skype
                 <hr>
             </div>
             <div id="menu2" class="tab-pane fade">
