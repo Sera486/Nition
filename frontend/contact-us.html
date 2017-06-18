@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/coursenopaid.css">
+	<link rel="stylesheet" href="css/contactus.css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
 	<link rel="stylesheet" href="vendors/aos.css">
@@ -39,9 +39,9 @@
 			<div id="navbar" class="collapse navbar-collapse">
 
 				<ul class="nav navbar-nav navbar-left">
-					<li><a href="Index.html">Головна</a>
+					<li class="active"><a href="Index.html">Головна</a>
 					</li>
-					<li class="active"><a href="#about">Курси</a>
+					<li><a href="#about">Курси</a>
 					</li>
 					<li><a href="#about">Про нас</a>
 					</li>
@@ -70,162 +70,65 @@
 	<!--*****************//////////endNAVBAR///////////*********************-->
 	<!--*****************//////////endNAVBAR///////////*********************-->
 
+
 	<!--*****************//////////MIDDLE///////////*********************-->
 	<!--*****************//////////MIDDLE///////////*********************-->
 	<!--*****************//////////MIDDLE///////////*********************-->
 	<div class="container-fluid" id="gap">
 		<div class="col-md-12" id="gap-in">
-			<h1>Головна/Назва курсу</h1>
+			<h1>Головна/Контакти</h1>
 		</div>
 	</div>
 	<!--*****************//////////endMIDDLE///////////*********************-->
 	<!--*****************//////////endMIDDLE///////////*********************-->
 	<!--*****************//////////endMIDDLE///////////*********************-->
 
+	<div id="googleMap"></div>
 
-	<!--*****************//////////Somethink///////////*********************-->
-	<!--*****************//////////Somethink///////////*********************-->
-	<!--*****************//////////Somethink///////////*********************-->
-	<div class="container-fluid">
-		<!--
-	@addTagHelper "OnlineCourses.TagHelpers.CoursePreviewTagHelper, OnlineCourses"
-@using OnlineCourses.Models.AdminViewModels
-@inject UserManager<ApplicationUser> UserManager
-@model UserListViewModel
-@{
-    ViewData["Title"] = "Курси";
-}
--->
 
-		<div id="searchDivUser">
-			<div class="container-fluid">
-
-				<div class="col-md-10 col-md-offset-1">
-					<form asp-controller="Admin" asp-action="Users" method="get" class="form-inline">
-						<div class="form-group col-md-7 col-sm-12 no-margin no-padding">
-							<input name="search" type="text" class="form-control" id="searchInputUser" placeholder="Введіть логін користувача">
-						</div>
-						<div class="col-md-2 col-sm-6 no-margin no-padding">
-							<select name="role" asp-items="@ViewBag.Roles" class="form-control" id="selRole">
-								<option value="">Оберіть роль</option>
-							</select>
-						</div>
-						<div class="col-md-3 col-sm-12 no-margin no-padding">
-							<button type="submit" class="btn btn-default btn-block" id="buttSearchUser">Пошук</button>
-						</div>
-					</form>
+	<div id="contactContainer" class="container-fluid">
+		<div class="container">
+			<h3 class="text-center">Напишіть нам ... </h3>
+			<p class="text-center"><em>Чекаємо на ваші побажання та зауваження</em></p>
+			<div class="row test">
+				<div class="col-md-4">
+					<p>Наші додаткові контакти:</p>
+					<p><span class="glyphicon glyphicon-map-marker"></span> Lviv, UA</p>
+					<p><span class="glyphicon glyphicon-phone"></span> Phone: +00 1515151515</p>
+					<p><span class="glyphicon glyphicon-envelope"></span> Email: mail@mail.com</p>
+						<div class="social-networks-contacts">
+			<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+			<a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
+			<a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+		</div>
 				</div>
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-sm-6 form-group">
+							<label for="name" class="label-contact">Ваше ім'я</label>
+							<input class="form-control" id="name" name="name" placeholder="Ваше ім'я .." type="text" required>
+							<label for="email" class="label-contact">Ваш email</label>
+							<input class="form-control" id="email" name="email" placeholder="Ваш еmail .." type="email" required>
+							<label for="subject" class="label-contact">Тема</label>
+							<input class="form-control" id="subject" name="subject" placeholder="Тема вашого повідомлення .. " type="text" required>
+						</div>
+						<div class="col-sm-6 form-group">
+							<label for="comments" class="label-contact">Повідомлення</label>
+							<textarea class="form-control" id="comments" name="comments" placeholder="Ваш коментар....." rows="7"></textarea>
+						</div>
+					</div>
 
+					<div class="row">
+						<div class="col-md-12 form-group">
+							<button class="btn btn-primary pull-right" type="submit" id="sendMessage">Відправити</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
-		<div class="container-fluid">
-			<!--
-    @foreach (var user in Model)
-    {
--->
-			<a asp-controller="Manage" asp-action="Profile" asp-route-id="@user.Id">
-				<div class="container col-md-12 col-lg-8 col-lg-offset-2">
-					<!--*****************//////////author(userList)///////////*********************-->
-					<div class="user-list">
-						<figure>
-							<img src="img/polybreno_1500.jpg" class="img-responsive img-circle" alt="author" id="authorImgHead">
-							<figcaption>@user.FullName</figcaption>
-						</figure>
-						<span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
-						<button class="btn btn-danger lock-unlockButt" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="glyphicon glyphicon-lock"></span> Заблокувати
-						</button>
-						
-						<button class="btn btn-warning lock-unlockButt" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="fa fa-unlock-alt"></span> Розблокувати
-						</button>
-					</div>
-				
-						<div class="user-list">
-						<figure>
-							<img src="img/polybreno_1500.jpg" class="img-responsive img-circle" alt="author" id="authorImgHead">
-							<figcaption>@user.FullName</figcaption>
-						</figure>
-						<span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
-						<button class="btn btn-danger lock-unlockButt" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="glyphicon glyphicon-lock"></span> Заблокувати
-						</button>
-						
-						<button class="btn btn-warning lock-unlockButt" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="fa fa-unlock-alt"></span> Розблокувати
-						</button>
-					</div>
-					
-							<div class="user-list">
-						<figure>
-							<img src="img/polybreno_1500.jpg" class="img-responsive img-circle" alt="author" id="authorImgHead">
-							<figcaption>@user.FullName</figcaption>
-						</figure>
-						<span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
-						<button class="btn btn-danger lock-unlockButt" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="glyphicon glyphicon-lock"></span> Заблокувати
-						</button>
-						
-						<button class="btn btn-warning lock-unlockButt" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="fa fa-unlock-alt"></span> Розблокувати
-						</button>
-					</div>
-				
-<!--
-				<div class="user-list">
-						<figure>
-							<img src="img/polybreno_1500.jpg" class="img-responsive img-circle" alt="author" id="authorImgHead">
-							<figcaption>@user.FullName</figcaption>
-						</figure>
-						<span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
-						@if (!await UserManager.IsLockedOutAsync(user)) {
-						<button class="btn btn-danger lock-unlockButt" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="glyphicon glyphicon-lock"></span> Заблокувати
-						</button>
-						} else {
-						<button class="btn btn-warning lock-unlockButt" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData[" ReturnUrl "]">
-							<span class="fa fa-unlock-alt"></span> Розблокувати
-						</button> }
-					</div>
-					
--->
-				</div>
-			</a>
-<!--			}-->
-		</div>
-		<!--
-
-@if (Model.PageViewModel.HasPreviousPage)
-{
-    <a asp-controller="Admin" asp-action="Users"
-       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-       asp-route-search="@(Model.SearchString)"
-       asp-route-role="@(Model.Role)"
-       class="btn btn-default btn">
-        <i class="glyphicon glyphicon-chevron-left"></i>
-        Назад
-    </a>
-}
-@if (Model.PageViewModel.HasNextPage)
-{
-    <a asp-controller="Admin" asp-action="Users"
-       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-       asp-route-search="@(Model.SearchString)"
-       asp-route-role="@(Model.Role)"
-       class="btn btn-default btn">
-        Вперед
-        <i class="glyphicon glyphicon-chevron-right"></i>
-    </a>
-}
--->
 	</div>
 
-
-
-	<!--*****************//////////endSomethink///////////*********************-->
-	<!--*****************//////////endSomethink///////////*********************-->
-	<!--*****************//////////endSomethink///////////*********************-->
 
 	<!--*****************//////////FOOTER///////////*********************-->
 	<!--*****************//////////FOOTER///////////*********************-->
@@ -236,19 +139,17 @@
 				<div class="col-sm-3 myCols">
 					<h5>Для початку</h5>
 					<ul>
+						<li><a href="#">Домашня сторінка</a></li>
 						<li><a href="#">Увійти</a></li>
 						<li><a href="#">Зареєструватись</a></li>
-						<li><a href="#">Домашня сторінка</a></li>
-
-
 					</ul>
 				</div>
 				<div class="col-sm-3 myCols">
 					<h5>Про нас</h5>
 					<ul>
-						<li><a href="#">Зв'язок</a></li>
-						<li><a href="#">Контакти</a></li>
 						<li><a href="#">Додаткова інформація</a></li>
+						<li><a href="#">Контакти</a></li>
+						<li><a href="#">Зв'язок</a></li>
 					</ul>
 				</div>
 				<div class="col-sm-3 myCols">
@@ -263,10 +164,8 @@
 					<h5>Курси</h5>
 					<ul>
 						<li><a href="#">Усі курси</a></li>
-						<li><a href="#">Останні курси</a></li>
 						<li><a href="#">Популярні курси</a></li>
-
-
+						<li><a href="#">Останні курси</a></li>
 					</ul>
 				</div>
 			</div>
@@ -347,10 +246,23 @@
 	<script type="text/jscript" src="vendors/aos.js"></script>
 	<script type="text/javascript" src="JS/common.js"></script>
 	<script>
-		AOS.init({
-			easing: 'ease-in-out-sine'
-		});
+		function myMap() {
+			var myCenter = new google.maps.LatLng(49.8397, 24.0297);
+			var mapProp = {
+				center: myCenter,
+				zoom: 12,
+				scrollwheel: false,
+				draggable: false,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+			var marker = new google.maps.Marker({
+				position: myCenter
+			});
+			marker.setMap(map);
+		}
 	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
 </body>
 
 </html>
