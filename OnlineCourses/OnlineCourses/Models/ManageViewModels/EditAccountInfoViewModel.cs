@@ -20,5 +20,6 @@ namespace OnlineCourses.Models.ManageViewModels
         public string Skype { get; set; }
         public IFormFile Image{get; set;}
         public string ValidImageUrl { get; set; }
+        public string Message { get; set; }
     }
 }

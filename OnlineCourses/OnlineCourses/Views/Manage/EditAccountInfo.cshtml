@@ -19,7 +19,7 @@
 </div>
 
 <div class="col-sm-offset-1 col-sm-10 animated slideInLeft">
-    <h1></h1>
+    <h4>@Model.Message</h4>
 </div>
 
 
@@ -141,22 +141,22 @@
 
         <div id="menu113" class="tab-pane fade">
             <h3>Змінити пароль</h3>
-            <form class="form-horizontal animated slideInLeft" action="">
+            <form class="form-horizontal animated slideInLeft" asp-controller="Manage" asp-action="ChangePassword" method="post">
                 <div class="form-group">
                     <div class="col-sm-12 animated slideInRight">
                         <h4>Пароль:</h4>
-                        <input type="password" class="form-control" id="pwd" placeholder="Введіть старий пароль" name="pwd">
+                        <input type="password" class="form-control" id="pwd" placeholder="Введіть старий пароль" name="OldPassword">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12 animated slideInRight">
 
-                        <input type="password" class="form-control" id="pwd" placeholder="Введіть новий пароль" name="pwd">
+                        <input type="password" class="form-control" id="pwd" placeholder="Введіть новий пароль" name="NewPassword">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12 animated slideInRight">
-                        <input type="password" class="form-control" id="pwdTwo" placeholder="Підтвердіть пароль" name="pwdTwo">
+                        <input type="password" class="form-control" id="pwdTwo" placeholder="Підтвердіть пароль" name="ConfirmPassword">
                     </div>
                 </div>
                 <hr>

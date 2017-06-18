@@ -69,10 +69,10 @@ namespace OnlineCourses.Controllers
         [HttpGet]
         public async Task<IActionResult> EditAccountInfo(string id)
         {
-            return View(CreateModel(id));
+            return View(CreateModel(id, ""));
         }
 
-        public EditAccountInfoViewModel CreateModel(string id)
+        public EditAccountInfoViewModel CreateModel(string id, string message)
         {
             var user = _context.ApplicationUser.Find(id);
             var model = new EditAccountInfoViewModel()
@@ -87,7 +87,8 @@ namespace OnlineCourses.Controllers
                 Twitter = user.Twitter,
                 Linkedin = user.Linkedin,
                 Skype = user.Skype,
-                ValidImageUrl = user.ValidImageURL
+                ValidImageUrl = user.ValidImageURL,
+                Message = message
             };
             return model;
         }
@@ -95,14 +96,23 @@ namespace OnlineCourses.Controllers
         [HttpPost]
         public async Task<IActionResult> EditAccountInfoMainData(EditAccountInfoViewModel model)
         {
+            string message = "";
             var user = _context.ApplicationUser.Find(model.Id);
             if (!String.IsNullOrEmpty(model.FirstName))
             {
                 user.FirstName = model.FirstName;
             }
+            else
+            {
+                message = message + "Поле \"Ім\'я\" не може бути пустим. ";
+            }
             if (!String.IsNullOrEmpty(model.LastName))
             {
                 user.LastName = model.LastName;
+            }
+            else
+            {
+                message = message + "Поле \"Прізвище\" не може бути пустим. ";
             }
             if (model.Email.IndexOf('@') > -1)
             {
@@ -115,6 +125,14 @@ namespace OnlineCourses.Controllers
                 {
                     user.Email = model.Email;
                 }
+                else
+                {
+                    message = message + "Неправильно введено емейл. ";
+                }
+            }
+            else
+            {
+                message = message + "Неправильно введено емейл. ";
             }
 
             if (model.Image != null)
@@ -128,13 +146,14 @@ namespace OnlineCourses.Controllers
                 {
                     await model.Image.CopyToAsync(fileStream);
                 }
+                System.IO.File.Delete(Path.Combine(_appEnvironment.WebRootPath, _context.ApplicationUser.Find(model.Id).ImageURL));
                 user.ImageURL = path;
             }
 
             _context.ApplicationUser.Update(user);
 
             await _context.SaveChangesAsync();
-            return View("EditAccountInfo", CreateModel(model.Id));
+            return View("EditAccountInfo", CreateModel(model.Id, message));
         }
 
         [HttpPost]
@@ -146,7 +165,7 @@ namespace OnlineCourses.Controllers
             _context.ApplicationUser.Update(user);
 
             await _context.SaveChangesAsync();
-            return View("EditAccountInfo", CreateModel(model.Id));
+            return View("EditAccountInfo", CreateModel(model.Id, ""));
         }
 
         [HttpPost]
@@ -161,7 +180,7 @@ namespace OnlineCourses.Controllers
             _context.ApplicationUser.Update(user);
 
             await _context.SaveChangesAsync();
-            return View("EditAccountInfo", CreateModel(model.Id));
+            return View("EditAccountInfo", CreateModel(model.Id, ""));
         }
 
         //
@@ -185,17 +204,22 @@ namespace OnlineCourses.Controllers
             var user = await GetCurrentUserAsync();
             if (user != null)
             {
-                var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
-                if (result.Succeeded)
+                if (model.NewPassword.Equals(model.ConfirmPassword))
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User changed their password successfully.");
-                    return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
+                    var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        _logger.LogInformation(3, "User changed their password successfully.");
+                        return View("EditAccountInfo", CreateModel(user.Id, "Пароль успішно змінено"));
+                    }
                 }
-                AddErrors(result);
-                return View(model);
+                else
+                {
+                    return View("EditAccountInfo", CreateModel(user.Id, "Паролі не співпадають. Спробуйте ще раз"));
+                }
             }
-            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+            return View("EditAccountInfo", CreateModel(user.Id, "При зміні паролю допущено помилку. Спробуйте ще раз"));
         }
 
         //
