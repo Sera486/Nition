@@ -27,7 +27,8 @@
                 <hr class="under-hr text-center">
 	        </div>
 	        <div class="col-md-10 col-md-offset-1" id="nameCourse-addLesson">
-	           <h4>@Model.Lesson.Description</h4>
+	           <p style="font-size:1.4em; overflow:hidden; text-overflow: ellipsis;">@Model.Lesson.Description</p>
+                <hr class="text-hr">
 	        </div>
             
 	        @foreach (var infoBlock in Model.InfoBlocks)
@@ -35,14 +36,28 @@
 	            <div class="col-md-10 col-md-offset-1" id="nameCourse-addLesson">
 	                @if (infoBlock is TextBlock)
 	                {  
-	                    <h4>@((infoBlock as TextBlock).Text)</h4>
+	                    <p style="font-size:1.3em;" class="text-justify">@((infoBlock as TextBlock).Text)</p>
                         <hr class="no-margin no-padding"/>
 	                }
 	                else
 	                {
-	                    <video class="text-center" controls style="max-width: 100%;height: auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
+	                    <video class="text-center" controls style="max-width: 33vmax; height: auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
 	                }
 	            </div>               
 	        }
 		</div>
+
+
+    <!--*****************//////////Сторінки курсів///////////*********************-->
+    <div class="container-fluid text-center">
+        <ul class="pagination">
+            @foreach (var lesson in Model.Lesson.Course.Lessons)
+            {
+                <li><a data-href="/Lesson/@lesson.ID" title=@lesson.Title>Урок № @lesson.ID</a></li>
+            }
+        </ul>
+    </div>
+    <div class="container-fluid text-center">
+        <button class="btn btn-default pull-left">Повернутись до сторінки курсу</button>
+    </div>
 </body>

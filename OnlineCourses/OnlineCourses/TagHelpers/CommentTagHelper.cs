@@ -19,10 +19,11 @@ namespace OnlineCourses.TagHelpers
                         $"<div class='commentHeadEl commentHeadElName'>{Comment.User.FullName}</div>" +
                         $"<div class='commentHeadEl commentHeadElTime'>{Comment.Date}</div>" +
                     "</div>" +
-                    (CanDelete ? $"<button class='deleteCommentButton' commentID='{Comment.ID}'>" +
+                     "<hr class='commentHrCenter'>" +
+                    (CanDelete ? $"<button class='deleteCommentButton pull-right' style='opacity:0.5; border:none;' commentID='{Comment.ID}'>" +
                                  "  <span class='glyphicon glyphicon-trash'></span>" +
                                  "</button>": "") +
-                    "<hr class='commentHrCenter'>" +
+                   
 
                         "<div class='row'>" +
                             $"<p class='comment'>{Comment.Text}</p>" +
