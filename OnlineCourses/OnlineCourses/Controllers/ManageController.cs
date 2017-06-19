@@ -67,6 +67,12 @@ namespace OnlineCourses.Controllers
             return View("Error");
         }
 
+        [HttpGet("ViewComponent/UserCoursesList")]
+        public IActionResult UserCoursesListViewComponent(string userID,int page)
+        {
+            return ViewComponent("UserCoursesList", new { userID = userID, page = page });
+        }
+
         [HttpGet]
         public async Task<IActionResult> EditAccountInfo(string id)
         {
