@@ -65,7 +65,7 @@ namespace OnlineCourses.Data
             {
                 entity.HasKey(e => new { e.UserID, e.MemberID });
                 entity.HasOne(e => e.User).WithMany(e => e.FamilyMembers).HasForeignKey(e => e.UserID).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(e => e.Member).WithMany().HasForeignKey(e => e.MemberID).OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.Member).WithMany(e=>e.SharingUsers).HasForeignKey(e => e.MemberID).OnDelete(DeleteBehavior.Restrict);
             });
         }
 

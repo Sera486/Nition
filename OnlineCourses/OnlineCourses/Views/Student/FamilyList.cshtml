@@ -73,7 +73,7 @@
 <div class="container-fluid">   
     @foreach (var user in Model.Users)
     {
-        <a asp-controller="Manage" asp-action="Profile" asp-route-id="@user.Id">
+        <a asp-controller="Manage" asp-action="Index" asp-route-id="@user.Id">
             <div class="container col-md-12 col-lg-8 col-lg-offset-2">
                 <!--*****************//////////author(userList)///////////*********************-->
                     
@@ -83,7 +83,7 @@
                         <figcaption>@user.FullName</figcaption>
                     </figure>
                     <form method="post" asp-controller="Student" asp-action="AddFamilyMember" asp-route-memberID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
-                        <button class="btn btn-success lock-unlockButt" type="submit">
+                        <button class="btn btn-success lock-unlockButt pull-right" type="submit">
                             <span class="glyphicon glyphicon-ok"></span> Додати в сім'ю
                         </button>
                        </form>

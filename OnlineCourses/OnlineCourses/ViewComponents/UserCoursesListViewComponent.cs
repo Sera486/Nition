@@ -31,7 +31,7 @@ namespace OnlineCourses.ViewComponents
             {
                 var user =  _context.ApplicationUser.Include(a => a.Subscriptions).ThenInclude(s => s.Course)
                     .ThenInclude(s => s.Author)
-                    .Include(u => u.FamilyMembers).ThenInclude(fm => fm.User).ThenInclude(u => u.Subscriptions)
+                    .Include(u => u.SharingUsers).ThenInclude(fm => fm.User).ThenInclude(u => u.Subscriptions)
                     .ThenInclude(s => s.Course).ThenInclude(c => c.Author)
                     .First(c => c.Id == userID);
                 items=user.ValidSubscriptions().Select(c => c.Course).ToList();
