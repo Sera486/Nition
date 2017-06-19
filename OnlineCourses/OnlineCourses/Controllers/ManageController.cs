@@ -61,6 +61,7 @@ namespace OnlineCourses.Controllers
             {
                 return View("StudentAccount",
                     _context.ApplicationUser.Include(a => a.Subscriptions).ThenInclude(s => s.Course).ThenInclude(s => s.Author)
+                        .Include(u => u.FamilyMembers).ThenInclude(fm => fm.User).ThenInclude(u => u.Subscriptions).ThenInclude(s => s.Course).ThenInclude(c => c.Author)
                         .First(c => c.Id == id));
             }
             return View("Error");
@@ -146,7 +147,7 @@ namespace OnlineCourses.Controllers
                 {
                     await model.Image.CopyToAsync(fileStream);
                 }
-                System.IO.File.Delete(Path.Combine(_appEnvironment.WebRootPath, _context.ApplicationUser.Find(model.Id).ImageURL));
+                //System.IO.File.Delete(Path.Combine(_appEnvironment.WebRootPath, _context.ApplicationUser.Find(model.Id).ImageURL));
                 user.ImageURL = path;
             }
 

@@ -106,13 +106,14 @@ namespace OnlineCourses.Controllers
                         userName = user.UserName;
                     }
                 }
+
                 //Checking if email is confirmed
                 var userEmailCofirmationCheck = await _userManager.FindByEmailAsync(model.Login);
                 if (userEmailCofirmationCheck != null)
                 {
                     if (!await _userManager.IsEmailConfirmedAsync(userEmailCofirmationCheck))
                     {
-                        return RedirectToLocal("~/Account/ConfirmRequired");
+                        return View("ConfirmRequired");
                     }
                 }
 
@@ -187,17 +188,20 @@ namespace OnlineCourses.Controllers
                             break;
                     }
                     //email verification
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Action(
-                        "ConfirmEmail",
-                        "Account",
-                        new { userId = user.Id, code = code },
-                        protocol: HttpContext.Request.Scheme);
-                    AuthMessageSender emailService = new AuthMessageSender();
-                    await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Підтвердіть реєстрацію пройшовши по лінку: <a href='{callbackUrl}'>link</a>");
+                    try//TODO убрать, без инета крашится
+                    {
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Action(
+                            "ConfirmEmail",
+                            "Account",
+                            new {userId = user.Id, code = code},
+                            protocol: HttpContext.Request.Scheme);
+                        AuthMessageSender emailService = new AuthMessageSender();
+                        await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                            $"Підтвердіть реєстрацію пройшовши по лінку: <a href='{callbackUrl}'>link</a>");
+                    }catch(Exception e) { }
 
-                    return RedirectToLocal("~/Account/ConfirmRequired");
+                    return View("ConfirmRequired");
                 }
                 AddErrors(result);
             }
