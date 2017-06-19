@@ -5,7 +5,7 @@
 {
         <ul class="nav navbar-nav navbar-right">
             <li class="userImgHead">
-                <a class="navbar-brand userImgHead" asp-controller="Manage" asp-action="Index" title="Manage">
+                <a class="navbar-brand userImgHead" asp-controller="Manage" asp-action="Index" title="Manage" asp-route-id="@UserManager.GetUserAsync(User).Result.Id">
                     <img style="height: 99%;" class="img-responsive img-circle userImgHead" src="~/@UserManager.GetUserAsync(User).Result.ValidImageURL" alt=""> 
                 </a>
             </li>
