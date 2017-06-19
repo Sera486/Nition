@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using OnlineCourses.Data;
 using OnlineCourses.Models;
 
@@ -16,9 +13,11 @@ namespace OnlineCourses.Controllers
     public class HomeController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
-        public HomeController(UserManager<ApplicationUser> userManager)
+        private ApplicationDbContext _context;
+        public HomeController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
         public async Task<IActionResult> Index()
         {
@@ -29,13 +28,34 @@ namespace OnlineCourses.Controllers
                 if (role[0] == RolesData.Admin)
                     return RedirectToAction(nameof(AdminController.Index), "Admin");
             }
-            return View();
+            
+            return View(await _context.Themes.ToListAsync());
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> BestLecturers()
         {
-            ViewData["Message"] = "Your application description page.";
+            var dictionary = new Dictionary<ApplicationUser, int>();
+            foreach (var user in _context.ApplicationUser)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Lecturer"))
+                {
+                    dictionary.Add(user, 0);
+                }
+            }
+            foreach (var course in _context.Courses.Include(c => c.Subscriptions).Include(c => c.Author))
+            {
+                 dictionary[course.Author] = dictionary[course.Author] + course.Subscriptions.Count;
+            }
 
+            dictionary = dictionary.OrderByDescending(d => d.Value).Take(6).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            var lecturers = dictionary.Select(d => d.Key).ToList();
+
+            return View(lecturers);
+        }
+
+        public async Task<IActionResult> About()
+        {
             return View();
         }
 

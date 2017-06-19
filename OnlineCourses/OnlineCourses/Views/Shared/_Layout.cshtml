@@ -1,10 +1,11 @@
-﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+﻿@using OnlineCourses.Data
+@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OnlineCourses</title>
+    <title>@ViewData["Title"] - Nition</title>
     
     <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,7 +30,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img class="img-responsive" src="~/img/9gag1600.png" alt=""></a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img id="svgImg" class="img-responsive" src="~/img/logo2.svg" alt="logo"></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
 
@@ -44,7 +45,7 @@
                 </li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    if (User.IsInRole("Lecturer"))
+                    if (User.IsInRole(RolesData.Lecturer))
                     {
                         <li>
                             <a asp-controller="Lecturer" asp-action="CreateCourse">
@@ -56,6 +57,17 @@
                             <a asp-controller="Lecturer" asp-action="CourseList">
                                 <span class="glyphicon glyphicon-list"></span>
                                 Мої курси
+                            </a>
+                        </li>
+                    }
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole(RolesData.Student))
+                    {
+                        <li>
+                            <a asp-controller="Student" asp-action="FamilyList">
+                                Сім'я
                             </a>
                         </li>
                     }
@@ -88,8 +100,8 @@
                 <h5>Для початку</h5>
                 <ul>
                     <li><a asp-controller="Home" asp-action="Index">Домашня сторінка</a></li>
-                    <li><a asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]">Увійти</a></li>
-                    <li><a asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Зареєструватись</a></li>
+                    <li><a asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]"> Увійти</a></li>
+                    <li><a asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"> Зареєструватись</a></li>
                 </ul>
             </div>
             <div class="col-sm-4 myCols">
@@ -99,20 +111,12 @@
                     <li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
                 </ul>
             </div>
-            @*<div class="col-sm-3 myCols">
-                <h5>Допомога</h5>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Help</a></li>
-                    <li><a href="#">Forum</a></li>
-                </ul>
-            </div>*@
             <div class="col-sm-4 myCols">
                 <h5>Курси</h5>
                 <ul>
-                    <li><a href="#">Усі курси</a></li>
-                    <li><a href="#">Популярні курси</a></li>
-                    <li><a href="#">Останні курси</a></li>
+                    <li><a asp-controller="Course" asp-action="Index">Усі курси</a></li>
+                    <li><a asp-controller="Course" asp-action="PopularCourses">Популярні курси</a></li>
+                    <li><a href="#">Нові курси</a></li>
                 </ul>
             </div>
         </div>

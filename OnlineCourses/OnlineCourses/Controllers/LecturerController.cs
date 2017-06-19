@@ -33,17 +33,6 @@ namespace OnlineCourses.Controllers
             _appEnvironment = appEnvironment;
         }
 
-        private async Task<ApplicationUser> GetCurrentUser()
-        {
-            return await _userManager.GetUserAsync(HttpContext.User);
-        }
-
-        [HttpGet]
-        public IActionResult CreateCourse()
-        {
-            return View();
-        }
-
         [HttpGet]
         public async Task<IActionResult> CourseList(int page = 1, string search = "")
         {
@@ -54,7 +43,7 @@ namespace OnlineCourses.Controllers
                 .Include(course => course.CourseThemes);
 
             //searching through courses
-            var allItems = await SearchCourse(source, search).ToListAsync();
+            var allItems = await CourseController.SearchCourse(source, search,0,await GetCurrentUser()).ToListAsync();
 
             //splitting into pages
             var count = allItems.Count;
@@ -70,59 +59,60 @@ namespace OnlineCourses.Controllers
             
             return View(viewModel);
         }
-        private IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr)
-        {
-            if (!string.IsNullOrWhiteSpace(searchStr))
-            {
-                searchStr = searchStr.ToLower();
-                source = source.Where(c => c.Title.ToLower().Contains(searchStr) || c.Description.ToLower().Contains(searchStr));
-            }
 
-            return source;
+        [HttpGet]
+        public IActionResult CreateCourse()
+        {
+            ViewBag.Themes = _context.Themes.Select(t => new SelectListItem {Text = t.Name, Value = t.ID.ToString()}).ToList();
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCourse(CreateCourseViewModel createCourseViewModel)
+        public async Task<IActionResult> CreateCourse(CreateCourseViewModel vm)
         {
             try
             {
                 //image upload
                 string imageUrl = null;
-                if (createCourseViewModel.Image != null)
+                if (vm.Image != null)
                 {
-                    string path = Path.Combine("images","courseLogos",Guid.NewGuid()+Path.GetExtension(createCourseViewModel.Image.FileName));
+                    string path = Path.Combine("images","courseLogos",Guid.NewGuid()+Path.GetExtension(vm.Image.FileName));
 
                     // saving image in wwwroot
                     using (var fileStream = new FileStream(Path.Combine(_appEnvironment.WebRootPath, path), FileMode.Create))
                     {
-                        await createCourseViewModel.Image.CopyToAsync(fileStream);
+                        await vm.Image.CopyToAsync(fileStream);
                     }
                     imageUrl = path;
                 }
-
+                
                 var course = new Course()
                 {
-                    Title = createCourseViewModel.Title,
-                    Description = createCourseViewModel.Description,
+                    Title = vm.Title,
+                    Description = vm.Description,
                     Author = GetCurrentUser().Result,
                     CreationDate = DateTime.Today,
                     ModificationDate = DateTime.Today,
-                    Estimate = createCourseViewModel.Estimate,
-                    Price = createCourseViewModel.Price,
+                    CourseThemes = vm.ThemeID == 0 ?null:new List<CourseTheme>{new CourseTheme{ThemeID = vm.ThemeID}},
+                    Estimate = vm.Estimate,
+                    Price = vm.Price,
                     ImageURL = imageUrl
                 };
+
                 _context.Courses.Add(course);
-                await _context.SaveChangesAsync();
-                return View("CourseEditor");
+                _context.SaveChanges();
+
+                return RedirectToLocal($"~/Course/{course.ID}");
             }
             catch (Exception e)
             {
+                ViewData["Message"]="Cталася помилка, спробуйте, будь ласка, ще раз.";
                 return View("Error");
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteCourse([FromBody] int courseID)
+        public async Task<IActionResult> DeleteCourse(int courseID)
         {
             try
             {
@@ -172,6 +162,7 @@ namespace OnlineCourses.Controllers
                 Lesson = lesson,
                 InfoBlocks = list.OrderBy(c => c.Order).ToList()
             };
+            ViewData["ReturnUrl"] = $"~/LessonEditor/{lesson.ID}";
             return View(viewModel);
         }
 
@@ -205,7 +196,7 @@ namespace OnlineCourses.Controllers
             try
             {
                 ViewData["ReturnUrl"] = returnUrl;
-                _context.Lessons.Remove(_context.Lessons.Find(lessonID));
+                _context.Lessons.Remove(new Lesson{ID = lessonID});
 
                 await _context.SaveChangesAsync();
                 return RedirectToLocal(returnUrl);
@@ -388,6 +379,10 @@ namespace OnlineCourses.Controllers
             }
         }
 
+        private async Task<ApplicationUser> GetCurrentUser()
+        {
+            return await _userManager.GetUserAsync(HttpContext.User);
+        }
         #endregion
 
     }

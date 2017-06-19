@@ -2,7 +2,6 @@
 	z-index: 111;
 	height: 30vh;
 	background-color: #3a3b3b;
-	margin-top: 1vh;
 	margin-bottom: 0vh;
 	background-image: url(background/blue-bg.png);
 }
@@ -60,7 +59,7 @@
 	background-color: #138590;
 	 border: solid;
 	border-color: #ffffff;
-	border width: 2vh;
+	border width: 1vmin;
 	color: white;
 }
 

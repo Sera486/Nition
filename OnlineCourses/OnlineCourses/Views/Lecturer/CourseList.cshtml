@@ -1,20 +1,29 @@
 ﻿@addTagHelper "OnlineCourses.TagHelpers.CoursePreviewTagHelper, OnlineCourses"
-@using OnlineCourses.Models.LecturerViewModels
+@using OnlineCourses.Models.CourseViewModels
 @model CourseListViewModel
 @{
     ViewData["Title"] = "Створені курси";
 }
+<!--*****************//////////MIDDLE///////////*********************-->
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<!--*****************//////////endMIDDLE///////////*********************-->
 
 <div id="searchDiv">
     <div class="container-fluid">
 
         <div class="col-md-10 col-md-offset-1">
             <form asp-controller="Lecturer" asp-action="CourseList" method="get" class="form-inline">
-                <div class="form-group col-md-5 col-sm-12">
-                    <input name="search" type="text" class="form-control" id="searchInput" placeholder="Введіть назву курсу">
-                </div>
-                <div class="col-md-3 col-sm-12">
-                    <button type="submit" class="btn btn-default btn-block" id="buttSearch">Пошук</button>
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="form-group col-md-8  col-sm-12 no-margin no-padding">
+                        <input name="search" type="text" class="form-control" id="searchInput" placeholder="Пошук" value="@Model.SearchString">
+                    </div>
+                    <div class="col-md-4 col-sm-12 no-padding no-margin">
+                        <button type="submit" class="btn btn-default btn-block" id="buttSearch">Пошук</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -31,7 +40,7 @@
 
 @if (Model.PageViewModel.HasPreviousPage)
 {
-    <a asp-controller="Course" asp-action="Index"
+    <a asp-controller="Lecturer" asp-action="CourseList"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
        asp-route-search="@(Model.SearchString)"
        class="btn btn-default btn">
@@ -41,7 +50,7 @@
 }
 @if (Model.PageViewModel.HasNextPage)
 {
-    <a asp-controller="Course" asp-action="Index"
+    <a asp-controller="Lecturer" asp-action="CourseList"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
        asp-route-search="@(Model.SearchString)"
        class="btn btn-default btn">

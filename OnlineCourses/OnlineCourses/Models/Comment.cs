@@ -1,4 +1,5 @@
 ﻿using System;
+using OnlineCourses.Models.Enums;
 
 namespace OnlineCourses.Models
 {
@@ -8,5 +9,6 @@ namespace OnlineCourses.Models
         public ApplicationUser User {get; set;}
         public string Text{get;set;}
         public DateTime Date{get;set;}
+        public CommentStatus Status { get; set; }=CommentStatus.Normal;
     }
 }

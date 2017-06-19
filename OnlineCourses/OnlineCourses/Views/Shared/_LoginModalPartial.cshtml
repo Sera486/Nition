@@ -10,9 +10,8 @@
                 <h4 class="modal-title">Увійти</h4>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-6">
+               
+                   
                             <form role="form" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                                 <fieldset>
                                     <h2>Введіть логін та пароль</h2>
@@ -28,26 +27,20 @@
                                     <span class="button-checkbox">
                                         <button type="button" class="btn" data-color="info">Запам'ятати</button>
                                         <input asp-for="RememberMe" type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
-                                        <a asp-controller="Account" asp-action="ForgotPassword" class="btn btn-link pull-right">Забули пароль?</a>
+                                        <a asp-controller="Account" asp-action="ForgotPassword" class="btn btn-lg btn-link pull-right">Забули пароль?</a>
                                     </span>
                                     <hr class="colorgraph">
                                     <div class="row">
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Увійти">
-                                        </div>
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <a asp-controller="Account" asp-action="Register" class="btn btn-lg btn-primary btn-block">Реєстрація</a>
-                                        </div>
+                                       
+                                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Увійти">
+                                       
+                                        
+                                            <a asp-controller="Account" asp-action="Register" class="btn btn-link btn-lg  pull-left">Зареєструватися як новий користувач</a>
+                                       
                                     </div>
                                 </fieldset>
                             </form>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                    
             </div>
         </div>
     </div>

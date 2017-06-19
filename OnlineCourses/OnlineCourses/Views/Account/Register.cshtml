@@ -1,45 +1,53 @@
 ﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Реєстрація";
 }
-<h2>@ViewData["Title"].</h2>
+
+<!--*****************//////////MIDDLE///////////*********************-->
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<!--*****************//////////endMIDDLE///////////*********************-->
+
 
 <div class="container-fluid" id="registrationDiv">
     <div class="col-sm-offset-1 col-sm-10">
         <h1>Реєстрація</h1>
     </div>
-    <form class="form-horizontal" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+    <form class="form-horizontal" asp-controller="Account" asp-action="Register" method="post">
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <h6>Логін:</h6>
+                <h4>Логін:</h4>
                 <input asp-for="Login" type="text" class="form-control" id="usr" placeholder="Введіть логін" name="Login">
                 <span asp-validation-for="Login" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <h6>Ім'я:</h6>
+                <h5>Ім'я:</h5>
                 <input asp-for="FirstName" type="text" class="form-control" id="usr" placeholder="Введіть ім'я" name="FirstName">
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <h6>Прізвище:</h6>
+                <h5>Прізвище:</h5>
                 <input asp-for="LastName" type="text" class="form-control" id="usrSurnm" placeholder="Введіть прізвище" name="Lastname">
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <h6>Email:</h6>
+                <h5>Email:</h5>
                 <input asp-for="Email" type="email" class="form-control" id="email" placeholder="Введіть email" name="Email">
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-2">
-                <h6>Ви:</h6>
+                <h5>Ви:</h5>
                 <select asp-for="Role" class="form-control" id="selRole">
                     <option value="Lecturer">Лектор</option>
                     <option value="Student">Студент</option>
@@ -48,14 +56,14 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <h6>Пароль:</h6>
+                <h4>Пароль:</h4>
                 <input  asp-for="Password" type="password" class="form-control" id="pwd" placeholder="Введіть пароль" name="Password">
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <h6>Пароль:</h6>
+                <h5>Пароль:</h5>
                 <input asp-for="ConfirmPassword" type="password" class="form-control" id="pwdTwo" placeholder="Підтвердіть пароль" name="ConfirmPassword">
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>

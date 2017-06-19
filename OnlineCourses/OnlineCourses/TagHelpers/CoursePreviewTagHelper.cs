@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using OnlineCourses.Models;
 
 namespace OnlineCourses.TagHelpers
@@ -20,17 +13,16 @@ namespace OnlineCourses.TagHelpers
             
             string coursePreviewContent = 
                  "<div class=\"container col-md-12 col-lg-8 col-lg-offset-2\" id=\"course-one\">" +
-                            "<div class=\"col-md-4 col-sm-12\" id=\"img-prjDiv\">" +
+                            "<div class=\"col-md-4 col-sm-12\" id=\"img-prjDiv\" class=\"img-responsive\">" +
                                 $"<img src=\'/{Course.ValidImageURL}\' alt=\"prjImg\" id=\"img-prj\" class=\"img-responsive\">" +
                             "</div>" +
                             "<div class=\"col-md-8 col-sm-12\">" +
-                                $"<a href='/Course/{Course.ID}'><strong><h3>{Course.Title}</h3></strong></a>" +
-                                $"<h6>Автор: {Course.Author.FullName}</h6>" +
-                                (ShowStatus?$"<h6>Статус:{Course.PublishStatus}</h6>":"")+
-                                $"<p class=\"text-left\">{Course.Description}</p>" +
+                                $"<a href='/Course/{Course.ID}'><strong><h2>{Course.Title}</h2></strong></a>" +
+                                $"<h4>Автор: {Course.Author.FullName}</h4>" +
+                                (ShowStatus?$"<h5>Статус:{Course.PublishStatus}</h5>":"")+
+                                $"<p style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' class=\"text-left\">{Course.Description}</p>" +
                             "</div>" +
-                       "</div>";
-            output.Content.SetHtmlContent(coursePreviewContent);
+                       "</div>"; output.Content.SetHtmlContent(coursePreviewContent);
         }
     }
 }

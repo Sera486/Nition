@@ -19,6 +19,7 @@ namespace OnlineCourses.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private int popularCoursesCount = 12;
 
         public CourseController(
             UserManager<ApplicationUser> userManager,
@@ -29,53 +30,87 @@ namespace OnlineCourses.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page=1, string search="",bool desc = true,int theme=0)
+        public async Task<IActionResult> Index(int page=1, string search="",int theme=0)
         {
             var pageSize = 5;
             //selecting courses with all info
             IQueryable<Course> source = _context.Courses
                 .Include(course => course.Author)
-                .Include(course => course.CourseThemes);
+                .Include(course => course.CourseThemes)
+                .Where(c => c.PublishStatus == PublishStatus.Published);
             
             //searching through courses
-            var allItems =await SearchCourse( source, search, desc, theme).ToListAsync();
+            var allItems =await SearchCourse( source, search, theme).ToListAsync();
             
             //splitting into pages
             var count = allItems.Count;
             var pageItems = allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             var pageViewModel = new PageViewModel(count, page, pageSize);
 
-            var viewModel = new CourseViewModel
+            var viewModel = new CourseListViewModel
             {
                 PageViewModel = pageViewModel,
                 Courses = pageItems,
                 SearchString = search,
-                SearchInDescription = desc,
                 ThemeID = theme
             };
             
             //filling themes selector
-            var themes = _context.Themes.Select(t => new SelectListItem {Text = t.Name, Value = t.ID.ToString()}).ToList();
+            var themes = _context.Themes
+                .Select(t => new SelectListItem
+                {
+                    Text = t.Name,
+                    Value = t.ID.ToString(),
+                    Selected = t.CourseThemes.Exists(th => th.ThemeID == theme)
+                }).ToList();
             ViewBag.Themes = themes;
             return View(viewModel);
         }
 
-        private IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr, bool searchInDesc, int themeID)
+        [HttpGet("PopularCourses")]
+        public async Task<IActionResult> PopularCourses(int page=1)
         {
-            source = source.Where(c => c.PublishStatus == PublishStatus.Published);
+            var pageSize = 5;
+            //selecting courses with all info
+            IQueryable<Course> source = _context.Courses
+                .Include(course => course.Author).Include(course => course.Subscriptions)
+                .Where(c => c.PublishStatus == PublishStatus.Published)
+                .OrderByDescending(c => c).ThenByDescending(c => c .Subscriptions.Count);
+            
+            if (_context.Courses.Count() < popularCoursesCount)
+            {
+                popularCoursesCount = _context.Courses.Count();
+            }
+            
+            source = source.Take(popularCoursesCount);
+            var pageItems = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var pageViewModel = new PageViewModel(popularCoursesCount, page, pageSize);
+
+            var viewModel = new PopularCoursesViewModel()
+            {
+                PageViewModel = pageViewModel,
+                Courses = pageItems
+            };
+            
+            return View(viewModel);
+        }
+
+
+        public static IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr, int themeID=0, ApplicationUser author=null)
+        {
             if (!string.IsNullOrWhiteSpace(searchStr))
             {
                 searchStr = searchStr.ToLower();
-                source = searchInDesc
-                    ? source.Where(c => c.Title.ToLower().Contains(searchStr) || c.Description.ToLower().Contains(searchStr))
-                    : source.Where(c => c.Title.ToLower().Contains(searchStr));
-                if (themeID != 0)
-                    source = source.Where(c => c.CourseThemes.Exists(e => e.ThemeID == themeID));
+                source = source.Where(c => c.Title.ToLower().Contains(searchStr) ||
+                                           c.Description.ToLower().Contains(searchStr));
             }
-            else
+            if (themeID != 0)
             {
-                if (themeID != 0)
-                    source = source.Where(c => c.CourseThemes.Exists(e => e.ThemeID == themeID));
+                source = source.Where(c => c.CourseThemes.Any(e => e.ThemeID == themeID));
+            }
+            if (author != null)
+            {
+                source = source.Where(c => c.Author == author);
             }
             return source;
         }
@@ -96,7 +131,7 @@ namespace OnlineCourses.Controllers
         
         public IActionResult Payment(int courseID)
         {
-            return View(_context.Courses.Include(c => c.Author).Where(c => c.ID == courseID).ToList()[0]);
+            return View(_context.Courses.Include(c => c.Author).First(c => c.ID == courseID));
         }
 
         [HttpPost]
@@ -110,7 +145,17 @@ namespace OnlineCourses.Controllers
                 };
                 _context.Subscriptions.Add(sub);
                 await _context.SaveChangesAsync();
-            return RedirectToAction("Payment");
+            var viewModel = new CourseInfoViewModel()
+            {
+                Course = await _context.Courses.Include(c => c.Author)
+                    .Include(c => c.Lessons)
+                    .Include(c => c.Subscriptions)
+                    .Include(c=>c.Comments).ThenInclude(c=>c.User).Where(c => c.ID == courseID).FirstOrDefaultAsync(),
+                Paid = true,
+                IsAuthor = false,
+                IsStudent = true
+            };
+            return View("CourseInfo", viewModel);
         }
 
         [HttpGet("Course/{id}")]
@@ -122,8 +167,8 @@ namespace OnlineCourses.Controllers
                 .Include(c => c.Lessons)
                 .Include(c => c.Subscriptions)
                 .Include(c=>c.Comments).ThenInclude(c=>c.User);
-            Course course = source.Where(c => c.ID == ID).ToList()[0];
-            ApplicationUser courseAuthor = _context.ApplicationUser.First(author => author == course.Author);
+
+            Course course = await source.Where(c => c.ID == ID).FirstOrDefaultAsync();
 
             if (user != null)
             {
@@ -134,9 +179,10 @@ namespace OnlineCourses.Controllers
                     {
                         Course = course,
                         Paid = false,
-                        IsAuthor = user == courseAuthor,
+                        IsAuthor = user == course.Author,
                         IsStudent = User.IsInRole("Student")
                     };
+                    ViewData["ReturnUrl"] = $"Course/{course.ID}";
                     return View(viewModel);
                 }
                 else
@@ -145,8 +191,9 @@ namespace OnlineCourses.Controllers
                     {
                         Course = course,
                         Paid = true,
-                        IsAuthor = user == courseAuthor
+                        IsAuthor = user == course.Author
                     };
+                    ViewData["ReturnUrl"] = $"Course/{course.ID}";
                     return View(viewModel);
                 }
             }
@@ -159,15 +206,21 @@ namespace OnlineCourses.Controllers
                     IsAuthor = false,
                     IsStudent = false
                 };
+                ViewData["ReturnUrl"] = $"Course/{course.ID}";
                 return View(viewModel);
             }
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddComment(int courseID, string commentText,string returnUrl=null)
+        [HttpGet("ViewComponent/CommentList/{courseID}")]
+        public IActionResult CommentListViewComponent(int courseID)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            return ViewComponent("CommentList", courseID );
+        }
+
+        [HttpPost]
+        public async Task AddComment(int courseID, string commentText)
+        {
             var course = _context.Courses.Include(c => c.Comments).First(c=>c.ID==courseID);
             if (!string.IsNullOrWhiteSpace(commentText))
             {
@@ -176,6 +229,48 @@ namespace OnlineCourses.Controllers
                 _context.Update(course);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        [HttpPost]
+        public async Task DeleteComment(int commentID)
+        {
+            //TODO: никакой проверки прав на удаление, опасность
+            var comment =new Comment{ID = commentID};
+
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MarkComment(int commentID, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+
+            var comment = await _context.Comments.FindAsync(commentID);
+            if (comment != null)
+            {
+                comment.Status=CommentStatus.Offensive;
+                _context.Comments.Update(comment);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToLocal(returnUrl);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnmarkComment(int commentID, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+
+            var comment = await _context.Comments.FindAsync(commentID);
+            if (comment != null)
+            {
+                comment.Status = CommentStatus.Normal;
+                _context.Comments.Update(comment);
+                await _context.SaveChangesAsync();
+            }
+
             return RedirectToLocal(returnUrl);
         }
 

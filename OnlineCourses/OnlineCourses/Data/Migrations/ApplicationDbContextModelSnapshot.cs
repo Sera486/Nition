@@ -129,6 +129,8 @@ namespace OnlineCourses.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AboutMe");
+
                     b.Property<int>("AccessFailedCount");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -139,11 +141,15 @@ namespace OnlineCourses.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("Facebook");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("ImageURL");
 
                     b.Property<string>("LastName");
+
+                    b.Property<string>("Linkedin");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -162,6 +168,10 @@ namespace OnlineCourses.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Skype");
+
+                    b.Property<string>("Twitter");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -187,9 +197,14 @@ namespace OnlineCourses.Data.Migrations
 
                     b.Property<int?>("CourseID");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime>("Date")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("Date")
+                        .HasDefaultValueSql("GetDate()");
 
                     b.Property<int?>("LessonID");
+
+                    b.Property<int>("Status");
 
                     b.Property<string>("Text");
 
@@ -213,7 +228,10 @@ namespace OnlineCourses.Data.Migrations
 
                     b.Property<string>("AuthorId");
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("Date")
+                        .HasDefaultValueSql("GetDate()");
 
                     b.Property<string>("Description");
 
@@ -221,7 +239,10 @@ namespace OnlineCourses.Data.Migrations
 
                     b.Property<string>("ImageURL");
 
-                    b.Property<DateTime?>("ModificationDate");
+                    b.Property<DateTime?>("ModificationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("Date")
+                        .HasDefaultValueSql("GetDate()");
 
                     b.Property<double>("Price");
 
@@ -249,6 +270,19 @@ namespace OnlineCourses.Data.Migrations
                     b.ToTable("CourseThemes");
                 });
 
+            modelBuilder.Entity("OnlineCourses.Models.FamilyMember", b =>
+                {
+                    b.Property<string>("UserID");
+
+                    b.Property<string>("MemberID");
+
+                    b.HasKey("UserID", "MemberID");
+
+                    b.HasIndex("MemberID");
+
+                    b.ToTable("FamilyMembers");
+                });
+
             modelBuilder.Entity("OnlineCourses.Models.Lesson", b =>
                 {
                     b.Property<int>("ID")
@@ -269,24 +303,6 @@ namespace OnlineCourses.Data.Migrations
                     b.HasIndex("CourseID");
 
                     b.ToTable("Lessons");
-                });
-
-            modelBuilder.Entity("OnlineCourses.Models.ManageViewModels.FamilyMember", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("MemberId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("MemberId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("FamilyMembers");
                 });
 
             modelBuilder.Entity("OnlineCourses.Models.Subscription", b =>
@@ -331,6 +347,8 @@ namespace OnlineCourses.Data.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ImageURL");
 
                     b.Property<string>("Name");
 
@@ -429,22 +447,22 @@ namespace OnlineCourses.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("OnlineCourses.Models.FamilyMember", b =>
+                {
+                    b.HasOne("OnlineCourses.Models.ApplicationUser", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberID");
+
+                    b.HasOne("OnlineCourses.Models.ApplicationUser", "User")
+                        .WithMany("FamilyMembers")
+                        .HasForeignKey("UserID");
+                });
+
             modelBuilder.Entity("OnlineCourses.Models.Lesson", b =>
                 {
                     b.HasOne("OnlineCourses.Models.Course", "Course")
                         .WithMany("Lessons")
                         .HasForeignKey("CourseID");
-                });
-
-            modelBuilder.Entity("OnlineCourses.Models.ManageViewModels.FamilyMember", b =>
-                {
-                    b.HasOne("OnlineCourses.Models.ApplicationUser", "Member")
-                        .WithMany("FamilyMembers")
-                        .HasForeignKey("MemberId");
-
-                    b.HasOne("OnlineCourses.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("OnlineCourses.Models.Subscription", b =>

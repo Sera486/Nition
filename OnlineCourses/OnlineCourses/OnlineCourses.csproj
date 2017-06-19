@@ -14,9 +14,18 @@
 
   <ItemGroup>
     <Compile Remove="Models\HomeViewModels\**" />
+    <Compile Remove="wwwroot\lib\**" />
     <Content Remove="Models\HomeViewModels\**" />
+    <Content Remove="wwwroot\lib\**" />
     <EmbeddedResource Remove="Models\HomeViewModels\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
     <None Remove="Models\HomeViewModels\**" />
+    <None Remove="wwwroot\lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\OnlineCourses20170618011143 - FTP.pubxml" />
+    <None Remove="Properties\PublishProfiles\OnlineCourses20170618011143 - Web Deploy.pubxml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +34,6 @@
     <Content Include="wwwroot\css\main.css" />
     <Content Include="wwwroot\css\main.min.css" />
     <Content Include="wwwroot\css\user-info.css" />
-    <Content Include="wwwroot\img\no_image.png" />
     <Content Include="wwwroot\js\common.js" />
     <Content Include="wwwroot\js\effetsFile.js" />
     <Content Include="wwwroot\vendors\css\main.css" />
@@ -35,6 +43,7 @@
     <Content Include="wwwroot\vendors\css\site.min.css" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="1.16.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
@@ -57,8 +66,14 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\images\courseLogos\" />
+    <Folder Include="wwwroot\images\themeImages\" />
+    <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\videos\lessonBlocks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Manage\StudentAccount.cshtml" />
   </ItemGroup>
 
 </Project>
