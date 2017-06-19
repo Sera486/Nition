@@ -63,14 +63,11 @@
                 <hr>
             </div>
             <div id="menu2" class="tab-pane fade">
-
-                @foreach (var course in Model.CreatedCourses)
-                {  
-                    <course-preview course="@course" show-status="true" ></course-preview>
-
-                }
-
+                <div id="userCourseList">
+                    @await Component.InvokeAsync("UserCoursesList", new { userID = Model.Id, page = 1 })
+                </div>
             </div>
         </div>
     </div>
 </div>
+

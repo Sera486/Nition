@@ -41,8 +41,11 @@
 	                }
 	                else
 	                {
-	                    <video class="text-center" controls style="max-width: 33vmax; height: auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
-	                }
+	                    <div class="text-center">
+	                        <video class="text-center" controls style="max-width: 33vmax ; height: auto; margin: 0 auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
+	                        <hr class="no-margin no-padding" />
+	                    </div>
+                    }
 	            </div>               
 	        }
 		</div>
@@ -53,11 +56,13 @@
         <ul class="pagination">
             @foreach (var lesson in Model.Lesson.Course.Lessons)
             {
-                <li><a data-href="/Lesson/@lesson.ID" title=@lesson.Title>Урок № @lesson.ID</a></li>
+                <li><a asp-controller="Course" asp-action="Lesson" asp-route-LessonId="@lesson.ID" title=@lesson.Title>Урок № @lesson.Order</a></li>
             }
         </ul>
     </div>
-    <div class="container-fluid text-center">
-        <button class="btn btn-default pull-left">Повернутись до сторінки курсу</button>
-    </div>
+<div class="container-fluid text-center">
+    <form asp-controller="Course" asp-action="CourseInfo" asp-route-ID="@Model.Lesson.Course.ID" method="get">
+        <button type="submit" class="btn btn-default pull-left">Повернутись до сторінки курсу</button>
+    </form>
+</div>
 </body>

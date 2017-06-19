@@ -67,6 +67,12 @@ namespace OnlineCourses.Controllers
             return View("Error");
         }
 
+        [HttpGet("ViewComponent/UserCoursesList")]
+        public IActionResult UserCoursesListViewComponent(string userID,int page)
+        {
+            return ViewComponent("UserCoursesList", new { userID = userID, page = page });
+        }
+
         [HttpGet]
         public async Task<IActionResult> EditAccountInfo(string id)
         {
@@ -147,7 +153,10 @@ namespace OnlineCourses.Controllers
                 {
                     await model.Image.CopyToAsync(fileStream);
                 }
-                //System.IO.File.Delete(Path.Combine(_appEnvironment.WebRootPath, _context.ApplicationUser.Find(model.Id).ImageURL));
+                if(!String.IsNullOrEmpty(_context.ApplicationUser.Find(model.Id).ImageURL)){
+                    System.IO.File.Delete(Path.Combine(_appEnvironment.WebRootPath,
+                        _context.ApplicationUser.Find(model.Id).ImageURL));
+                }
                 user.ImageURL = path;
             }
 
