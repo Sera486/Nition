@@ -17,7 +17,7 @@ namespace OnlineCourses.TagHelpers
                                 $"<img src=\'/{Course.ValidImageURL}\' alt=\"prjImg\" id=\"img-prj\" class=\"img-responsive\">" +
                             "</div>" +
                             "<div class=\"col-md-8 col-sm-12\">" +
-                                $"<a href='/Course/{Course.ID}'><strong><h2>{Course.Title}</h2></strong></a>" +
+                                $"<a href='/Course/{Course.ID}'><strong><h2 style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>{Course.Title}</h2></strong></a>" +
                                 $"<h4>Автор: {Course.Author.FullName}</h4>" +
                                 (ShowStatus?$"<h5>Статус:{Course.PublishStatus}</h5>":"")+
                                 $"<p style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' class=\"text-left\">{Course.Description}</p>" +

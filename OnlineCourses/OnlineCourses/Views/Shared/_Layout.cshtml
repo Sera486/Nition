@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Nition</title>
-    
+
     <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -15,125 +15,166 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="~/vendors/aos.css">
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top normal" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img id="svgImg" class="img-responsive" src="~/img/logo2.svg" alt="logo"></a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
+    <nav class="navbar navbar-inverse navbar-fixed-top normal" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img id="svgImg" class="img-responsive" src="~/img/logo2.svg" alt="logo"></a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
 
-            <ul class="nav navbar-nav navbar-left">
-                <li><a asp-controller="Home" asp-action="Index">Головна</a>
-                </li>
-                <li><a asp-controller="Course" asp-action="Index">Курси</a>
-                </li>
-                <li><a asp-controller="Home" asp-action="About">Про нас</a>
-                </li>
-                <li><a asp-controller="Home" asp-action="Contact">Контакти</a>
-                </li>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    if (User.IsInRole(RolesData.Lecturer))
+                <ul class="nav navbar-nav navbar-left">
+                    
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <li>
-                            <a asp-controller="Lecturer" asp-action="CreateCourse">
-                                <span class="glyphicon glyphicon-plus"></span>
-                                Створити курс
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Lecturer" asp-action="CourseList">
-                                <span class="glyphicon glyphicon-list"></span>
-                                Мої курси
-                            </a>
-                        </li>
+                        if (User.IsInRole(RolesData.Student))
+                        {
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">Головна</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Course" asp-action="Index">Курси</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Home" asp-action="About">Про нас</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Home" asp-action="Contact">Контакти</a>
+                    </li>
+                        }
                     }
-                }
-                @if (User.Identity.IsAuthenticated)
-                {
-                    if (User.IsInRole(RolesData.Student))
+
+
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <li>
-                            <a asp-controller="Student" asp-action="FamilyList">
-                                Сім'я
-                            </a>
-                        </li>
+                        if (User.IsInRole(RolesData.Lecturer))
+                        {
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Каталог
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a asp-controller="Home" asp-action="Index">Головна</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Course" asp-action="Index">Курси</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Home" asp-action="About">Про нас</a>
+                                    </li>
+
+                                    <li>
+                                        <a asp-controller="Home" asp-action="Contact">Контакти</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                     }
-                }
-            </ul>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole(RolesData.Lecturer))
+                        {
+                            <li>
+                                <a asp-controller="Lecturer" asp-action="CreateCourse">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    Створити курс
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Lecturer" asp-action="CourseList">
+                                    <span class="glyphicon glyphicon-list"></span>
+                                    Мої курси
+                                </a>
+                            </li>
+                        }
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole(RolesData.Student))
+                        {
+                            <li>
+                                <a asp-controller="Student" asp-action="FamilyList">
+                                    Сім'я
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
                 @await Html.PartialAsync("_LoginPartial")
-            <ul class="nav navbar-nav navbar-right">
-                <div id="nav-social-icon" class="col-md-12" nopadding>
-                    <!--
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                    <i class="fa fa-google" aria-hidden="true"></i>
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                    -->
-                </div>
-            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <div id="nav-social-icon" class="col-md-12" nopadding>
+                        <!--
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        <i class="fa fa-google" aria-hidden="true"></i>
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        -->
+                    </div>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
         </div>
-        <!--/.nav-collapse -->
+        <!--/.contatiner -->
+    </nav>
+    <div>
+        @RenderBody()
     </div>
-    <!--/.contatiner -->
-</nav>
-<div>
-    @RenderBody()
-    <hr/>
-</div>
-    
-<footer id="myFooter">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4 myCols">
-                <h5>Для початку</h5>
-                <ul>
-                    <li><a asp-controller="Home" asp-action="Index">Домашня сторінка</a></li>
-                    <li><a asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]"> Увійти</a></li>
-                    <li><a asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"> Зареєструватись</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-4 myCols">
-                <h5>Про нас</h5>
-                <ul>
-                    <li><a asp-controller="Home" asp-action="About">Додаткова інформація</a></li>
-                    <li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-4 myCols">
-                <h5>Курси</h5>
-                <ul>
-                    <li><a asp-controller="Course" asp-action="Index">Усі курси</a></li>
-                    <li><a asp-controller="Course" asp-action="PopularCourses">Популярні курси</a></li>
-                    <li><a href="#">Нові курси</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="social-networks">
-        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-        <a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
-        <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
-    </div>
-    <div class="footer-copyright">
-        <p>© 2017 </p>
-    </div>
-</footer>
 
-<!-- Modal -->
-@await Html.PartialAsync("_LoginModalPartial", new LoginViewModel())
-@RenderSection("Scripts", required: false)
+    <footer id="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 myCols">
+                    <h5>Для початку</h5>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index">Домашня сторінка</a></li>
+                        <li><a asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]"> Увійти</a></li>
+                        <li><a asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"> Зареєструватись</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 myCols">
+                    <h5>Про нас</h5>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="About">Додаткова інформація</a></li>
+                        <li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 myCols">
+                    <h5>Курси</h5>
+                    <ul>
+                        <li><a asp-controller="Course" asp-action="Index">Усі курси</a></li>
+                        <li><a asp-controller="Course" asp-action="PopularCourses">Популярні курси</a></li>
+                        <li><a href="#">Нові курси</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="social-networks">
+            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
+            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2017 </p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    @await Html.PartialAsync("_LoginModalPartial", new LoginViewModel())
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
 

@@ -1502,3 +1502,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e6a83', end
 .card-lector-name{
     font-size:1.5em;
 }
+
+
+@media (max-width: 768px) {
+    .navbar-collapse li {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    .navbar-collapse {
+       padding-bottom:100%;
+    }
+    }
+
+.navbar-collapse .dropdown li{
+    background-color: rgba(0, 0, 0, 0.6);
+}

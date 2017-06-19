@@ -52,13 +52,13 @@
                         <form method="post">
                             @if (!await UserManager.IsLockedOutAsync(user))
                             {
-                                <button class="btn btn-danger lock-unlockButt" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+                                <button class="btn btn-danger lock-unlockButt pull-right" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
                                     <span class="glyphicon glyphicon-lock"></span> Заблокувати
                                 </button>
                             }
                             else
                             {
-                                <button class="btn btn-warning lock-unlockButt" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+                                <button class="btn btn-warning lock-unlockButt pull-right" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
                                     <span class="fa fa-unlock-alt"></span> Розблокувати
                                 </button>
                             }
