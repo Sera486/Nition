@@ -145,7 +145,17 @@ namespace OnlineCourses.Controllers
                 };
                 _context.Subscriptions.Add(sub);
                 await _context.SaveChangesAsync();
-            return RedirectToAction("Payment");
+            var viewModel = new CourseInfoViewModel()
+            {
+                Course = await _context.Courses.Include(c => c.Author)
+                    .Include(c => c.Lessons)
+                    .Include(c => c.Subscriptions)
+                    .Include(c=>c.Comments).ThenInclude(c=>c.User).Where(c => c.ID == courseID).FirstOrDefaultAsync(),
+                Paid = true,
+                IsAuthor = false,
+                IsStudent = true
+            };
+            return View("CourseInfo", viewModel);
         }
 
         [HttpGet("Course/{id}")]
