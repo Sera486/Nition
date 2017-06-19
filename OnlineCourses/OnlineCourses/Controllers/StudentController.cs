@@ -52,7 +52,7 @@ namespace OnlineCourses.Controllers
             var viewModel = new FamilyListViewModel
             {
                 PageViewModel = pageViewModel,
-                Users = pageItems,
+                Users = pageItems.Except(user.FamilyMembers.Select(fm=>fm.Member)),
                 FamilyMembers = user.FamilyMembers.Select(fm=>fm.Member),
                 SearchString = search
             };
