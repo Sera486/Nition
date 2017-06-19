@@ -186,18 +186,17 @@ namespace OnlineCourses.Controllers
                             break;
                     }
                     //email verification
-                    try//TODO убрать, без инета крашится
-                    {
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        var callbackUrl = Url.Action(
-                            "ConfirmEmail",
-                            "Account",
-                            new {userId = user.Id, code = code},
-                            protocol: HttpContext.Request.Scheme);
-                        AuthMessageSender emailService = new AuthMessageSender();
-                        await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                            $"Підтвердіть реєстрацію пройшовши по лінку: <a href='{callbackUrl}'>link</a>");
-                    }catch(Exception e) { }
+
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action(
+                        "ConfirmEmail",
+                        "Account",
+                        new {userId = user.Id, code = code},
+                        protocol: HttpContext.Request.Scheme);
+                    AuthMessageSender emailService = new AuthMessageSender();
+                    await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                        $"Підтвердіть реєстрацію пройшовши по лінку: <a href='{callbackUrl}'>link</a>");
+
 
                     return View("ConfirmRequired");
                 }

@@ -9,23 +9,19 @@ namespace OnlineCourses.Models.AccountViewModels
     {
         [Required(ErrorMessage = "Обов'язкове поле")]
         [EmailAddress(ErrorMessage = "Некоректний адрес пошти")]
-        [StringLength(60, MinimumLength = 4)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Обов'язкове поле")]
-        [StringLength(60, MinimumLength = 6)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Обов'язкове поле")]
-        [StringLength(60, MinimumLength = 6)]
         [Compare("Password", ErrorMessage = "Пароль і підтвердження пароля не співпадають")]
         [Display(Name = "Підтвердження пароля")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Обов'язкове поле")]
-        [StringLength(60, MinimumLength = 4)]
         [Display(Name = "Логін")]
         public string Login { get; set; }
 
@@ -40,6 +36,5 @@ namespace OnlineCourses.Models.AccountViewModels
         [Required(ErrorMessage = "Оберіть свою роль")]
         [Display(Name = "Роль")]
         public string Role { get; set; }
-        
     }
 }
