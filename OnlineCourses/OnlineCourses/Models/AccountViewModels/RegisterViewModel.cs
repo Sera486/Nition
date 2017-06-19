@@ -7,35 +7,39 @@ namespace OnlineCourses.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Email field required")]
-        [EmailAddress(ErrorMessage = "String is not a valid email address")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [EmailAddress(ErrorMessage = "Некоректний адрес пошти")]
+        [StringLength(60, MinimumLength = 4)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password field required")]
-        [Display(Name = "Password")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [StringLength(60, MinimumLength = 6)]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Password confirmation field required")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        [Display(Name = "Confirm password")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [StringLength(60, MinimumLength = 6)]
+        [Compare("Password", ErrorMessage = "Пароль і підтвердження пароля не співпадають")]
+        [Display(Name = "Підтвердження пароля")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "Login field required")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [StringLength(60, MinimumLength = 4)]
+        [Display(Name = "Логін")]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "First name field required")]
-        [Display(Name = "First name")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [Display(Name = "Ім'я")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Last name field required")]
-        [Display(Name = "Last name")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [Display(Name = "Прізвище")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Role is not chosen")]
-        [Display(Name = "Role")]
+        [Required(ErrorMessage = "Оберіть свою роль")]
+        [Display(Name = "Роль")]
         public string Role { get; set; }
-
-        public List<SelectListItem> Roles;
+        
     }
 }

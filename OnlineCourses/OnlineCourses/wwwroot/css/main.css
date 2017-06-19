@@ -1434,7 +1434,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e6a83', end
 }
 #menu10, #menu9, #menu8, #menu7, #menu6 {
     transition: 1s;
-    background-color: #2095b5;
     width: 60vw;
     margin-left: 10vw;
 }

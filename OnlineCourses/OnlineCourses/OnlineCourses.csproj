@@ -41,6 +41,7 @@
     <Content Include="wwwroot\vendors\css\single-course(paid).css" />
     <Content Include="wwwroot\vendors\css\site.css" />
     <Content Include="wwwroot\vendors\css\site.min.css" />
+    <Content Include="wwwroot\vendors\fonts\Prociono-Regular.otf" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MailKit" Version="1.16.1" />

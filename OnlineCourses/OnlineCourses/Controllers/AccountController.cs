@@ -98,7 +98,7 @@ namespace OnlineCourses.Controllers
                     var user =  await _userManager.FindByEmailAsync(model.Login);
                     if (user == null)
                     {
-                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                        ModelState.AddModelError(string.Empty, "Помилка входу. Перевірте логін\\пароль");
                         return View(model);
                     }
                     else
@@ -131,7 +131,7 @@ namespace OnlineCourses.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Помилка входу. Перевірте логін\\пароль");
                     return View(model);
                 }
             }
@@ -147,15 +147,13 @@ namespace OnlineCourses.Controllers
         public IActionResult Register()
         {
             ViewData["ReturnUrl"] = "Account/ConfirmRequired";
-            var vm = new RegisterViewModel
+            ViewBag.Roles = new List<SelectListItem>
             {
-                Roles = new List<SelectListItem>
-                {
-                    new SelectListItem() {Text = "Студент", Value = "Student"},
-                    new SelectListItem() {Text = "Лектор", Value = "Lecturer"}
-                }
+                new SelectListItem() {Text = "Студент", Value = "Student"},
+                new SelectListItem() {Text = "Лектор", Value = "Lecturer"}
             };
-            return View(vm);
+            
+            return View(new RegisterViewModel());
         }
 
         //

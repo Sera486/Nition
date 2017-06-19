@@ -10,11 +10,11 @@ namespace OnlineCourses.Models.AccountViewModels
         public string Login { get; set; }
 
         [Required]
-        //[DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [JsonProperty("rememberMe")]
-        //[Display(Name = "Remember me?")]
+        
+        [Display(Name = "Запам'ятати?")]
         public bool RememberMe { get; set; }
     }
 }
