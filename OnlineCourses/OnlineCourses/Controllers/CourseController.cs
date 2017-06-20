@@ -151,9 +151,7 @@ namespace OnlineCourses.Controllers
                     .Include(c => c.Lessons)
                     .Include(c => c.Subscriptions)
                     .Include(c=>c.Comments).ThenInclude(c=>c.User).Where(c => c.ID == courseID).FirstOrDefaultAsync(),
-                Paid = true,
-                IsAuthor = false,
-                IsStudent = true
+                Paid = true
             };
             return View("CourseInfo", viewModel);
         }
@@ -182,9 +180,7 @@ namespace OnlineCourses.Controllers
                     var viewModel = new CourseInfoViewModel()
                     {
                         Course = course,
-                        Paid = false,
-                        IsAuthor = user == course.Author,
-                        IsStudent = User.IsInRole("Student")
+                        Paid = false
                     };
                     ViewData["ReturnUrl"] = $"Course/{course.ID}";
                     return View(viewModel);
@@ -194,8 +190,7 @@ namespace OnlineCourses.Controllers
                     var viewModel = new CourseInfoViewModel()
                     {
                         Course = course,
-                        Paid = true,
-                        IsAuthor = user == course.Author
+                        Paid = true
                     };
                     ViewData["ReturnUrl"] = $"Course/{course.ID}";
                     return View(viewModel);
@@ -206,14 +201,11 @@ namespace OnlineCourses.Controllers
                 var viewModel = new CourseInfoViewModel()
                 {
                     Course = course,
-                    Paid = false,
-                    IsAuthor = false,
-                    IsStudent = false
+                    Paid = false
                 };
                 ViewData["ReturnUrl"] = $"Course/{course.ID}";
                 return View(viewModel);
             }
-            return View();
         }
 
         [HttpGet("ViewComponent/CommentList/{courseID}")]

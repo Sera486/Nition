@@ -23,11 +23,13 @@
         <!--*****************//////////author(img+name)///////////*********************-->
         <ul class="list-inline">
             <li class="text-center">
+                <a class="navbar-brand userImgHead" asp-controller="Manage" asp-action="Index" title="Manage" asp-route-id="@UserManager.GetUserAsync(User).Result.Id">
                 <figure class="text-center" id="authorAboout">
-                    <img src= "~/@Model.Course.Author.ValidImageURL" class="img-responsive img-circle" alt="author" id ="authorImgHead">
-                    <figcaption class="text-center">@Model.Course.Author.FullName:</figcaption>
+                    <img src="~/@Model.Course.Author.ValidImageURL" class="img-responsive img-circle" alt="author" id="authorImgHead">
+                    <figcaption class="text-center">@Model.Course.Author.FullName</figcaption>
                 </figure>
-            </li>
+                    </a>
+</li>
         </ul>
     </div>
     <!--*****************//////////ours+numberVideo+numberPeopleBay///////////*********************-->
@@ -58,8 +60,8 @@
         <h2>Ціна</h2>
         <h4>@Model.Course.Price<strong>₴</strong></h4>
     </div>
-    <!--*****************//////////buttonBay///////////*********************-->
-    @if (!Model.Paid && Model.IsStudent)
+    <!--*****************//////////buttonBuy///////////*********************-->
+    @if (!Model.Paid && User.IsInRole(RolesData.Student))
     {
         <div class="col-md-3">
 
@@ -72,7 +74,8 @@
         </div>
     }
         @*Publish and hide functions for author*@
-    @if(Model.IsAuthor){
+    @if(Model.Course.Author.Id == (await UserManager.GetUserAsync(User)).Id)
+    {
 
         <div class="col-md-3 head">
             <form method="post">
@@ -127,7 +130,7 @@
     <hr class="text-hr"/>
     <img src="~/@Model.Course.ValidImageURL" alt="img-course" style="margin: 0 auto;" class="text-center" id="img-course">
 </div>
-@if(!Model.Paid && !Model.IsAuthor)
+@if(!Model.Paid && Model.Course.Author.Id != (await UserManager.GetUserAsync(User)).Id)
 {
     <div class="col-md-3">
         <span>
@@ -158,9 +161,9 @@
     </span>
 </div>
 
-@if (Model.Paid || Model.IsAuthor)
+@if (Model.Paid || Model.Course.Author.Id == (await UserManager.GetUserAsync(User)).Id)
 {
-    if (Model.IsAuthor)
+    if (Model.Course.Author.Id == (await UserManager.GetUserAsync(User)).Id)
     {
         <div class="col-md-12 text-center">
             <h2><strong>Перелік уроків:</strong>
@@ -220,7 +223,7 @@
     }
 }
     
-@if (Model.IsAuthor)
+@if (Model.Course.Author.Id == (await UserManager.GetUserAsync(User)).Id)
 {
     <div class="col-md-6 col-md-offset-3 " id="addLessonForm">
         <form class="form-horizontal" asp-controller="Lecturer" asp-action="AddLesson" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">

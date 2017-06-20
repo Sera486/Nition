@@ -60,8 +60,10 @@ namespace OnlineCourses.Controllers
             if (await _userManager.IsInRoleAsync(user, RolesData.Student))
             {
                 return View("StudentAccount",
-                    _context.ApplicationUser.Include(a => a.Subscriptions).ThenInclude(s => s.Course).ThenInclude(s => s.Author)
-                        .Include(u => u.FamilyMembers).ThenInclude(fm => fm.User).ThenInclude(u => u.Subscriptions).ThenInclude(s => s.Course).ThenInclude(c => c.Author)
+                    _context.ApplicationUser.Include(a => a.Subscriptions).ThenInclude(s => s.Course)
+                        .ThenInclude(s => s.Author)
+                        .Include(u => u.SharingUsers).ThenInclude(fm => fm.User).ThenInclude(u => u.Subscriptions)
+                        .ThenInclude(s => s.Course).ThenInclude(c => c.Author)
                         .First(c => c.Id == id));
             }
             return View("Error");
