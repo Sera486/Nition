@@ -1,0 +1,112 @@
+#gap {
+	z-index: 111;
+	height: 30vh;
+	background-color: #3a3b3b;
+	margin-bottom: 0vh;
+	background-image: url(background/blue-bg.png);
+}
+
+#gap2 {
+	height: 5vh;
+	background-color: #3a3b3b;
+	background-image: url(background/blue-bg.png);
+}
+
+#gap-in {
+	vertical-align: middle;
+}
+
+#gap-in h1 {
+	margin-top: 15vh;
+	color: white;
+}
+
+ input,button,select{
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+}
+#searchInput{
+	width: 100%;
+/*	height: 100%;*/
+}
+#buttSearch{
+	width: 100%;
+/*	height: 100%;*/
+}
+#searchDiv{
+	background-color: #e8e8e8;
+	padding-top: 3vmin;
+	padding-bottom: 3vmin;
+}
+
+
+@media (max-width: 767px) {
+#searchDiv{
+	padding-top: 1;
+	padding-bottom: 1;
+}
+}
+
+@media (max-width: 479px) {
+#searchDiv{
+	padding-top: 1;
+	padding-bottom: 1;
+}
+}
+
+#buttSearch{
+	background-color: #138590;
+	 border: solid;
+	border-color: #ffffff;
+	border width: 1vmin;
+	color: white;
+}
+
+#course-one{
+	height: 166px;
+	background-color: transparent;
+	margin-bottom: 1vmin;
+	margin-top: 1vmin;
+	
+	 border: solid;
+	border-color: #e8e8e8;
+	border width: 1vh;
+}
+
+@media (max-width: 767px) {
+#course-one{
+	height: 333px;
+	 border: solid;
+	border-color: #e8e8e8;
+	border width: 1vh;
+}
+}
+
+@media (max-width: 767px) {
+#course-one{
+	height: 333px;
+	 border: solid;
+	border-color: #e8e8e8;
+	border width: 1vh;
+	
+}
+}
+
+@media (max-width: 479px) {
+#course-one{
+	padding-bottom: 166px;
+	 border: solid;
+	border-color: #e8e8e8;
+	border width: 1vh;
+}
+}
+
+#img-prjDiv{
+	 margin: 0 auto;
+}
+ #img-prj{
+	height: 160px;
+	padding: 2px;
+	width: auto;
+}

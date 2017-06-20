@@ -1,0 +1,63 @@
+﻿@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Log in";
+}
+<!--*****************//////////MIDDLE///////////*********************-->
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<!--*****************//////////endMIDDLE///////////*********************-->
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-6">
+                    <form role="form" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <fieldset>
+                            <h2>Введіть логін та пароль</h2>
+                            <hr class="colorgraph">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Login"></label>
+                                <input asp-for="Login" name="login" id="emailLog" class="form-control input-lg" placeholder="логін">
+                                <span asp-validation-for="Login" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" type="password" name="password" id="passwordLog" class="form-control input-lg" placeholder="пароль">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <span class="button-checkbox">
+                                <button type="button" class="btn" data-color="info">@Html.DisplayNameFor(m => m.RememberMe)</button>
+                                <input asp-for="RememberMe" type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
+                                <a asp-controller="Account" asp-action="ForgotPassword" class="btn btn-link pull-right">Забули пароль?</a>
+                            </span>
+                            <hr class="colorgraph">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <input type="submit" class="btn btn-lg btn-success btn-block" value="Увійти">
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <a asp-controller="Account" asp-action="Register" class="btn btn-lg btn-primary btn-block">Реєстрація</a>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

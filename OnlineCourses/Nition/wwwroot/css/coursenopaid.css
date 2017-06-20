@@ -1,0 +1,173 @@
+
+input,
+button,
+select {
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+}
+
+#course-property {
+    display: inline-block;
+}
+
+#About-course figcaption {
+    text-align: center;
+}
+
+.about-1 {
+    margin-left: 1vh;
+}
+
+#buyButt {
+    margin-top: 10px;
+    width: 100%;
+    height: 57px;
+    background-color: #16919d;
+    border: solid;
+    border-color: #36a8a8;
+    border width: 2vh;
+    font-size: 1.3em;
+}
+
+    #buyButt:hover {
+        -webkit-box-shadow: -9px 17px 35px -8px rgba(9, 21, 41, 0.67);
+        -moz-box-shadow: -9px 17px 35px -8px rgba(9, 21, 41, 0.67);
+        box-shadow: -9px 17px 35px -8px rgba(9, 21, 41, 0.67);
+        background-color: #137680;
+    }
+
+#all-about-course {
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    font-size: 1.5em;
+}
+
+#description-min {
+    font-size: 1.4em;
+}
+
+@media (max-width: 969px) {
+    .head {
+        text-align: center;
+    }
+
+    #buyButt {
+        margin: 0;
+        padding: 0;
+    }
+
+    #img-course {
+        padding-top: 1vh;
+    }
+}
+
+#authorAboout {
+    padding-right: 1vh;
+    padding-left: 1vh;
+    border: solid;
+    border-color: #ffffff;
+    border-width: 0.5vmin;
+    color: black;
+}
+
+    #authorAboout:hover {
+        border: solid;
+        border-color: #f4f4f4;
+        border-width: 0.5vmin;
+        background-color: #f0f0f0;
+    }
+
+.openLesson:hover {
+    background-color: #f0f0f0;
+    border: solid;
+    border-color: #36a8a8;
+    border-width: 0.19vmin;
+    color: black;
+}
+
+
+
+.numLessonTh {
+    width: 7em;
+}
+
+.editButt {
+    width: 5em;
+}
+
+    .editButt:hover {
+        background-color: #cccccc;
+    }
+
+.delButt {
+    width: 5em;
+}
+
+    .delButt:hover {
+        background-color: #cccccc;
+    }
+
+
+
+#addCourseButt {
+    margin-bottom: 1vh;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+
+#addLesson {
+    background-color: #f0f0f0;
+}
+
+#authorImgHead {
+    width: 57px;
+    margin: 0 auto;
+}
+
+/*
+#addLessonForm{
+	visibility: hidden;
+	height: 0;
+}
+*/
+#newCourse {
+    background-color: #ffffff;
+    border: solid;
+    border-color: #ebebeb;
+    border-width: 0.19vmin;
+}
+
+#showCourseButt {
+    margin: 1vmin;
+}
+
+#emptyInput {
+    padding: 0;
+    margin: 0;
+    border: solid;
+    border-color: #931010;
+    background-color: #d9d9d9;
+    border-width: 0.1vmin;
+    color: #ffffff;
+    font-size: 1.2em;
+}

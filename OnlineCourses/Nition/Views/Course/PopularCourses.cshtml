@@ -1,0 +1,43 @@
+﻿@addTagHelper "OnlineCourses.TagHelpers.CoursePreviewTagHelper, OnlineCourses"
+@using OnlineCourses.Models.CourseViewModels
+@model PopularCoursesViewModel
+@{
+    ViewData["Title"] = "Популярні курси";
+}
+<!--*****************//////////MIDDLE///////////*********************-->
+<!--*****************//////////MIDDLE///////////*********************-->
+<!--*****************//////////MIDDLE///////////*********************-->
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<!--*****************//////////endMIDDLE///////////*********************-->
+<!--*****************//////////endMIDDLE///////////*********************-->
+<!--*****************//////////endMIDDLE///////////*********************-->
+
+<div class="container-fluid">
+    @foreach (var course in Model)
+    {
+        <course-preview course="@course"></course-preview>
+    }
+</div>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-controller="Course" asp-action="PopularCourses"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-controller="Course" asp-action="PopularCourses"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
