@@ -1,0 +1,60 @@
+﻿@addTagHelper "Nition.TagHelpers.CoursePreviewTagHelper, Nition"
+@using Nition.Models.CourseViewModels
+@model Nition.Models.CourseViewModels.CourseListViewModel
+@{
+    ViewData["Title"] = "Створені курси";
+}
+<!--*****************//////////MIDDLE///////////*********************-->
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<!--*****************//////////endMIDDLE///////////*********************-->
+
+<div id="searchDiv">
+    <div class="container-fluid">
+
+        <div class="col-md-10 col-md-offset-1">
+            <form asp-controller="Lecturer" asp-action="CourseList" method="get" class="form-inline">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="form-group col-md-8  col-sm-12 no-margin no-padding">
+                        <input name="search" type="text" class="form-control" id="searchInput" placeholder="Пошук" value="@Model.SearchString">
+                    </div>
+                    <div class="col-md-4 col-sm-12 no-padding no-margin">
+                        <button type="submit" class="btn btn-default btn-block" id="buttSearch">Пошук</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="container-fluid">
+    @foreach (var course in Model)
+    {
+        <course-preview course="@course" show-status="true"></course-preview>
+    }
+</div>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-controller="Lecturer" asp-action="CourseList"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-search="@(Model.SearchString)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-controller="Lecturer" asp-action="CourseList"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-search="@(Model.SearchString)"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

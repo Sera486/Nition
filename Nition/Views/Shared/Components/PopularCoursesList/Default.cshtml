@@ -1,0 +1,90 @@
+﻿@using Nition.Models
+@model List<Nition.Models.Course>
+
+<div class="carousel slide aos-all  aos-item" data-aos="fade-up" data-aos-anchor-placement="center-bottom" id="myCarousel">
+    <div class="container" class="aos-all" id=secondcontainer>
+        <div class="col-md-12 aos-item">
+            <a asp-controller="Course" asp-action="PopularCourses"><h1>Популярні курси</h1></a>
+            <hr class="under-hr text-center">
+        </div>
+    </div>
+    <div class="carousel-inner">
+        @{
+            int firstBlockFlag = 0;
+            IEnumerable<Course> coursesBlock;
+            while (Model.Count != 0)
+            {
+                coursesBlock = Model.Take(4);
+                if (firstBlockFlag == 0)
+                {
+                    @Html.Raw("<div class=\"item active\">")
+                    ;
+                    @Html.Raw("<ul class=\"thumbnails\">")
+                    ;
+                    firstBlockFlag++;
+                }
+                else
+                {
+                    @Html.Raw("<div class=\"item\">")
+                    ;
+                    @Html.Raw("<ul class=\"thumbnails\">")
+                    ;
+                }
+                foreach (var el in coursesBlock)
+                {
+                    <li class="col-sm-3">
+                        <div class="fff">
+                            <div class="thumbnail">
+                                <a asp-controller="Course" asp-action="CourseInfo" asp-route-id="@el.ID">
+                                    <img src="~/@el.ValidImageURL" id="popular-course-Img" class="img-responsive" alt="">
+                                </a>
+                            </div>
+                            <div class="caption">
+                                <h4>@el.Title</h4>
+                                <p>@el.Author</p>
+                                <a class="btn btn-mini" href="#">» Більше</a>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+                @Html.Raw("</ul>")
+                ;
+                @Html.Raw("</div>")
+                ;
+
+                if (coursesBlock.Count() != 4)
+                {
+                    break;
+                }
+                else
+                {
+                    Model.RemoveRange(0, 4);
+                }
+            }
+        }
+                
+    </div>
+
+
+    <nav>
+        <ul class="control-box pager">
+            <li><a data-slide="prev" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+            <li><a data-slide="next" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+        </ul>
+    </nav>
+    <!-- /.control-box -->
+
+</div><!-- /#myCarousel -->
+
+    <script type="text/jscript" src="~/vendors/aos.js"></script>
+    <script>
+        AOS.init({
+            easing: 'ease-in-out-sine'
+        });
+        $(document).ready(function () {
+            $('.carousel').carousel({
+                interval: 6000
+            });
+        });
+    </script>

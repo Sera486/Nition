@@ -1,0 +1,52 @@
+﻿@addTagHelper "Nition.TagHelpers.CoursePreviewTagHelper, Nition"
+@using Nition.Models.ManageViewModels
+@model Nition.Models.ManageViewModels.UserAccountCourseListViewModel
+
+
+    @foreach (var course in Model.Courses)
+    {
+        <course-preview course="@course"></course-preview>
+    }
+
+<div class="container col-md-12 col-lg-8 col-lg-offset-2z">
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a id="previousPageButton"
+       userID="@Model.UserID"
+       page="@(Model.PageViewModel.PageNumber-1)"
+       class="btn btn-default btn pull-left">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a id="nextPageButton"
+       userID="@Model.UserID"
+       page="@(Model.PageViewModel.PageNumber+1)"
+       class="btn btn-default btn pull-right">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+</div >
+<script type="text/javascript" src="~/vendors/jquery.min.js"></script>
+<script>
+    $('#nextPageButton').click(function (event) {
+        var container = $("#userCourseList");
+        var refreshComponent = function () {
+            $.get("/ViewComponent/UserCoursesList?userID=" + "@Model.UserID" + "&page=" +"@(Model.PageViewModel.PageNumber+1)", function (data) { container.html(data); });
+        };
+        refreshComponent();
+    });
+
+    $('#previousPageButton').click(function (event) {
+
+        var container = $("#userCourseList");
+        var refreshComponent = function () {
+            $.get("/ViewComponent/UserCoursesList?userID=" + "@Model.UserID" + "&page=" +"@(Model.PageViewModel.PageNumber-1)", function (data) { container.html(data); });
+        };
+        refreshComponent();
+        event.preventDefault();
+    });
+</script>

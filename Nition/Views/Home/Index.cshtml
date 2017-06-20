@@ -1,0 +1,244 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Nition.Models
+@model List<Nition.Models.Theme>
+@{
+    ViewData["Title"] = "Головна";
+}
+
+<!--*****************//////////SLIDER///////////*********************-->
+<div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="15000">
+    <!-- Indicators -->
+    <!-- Wrapper For Slides -->
+    <div class="carousel-inner" role="listbox">
+        <!-- Third Slide -->
+        <div class="item active">
+            <!-- Slide Background -->
+            <img src="img/dream-about-business.jpg" /> *
+            <div class="bs-slider-overlay"></div>
+            <!-- Slide Text Layer -->
+            <div class="slide-text slide_style_right">
+                <h1 data-animation="animated zoomInLeft">Найкращі курси</h1>
+                <p data-animation="animated fadeInRight">Унікальні курси від успішних людей.</p>
+                <a asp-controller="Home" asp-action="BestLecturers" class="btn btn-default" data-animation="animated fadeInLeft">Провідні лектори</a>
+            </div>
+        </div>
+        <!-- End of Slide -->
+        <!-- Second Slide -->
+        <div class="item">
+            <!-- Slide Background -->
+            <img src="img/c700x420.jpg" alt="Bootstrap Touch Slider" class="slide-image" />
+            <div class="bs-slider-overlay"></div>
+            <!-- Slide Text Layer -->
+            <div class="slide-text slide_style_center">
+                <h1 data-animation="animated flipInX">Більше ніж 1000 курсів</h1>
+                <p data-animation="animated lightSpeedIn">Кожен зможе знайти цікавий та потрібний курс</p>
+                <a asp-controller="Course" asp-action="Index" class="btn btn-default" data-animation="animated fadeInUp">Переглянути усі курси</a>
+            </div>
+        </div>
+        <!-- End of Slide -->
+        <!-- Third Slide -->
+        <div class="item">
+            <!-- Slide Background -->
+            <!-- Slide Background -->
+            <img src="img/success-man-of-value.jpg" class="slide-image" />
+            <div class="bs-slider-overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <!-- Slide Text Layer -->
+                    <div class="slide-text slide_style_left">
+                        <h1 data-animation="animated zoomInRight">Отримай справжній досвід та реальні історії </h1>
+                        <p data-animation="animated fadeInLeft">Великий вибір бізнес курсів на різноманітну тематику.</p>
+                        <a asp-controller="Course" asp-action="PopularCourses" class="btn btn-default" data-animation="animated fadeInLeft">Популярні курси</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Slide -->
+    </div>
+    <!-- End of Wrapper For Slides -->
+    <!-- Left Control -->
+    <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
+        <span class="fa fa-angle-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+
+    <!-- Right Control -->
+    <a class="right carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="next">
+        <span class="fa fa-angle-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<!--*****************//////////endSLIDER///////////*********************-->
+<!--*****************//////////endSLIDER///////////*********************-->
+<!--*****************//////////endSLIDER///////////*********************-->
+
+
+<!--*****************//////////CARD///////////*********************-->
+<!--*****************//////////CARD///////////*********************-->
+<!--*****************//////////CARD///////////*********************-->
+<div class="container-fluid" id="containerfirst">
+    <div class="container" class="aos-all" id=secondcontainer>
+        <div class="col-md-4 Oportunities aos-item nopadding one" data-aos="fade-up">
+            <h3>Що ви отримуєте:</h3>
+            <ul>
+                <li id="cardUl"><strong>Більше ніж 1000 різноманітних курсів.</strong>Які допомоожуть Вам у вашій подільшій справі.</li>
+                <li id="cardUl"><strong>Унікаль курси</strong> Курси, які допоможуть вашій справі. Усі наші курси проходять модерацію та перевірку</li>
+                <li id="cardUl"><strong>Кваліфіковані лектори</strong></li>
+                <li id="cardUl"><strong>Унікальний досвід та інформація</strong></li>
+            </ul>
+        </div>
+        <div class="col-md-4 Oportunities aos-item nopadding two" data-aos="fade-up-right">
+            <h3>Отримайте необхідні знання вдома</h3>
+            <strong>Ніяких семінарів та тренінгів.</strong> Потрібна інформація у зручному для Вас місці.
+        </div>
+        <div class="col-md-4 Oportunities aos-item nopadding three" data-aos="fade-up">
+            <h3>Завжди під рукою</h3>
+            <strong>Унікальні курси.</strong>Які допомоожуть Вам у вашій подільшій справі.
+        </div>
+    </div>
+</div>
+<!--*****************//////////endCARD///////////*********************-->
+<!--*****************//////////endCARD///////////*********************-->
+<!--*****************//////////endCARD///////////*********************-->
+
+<div class="container-fluid text-center" id="popular-them-div">
+    <div class="col-md-12">
+        <h1>Теми</h1>
+        <hr class="under-hr text-center">
+    </div>
+    <div class="container-fluid">
+        <div class="container col-md-10 col-md-offset-1 ">
+            @foreach (var theme in Model)
+            {
+                <a asp-controller="Course" asp-action="Index" asp-route-theme="@theme.ID">
+                    <div class="col-sm-3 popular-them">
+                        <figure>
+                            <img src="~/@theme.ValidImageURL" class="popular-them-item"/>
+                            <figcaption>
+                                <p>
+                                    <strong>@theme.Name</strong>
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </a>
+            }
+
+        </div>
+    </div>
+</div>
+<!--Steps-->
+<!--*****************//////////STEPS///////////*********************-->
+<!--*****************//////////STEPS///////////*********************-->
+<!--*****************//////////STEPS///////////*********************-->
+<div id="steps">
+    <div class="container" id="in_steps">
+        <div class="row">
+            <div class="process">
+                <div class="process-row nav nav-tabs">
+                    <div class="process-step">
+                        <button type="button" class="btn btn-info btn-circle" data-toggle="tab" href="#menu10"><i class="fa fa-sign-in fa-3x"></i></button>
+                        <p><small>Пройти<br />реєстрацію</small></p>
+                    </div>
+                    <div class="process-step">
+                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu9"><i class="fa fa-search fa-3x"></i></button>
+                        <p><small>Знайти<br />потрібний курс</small></p>
+                    </div>
+                    <div class="process-step">
+                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu8"><i class="fa fa-credit-card" style="font-size:36px"></i></button>
+                        <p><small>Оплатити<br />курс</small></p>
+                    </div>
+                    <div class="process-step">
+                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu7"><i class="fa fa-cogs fa-3x"></i></button>
+                        <p><small>Пройти курс<br />...</small></p>
+                    </div>
+                    <div class="process-step">
+                        <button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu6"><i class="fa fa-check fa-3x"></i></button>
+                        <p><small>Отримати<br />результат)))</small></p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div id="menu10" class="tab-pane fade active in tab-steps text-center">
+                    <h3>Реєстрація</h3>
+                    <p>Пойдіть стандартну реєстрацію та вибирийте потрібний курс.</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                    </ul>
+                </div>
+                <div id="menu9" class="tab-pane fade tab-steps text-center">
+                    <h3>Пошук курсів</h3>
+                    <p>Вм можете підібрати потрібний вам курс</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                    </ul>
+                </div>
+                <div id="menu8" class="tab-pane fade tab-steps text-center">
+                    <h3>Оплата</h3>
+                    <p>Виберіть метод оплати та оплатіть курс.</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                    </ul>
+                </div>
+                <div id="menu7" class="tab-pane fade tab-steps text-center">
+                    <h3>Ви отримуєте курс</h3>
+                    <p>Вибраний курс вам доступний, ви можете переглянути його.</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                    </ul>
+                </div>
+                <div id="menu6" class="tab-pane fade tab-steps text-center">
+                    <h3>Пост перегляд</h3>
+                    <p>Ви отримуєте потрібні знання та навички.</p>
+                    <ul class="list-unstyled list-inline pull-right">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--*****************//////////endSTEPS///////////*********************-->
+<!--*****************//////////endSTEPS///////////*********************-->
+<!--*****************//////////endSTEPS///////////*********************-->
+<!-- /#myCarousel -->
+@await Component.InvokeAsync("PopularCoursesList")
+
+<div class="container-fluid" id="LikeUs">
+    <div data-aos="fade-in" data-aos-anchor-placement="center-bottom">
+        <div class="row col-md-10 col-md-offset-1 onCenter">
+
+            <div class="col-md-3 ">
+                <img src="~/img/dream-big.jpg" alt="" id="imgWd">
+            </div>
+
+            <div class="col-md-5 ">
+                <span class="onCenter" id="text-like">
+                    <br><br>
+                    <p><strong>Сподобалось те, що Ви побачили?</strong></p>
+                </span>
+            </div>
+
+            <div class="col-md-4">
+                <form method="get">
+                <button asp-controller="Course" asp-action="Index" type="submit" class="btn btn-primary btn-block" id="btn-all-course">Переглянути усі курси</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button type="button" class="btn btn-default btn-lg" onclick="topFunction()" id="BtnUp">
+    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+</button>
+
+@section Scripts{
+    <script type="text/jscript" src="~/vendors/aos.js"></script>
+    <script>
+        AOS.init({
+            easing: 'ease-in-out-sine'
+        });
+        $(document).ready(function () {
+            $('.carousel').carousel({
+                interval: 116000
+            });
+        });
+    </script>
+}

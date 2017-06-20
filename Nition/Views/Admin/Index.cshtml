@@ -1,0 +1,18 @@
+﻿@using Nition.Models.AdminViewModels
+@model Nition.Models.AdminViewModels.IndexViewModel
+@{ Layout = "_LayoutAdmin"; }
+@{ ViewData["Title"] = "Головна"; }
+<!--*****************//////////MIDDLE///////////*********************-->
+<div class="container-fluid" id="gap">
+    <div class="col-md-12" id="gap-in">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<!--*****************//////////endMIDDLE///////////*********************-->
+
+<header>
+    <h1>До розгляду:</h1>
+    <p>Курси:@Model.CoursesCount</p>
+</header>
+
+

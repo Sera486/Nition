@@ -1,0 +1,30 @@
+﻿@using Nition.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+        <ul class="nav navbar-nav navbar-right">
+            <li class="userImgHead">
+                <a class="navbar-brand userImgHead" asp-controller="Manage" asp-action="Index" title="Manage" asp-route-id="@UserManager.GetUserAsync(User).Result.Id">
+                    <img style="height: 99%;" class="img-responsive img-circle userImgHead" src="~/@UserManager.GetUserAsync(User).Result.ValidImageURL" alt=""> 
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Manage" asp-action="Index" title="Manage" asp-route-id="@UserManager.GetUserAsync(User).Result.Id">@UserManager.GetUserName(User)</a>
+            </li>
+            <li>
+                <form method="post">
+                    <button asp-controller="Account" asp-action="Logout" id="Logout" class="btn navbar-btn navbar-link">Вийти</button>
+                </form>
+            </li>
+        </ul>
+
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-controller="Account" asp-action="Register"><span class="glyphicon glyphicon-user"></span> Зареєструватися</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span> Увійти</a></li>
+    </ul>
+}

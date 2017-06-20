@@ -1,0 +1,70 @@
+﻿@using Nition.Models
+@using Nition.Models.LecturerViewModels
+@model Nition.Models.LecturerViewModels.LessonViewModel
+
+<body>
+
+	<!--*****************//////////MIDDLE///////////*********************-->
+	<!--*****************//////////MIDDLE///////////*********************-->
+	<!--*****************//////////MIDDLE///////////*********************-->
+	<div class="container-fluid" id="gap">
+		<div class="col-md-12" id="gap-in">
+			<h1>@Model.Lesson.Title</h1>
+		</div>
+	</div>
+	<!--*****************//////////endMIDDLE///////////*********************-->
+	<!--*****************//////////endMIDDLE///////////*********************-->
+	<!--*****************//////////endMIDDLE///////////*********************-->
+
+
+	<!--*****************//////////COURSE///////////*********************-->
+	<!--*****************//////////COURSE///////////*********************-->
+	<!--*****************//////////COURSE///////////*********************-->
+	    <div class="container-fluid">
+		
+		<!--*****************//////////addCourse///////////*********************-->
+
+	        <div class="col-md-10 col-md-offset-1 text-center" id="nameCourse-addLesson">
+	            <h1>@Model.Lesson.Title</h1>
+                <hr class="under-hr text-center">
+	        </div>
+	        <div class="col-md-10 col-md-offset-1" id="nameCourse-addLesson">
+	           <p style="font-size:1.4em; overflow:hidden; text-overflow: ellipsis;">@Model.Lesson.Description</p>
+                <hr class="text-hr">
+	        </div>
+            
+	        @foreach (var infoBlock in Model.InfoBlocks)
+	        {
+	            <div class="col-md-10 col-md-offset-1" id="nameCourse-addLesson">
+	                @if (infoBlock is TextBlock)
+	                {  
+	                    <p style="font-size:1.3em;" class="text-justify">@((infoBlock as TextBlock).Text)</p>
+                        <hr class="no-margin no-padding"/>
+	                }
+	                else
+	                {
+	                    <div class="text-center">
+	                        <video class="text-center" controls style="max-width: 33vmax ; height: auto; margin: 0 auto;"><source src="~/@((infoBlock as VideoBlock).VideoURL)" type="video/mp4"><source src="~/(infoBlock as VideoBlock).VideoURL)" type="video/ogg"> Your browser does not support HTML5 video.</video>
+	                        <hr class="no-margin no-padding" />
+	                    </div>
+                    }
+	            </div>               
+	        }
+		</div>
+
+
+    <!--*****************//////////Сторінки курсів///////////*********************-->
+    <div class="container-fluid text-center">
+        <ul class="pagination">
+            @foreach (var lesson in Model.Lesson.Course.Lessons)
+            {
+                <li><a asp-controller="Course" asp-action="Lesson" asp-route-LessonId="@lesson.ID" title=@lesson.Title>Урок № @lesson.Order</a></li>
+            }
+        </ul>
+    </div>
+<div class="container-fluid text-center">
+    <form asp-controller="Course" asp-action="CourseInfo" asp-route-ID="@Model.Lesson.Course.ID" method="get">
+        <button type="submit" class="btn btn-default pull-left">Повернутись до сторінки курсу</button>
+    </form>
+</div>
+</body>
