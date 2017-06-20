@@ -80,19 +80,6 @@ namespace OnlineCourses.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> PublishCourse(Course courseID, string returnUrl = null)
-        {
-            ViewData["ReturnUrl"] = returnUrl;
-
-            var course = _context.Courses.Find(courseID);
-            course.PublishStatus = PublishStatus.Published;
-            _context.Update(course);
-            await _context.SaveChangesAsync();
-            return RedirectToLocal(returnUrl);
-        }
-
-
-        [HttpPost]
         public async Task<IActionResult> PublishCourse(int ID, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;

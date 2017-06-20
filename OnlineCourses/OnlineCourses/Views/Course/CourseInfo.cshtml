@@ -69,9 +69,8 @@
     {
         <div class="col-md-3">
 
-            <form asp-controller="Course" asp-action="Payment">
+            <form asp-controller="Course" asp-action="Payment" asp-route-courseID="@Model.Course.ID">
                 <span>
-                    <input type="hidden" name="courseID" value="@Model.Course.ID"/>
                     <button type="submit" class="btn btn-primary btn-block" id="buyButt">Купити цей курс</button>
                 </span>
             </form>
@@ -80,7 +79,6 @@
         @*Publish and hide functions for author*@
     @if(Model.Course.Author.Id == (await UserManager.GetUserAsync(User)).Id)
     {
-
         <div class="col-md-3 head">
             <form method="post">
                 <span>
@@ -134,7 +132,7 @@
     <hr class="text-hr"/>
     <img src="~/@Model.Course.ValidImageURL" alt="img-course" style="margin: 0 auto;" class="text-center" id="img-course">
 </div>
-@if(!Model.Paid && Model.Course.Author.Id != (await UserManager.GetUserAsync(User)).Id)
+@if((!Model.Paid && Model.Course.Author.Id != (await UserManager.GetUserAsync(User)).Id))
 {
     <div class="col-md-3">
         <span>
