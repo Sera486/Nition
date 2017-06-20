@@ -44,25 +44,33 @@
                     <!--*****************//////////author(userList)///////////*********************-->
                     
                     <div class="user-list">
-                        <figure>
-                            <img src="~/@user.ValidImageURL" class="img-responsive img-circle" alt="author" id="authorImgHead">
-                            <figcaption>@user.FullName</figcaption>
-                        </figure>
-                        <span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
-                        <form method="post">
-                            @if (!await UserManager.IsLockedOutAsync(user))
-                            {
-                                <button class="btn btn-danger lock-unlockButt pull-right" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
-                                    <span class="glyphicon glyphicon-lock"></span> Заблокувати
-                                </button>
-                            }
-                            else
-                            {
-                                <button class="btn btn-warning lock-unlockButt pull-right" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
-                                    <span class="fa fa-unlock-alt"></span> Розблокувати
-                                </button>
-                            }
-                        </form>
+                        <div class="col-lg-2">
+                            <figure>
+                                <img src="~/@user.ValidImageURL" class="img-responsive img-circle" alt="author" id="authorImgHead">
+                                <figcaption>@user.FullName</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-lg-2">
+                            <span >Роль:@(UserManager.GetRolesAsync(user).Result[0])</span>
+                        </div>
+                        <div class="col-lg-8 pull-right">
+
+                            <form method="post">
+                                @if (!await UserManager.IsLockedOutAsync(user))
+                                {
+
+                                    <button class="btn btn-danger lock-unlockButt pull-right" type="submit" asp-action="LockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+                                        <span class="glyphicon glyphicon-lock"></span> Заблокувати
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button  class="btn btn-warning lock-unlockButt pull-right" type="submit" asp-action="UnlockUser" asp-route-ID="@user.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+                                        <span class="fa fa-unlock-alt"></span> Розблокувати
+                                    </button>
+                                }
+                            </form>
+                        </div >
                     </div>
 
                 </div>

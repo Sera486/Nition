@@ -174,8 +174,8 @@ namespace OnlineCourses.Controllers
                     .Include(c => c.Subscriptions).ThenInclude(s=>s.Course)
                     .Include(u=>u.SharingUsers).ThenInclude(fm=>fm.User).ThenInclude(u=>u.Subscriptions).ThenInclude(s=>s.Course).AsNoTracking()
                     .First(c => c.Id == user.Id);
-                var count = user.ValidSubscriptions().Count(e => e.Course == course);
-                if (count == 0)
+                var ValidSubscriptions = user.ValidSubscriptions();
+                if (ValidSubscriptions.Count(c=>c.Course.ID==course.ID) == 0)
                 {
                     var viewModel = new CourseInfoViewModel()
                     {

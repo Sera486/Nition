@@ -4,6 +4,10 @@
 @model  OnlineCourses.Models.CourseViewModels.CourseInfoViewModel
 @inject UserManager<ApplicationUser> UserManager
 @{
+    if (User.IsInRole(RolesData.Admin))
+    {
+        Layout = "_LayoutAdmin";
+    }
     ViewData["ReturnUrl"] = $"~/Course/{Model.Course.ID}";
     ViewData["Title"] = Model.Course.Title;
 }
@@ -113,7 +117,7 @@
                     @if (Model.Course.PublishStatus == PublishStatus.Proccesing)
                     {
                         <h4>Статус: Знаходиться на розгляді</h4>
-                        <button type="submit" asp-controller="Admin" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Опублікувати</button>
+                        <button type="submit" asp-controller="Admin" asp-action="PublishCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Опублікувати</button>
                     }
                     @if (Model.Course.PublishStatus == PublishStatus.Published)
                     {
