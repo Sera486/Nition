@@ -1,5 +1,39 @@
 #InfoBack {
 	background-image: url(img/InfoPage.jpg);
-    height: 250;
     width: 100%;
+    height: 250px;
+    background-size: 100%;
+  position:relative
+}
+.panel-body .img{
+   margin-left:-10px;
+}
+.Carousel { float: left; overflow: hidden; padding:15px; width: 100%; }
+
+.Carousel-inner { transition: 1s ease all; float: left; }
+
+    .Carousel-inner .item { float: left; border: 1px solid #ccc; text-align:center; }
+
+    .leftLst, .rightLst { margin-top:15px;}
+
+#gapUserInfo{
+	z-index: 111;
+	height: 30vh;
+	background-color: #3a3b3b;
+	margin-top: 1vh;
+	background-image: url(background/websitebg-bl_compr1_1.png);
+}
+
+#gapUserInfo-in {
+	vertical-align: middle;
+}
+
+#gapUserInfo-in h1 {
+	margin-top: 15vh;
+	color: white;
+}
+
+#imgUser{
+	margin-bottom: 1vmin;
+	margin-top: 1vmin;
 }

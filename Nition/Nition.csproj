@@ -54,19 +54,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Properties\PublishProfiles\Nition - FTP.pubxml" />
-    <None Remove="Properties\PublishProfiles\Nition - Web Deploy.pubxml" />
-    <None Remove="Properties\PublishProfiles\OnlineCourses20170618011143 - FTP.pubxml" />
-    <None Remove="Properties\PublishProfiles\OnlineCourses20170618011143 - Web Deploy.pubxml" />
+    <Content Remove="wwwroot/favicon.svg" />
+    <Content Remove="wwwroot/img\9gag1600.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="wwwroot\css\allcoursesearch.css" />
     <Content Include="wwwroot\css\coursenopaid.css" />
     <Content Include="wwwroot\css\main.css" />
-    <Content Include="wwwroot\css\main.min.css" />
     <Content Include="wwwroot\css\user-info.css" />
-    <Content Include="wwwroot\js\common.js" />
     <Content Include="wwwroot\js\effetsFile.js" />
     <Content Include="wwwroot\lib\bootstrap\.bower.json" />
     <Content Include="wwwroot\lib\bootstrap\bower.json" />
@@ -582,8 +578,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\images\courseLogos\" />
     <Folder Include="wwwroot\images\themeImages\" />
     <Folder Include="wwwroot\img\" />
@@ -591,6 +585,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Manage\StudentAccount.cshtml" />
+    <None Include="wwwroot\less\course.less" />
   </ItemGroup>
 
 </Project>

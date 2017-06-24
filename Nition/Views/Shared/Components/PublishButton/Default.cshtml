@@ -1,0 +1,54 @@
+﻿@using Nition.Models
+@using Nition.Models.Enums
+@model Course
+
+
+@if(Model.Author.Id == (await UserManager.GetUserAsync(User)).Id)
+{
+    <div class="col-md-3 head">
+        <form method="post">
+            <span>
+                @if (Model.PublishStatus == PublishStatus.Hidden)
+                {
+                    <h4>Статус: Приховано</h4>
+                    <button type="submit" asp-controller="Lecturer" asp-action="PublishCourse" asp-route-ID="@Model.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Подати на розгляд</button>
+                }
+                @if (Model.PublishStatus == PublishStatus.Proccesing)
+                {
+                    <h4>Статус: Знаходитья на розгляді</h4>
+                    <button type="submit" asp-controller="Lecturer" asp-action="HideCourse" asp-route-ID="@Model.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
+                }
+                @if (Model.PublishStatus == PublishStatus.Published)
+                {
+                    <h4>Статус: Опубліковано</h4>
+                    <button type="submit" asp-controller="Lecturer" asp-action="HideCourse" asp-route-ID="@Model.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
+                }
+            </span>
+        </form>
+    </div>
+}
+    @*Publish and hide functions for admin*@
+    @if (User.Identity.IsAuthenticated&&User.IsInRole("Admin"))
+    {
+        <div class="col-md-3">
+            <form method="post">
+                <span>
+                    @if (Model.PublishStatus == PublishStatus.Hidden)
+                    {
+                        <h4>Статус: Приховано</h4>
+                        <button type="submit" asp-controller="Admin" asp-action="PublishCourse" asp-route-ID="@Model.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Опублікувати</button>
+                    }
+                    @if (Model.PublishStatus == PublishStatus.Proccesing)
+                    {
+                        <h4>Статус: Знаходиться на розгляді</h4>
+                        <button type="submit" asp-controller="Admin" asp-action="PublishCourse" asp-route-ID="@Model.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Опублікувати</button>
+                    }
+                    @if (Model.PublishStatus == PublishStatus.Published)
+                    {
+                        <h4>Статус: Опубліковано</h4>
+                        <button type="submit" asp-controller="Admin" asp-action="HideCourse" asp-route-ID="@Model.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
+                    }
+                </span>
+            </form>
+        </div>
+    }

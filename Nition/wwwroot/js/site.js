@@ -4,7 +4,6 @@
 
 $('#bootstrap-touch-slider').bsTouchSlider();
 
-
 /////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 $(window).scroll(function () {
@@ -18,7 +17,6 @@ $(window).scroll(function () {
         $('.navbar').css('background-color', rgbaCol);
         $('.navbar').css("transition", "1s");
         $('.userImgHead').css("padding-left", "10px");
-
     }
     else {
         $('.navbar').removeClass('shrink');
@@ -52,7 +50,6 @@ $(function () {
         }
     });
 });
-
 
 $(document).ready(function () {
     $('.carousel').carousel({
@@ -119,7 +116,6 @@ $(function () {
     });
 });
 
-
 $(window).scroll(function () {
     $(".slideanim").each(function () {
         var pos = $(this).offset().top;
@@ -161,12 +157,10 @@ $("#confirmAddLessonVideo").click(function () {
 });
 /////////////////end add COURSE text|vydeo //////////////////
 
-
 $("#clearAddLesson").click(function () {
     $("#nameLesson").val('');
     $("#descLesson").val('');
 });
-
 
 $('tr[data-href]').on("click", function () {
     document.location = $(this).data('href');
@@ -184,14 +178,12 @@ $('.SeeMore').click(function () {
         $this.text('Додати урок');
         $('#addLessonForm').hide();
         $('#newCourse').hide();
-
     } else {
         $this.text('Приховати');
         $('#addLessonForm').fadeIn('slow');
         $('#newCourse').fadeIn('slow');
     }
 });
-
 
 $("#confirmAddLesson").click(function () {
     var name = $("#nameLesson").val();
@@ -207,8 +199,6 @@ $("#confirmAddLesson").click(function () {
         $("#tableLesson").append(lesson);
     }
 });
-
-
 
 $(document).ready(function () {
     $('#addTextLessonForm').hide();
@@ -227,7 +217,6 @@ $("#cancleAddText").click(function () {
     $('#addVideoLessonForm').hide();
 });
 
-
 $("#addVideoButt").click(function () {
     $('#addVideoLessonForm').fadeIn('slow');
     $('#createLessonForm').hide();
@@ -240,12 +229,10 @@ $("#cancleAddVideo").click(function () {
     $('#addVideoLessonForm').hide();
 });
 
-
 ///////////////// add COURSE text|vydeo //////////////////
 function editBlock() {
     $("#editBlock").append('<div class="col-md-10 col-md-offset-1"><form><div class="form-group"><label for="comment">Змінити текст:</label><textarea class="form-control" rows="3" id="commentTextArea"></textarea><button style="margin-top:1vmin;margin-bottm:1vmin;" type="submit" class="btn btn-info pull-right">Підтвердити</button></div></form>');
 };
-
 
 window.onscroll = function () { scrollFunction() };
 

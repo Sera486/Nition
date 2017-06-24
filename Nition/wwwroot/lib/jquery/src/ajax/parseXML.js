@@ -28,6 +28,3 @@ jQuery.parseXML = function( data ) {
 return jQuery.parseXML;
 
 } );
-urn jQuery.parseXML;
-
-} );

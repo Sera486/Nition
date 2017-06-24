@@ -1,12 +1,3 @@
-
-input,
-button,
-select {
-    -webkit-border-radius: 0px !important;
-    -moz-border-radius: 0px !important;
-    border-radius: 0px !important;
-}
-
 #course-property {
     display: inline-block;
 }
@@ -86,8 +77,6 @@ select {
     color: black;
 }
 
-
-
 .numLessonTh {
     width: 7em;
 }
@@ -107,8 +96,6 @@ select {
     .delButt:hover {
         background-color: #cccccc;
     }
-
-
 
 #addCourseButt {
     margin-bottom: 1vh;

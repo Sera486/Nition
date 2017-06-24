@@ -4,16 +4,16 @@
  * like 'position'
  */
 const createArrayWithElements = function (elements) {
-  elements = elements || document.querySelectorAll('[data-aos]');
-  let finalElements = [];
+    elements = elements || document.querySelectorAll('[data-aos]');
+    let finalElements = [];
 
-  [].forEach.call(elements, function(el, i) {
-    finalElements.push({
-      node: el
+    [].forEach.call(elements, function (el, i) {
+        finalElements.push({
+            node: el
+        });
     });
-  });
 
-  return finalElements;
+    return finalElements;
 };
 
 export default createArrayWithElements;

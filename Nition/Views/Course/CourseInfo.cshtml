@@ -1,8 +1,6 @@
-﻿@addTagHelper "Nition.TagHelpers.CommentTagHelper, Nition"
-@using Nition.Data
+﻿@using Nition.Data
 @using Nition.Models
-@using Nition.Models.CourseViewModels
-@using Nition.Models.Enums
+@using Nition.TagHelpers
 @model  Nition.Models.CourseViewModels.CourseInfoViewModel
 @inject UserManager<ApplicationUser> UserManager
 @{
@@ -14,13 +12,7 @@
     ViewData["Title"] = Model.Course.Title;
 }
 
-<body>
-
-<div class="container-fluid" id="gap">
-    <div class="col-md-12" id="gap-in">
-        <h1>@ViewData["Title"]</h1>
-    </div>
-</div>
+<page-header content="@ViewData["Title"]"></page-header>
 
 <div class="container-fluid">
 <div class="col-md-12">
@@ -78,56 +70,8 @@
             </form>
         </div>
     }
-        @*Publish and hide functions for author*@
-    @if(Model.Course.Author.Id == (await UserManager.GetUserAsync(User)).Id)
-    {
-        <div class="col-md-3 head">
-            <form method="post">
-                <span>
-                    @if (Model.Course.PublishStatus == PublishStatus.Hidden)
-                    {
-                        <h4>Статус: Приховано</h4>
-                        <button type="submit" asp-controller="Lecturer" asp-action="PublishCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Подати на розгляд</button>
-                    }
-                    @if (Model.Course.PublishStatus == PublishStatus.Proccesing)
-                    {
-                        <h4>Статус: Знаходитья на розгляді</h4>
-                        <button type="submit" asp-controller="Lecturer" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
-                    }
-                    @if (Model.Course.PublishStatus == PublishStatus.Published)
-                    {
-                        <h4>Статус: Опубліковано</h4>
-                        <button type="submit" asp-controller="Lecturer" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
-                    }
-                </span>
-            </form>
-        </div>
-    }
-    @*Publish and hide functions for admin*@
-    @if (User.Identity.IsAuthenticated&&User.IsInRole("Admin"))
-    {
-        <div class="col-md-3">
-            <form method="post">
-                <span>
-                    @if (Model.Course.PublishStatus == PublishStatus.Hidden)
-                    {
-                        <h4>Статус: Приховано</h4>
-                        <button type="submit" asp-controller="Admin" asp-action="PublishCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Опублікувати</button>
-                    }
-                    @if (Model.Course.PublishStatus == PublishStatus.Proccesing)
-                    {
-                        <h4>Статус: Знаходиться на розгляді</h4>
-                        <button type="submit" asp-controller="Admin" asp-action="PublishCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Опублікувати</button>
-                    }
-                    @if (Model.Course.PublishStatus == PublishStatus.Published)
-                    {
-                        <h4>Статус: Опубліковано</h4>
-                        <button type="submit" asp-controller="Admin" asp-action="HideCourse" asp-route-ID="@Model.Course.ID" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-primary btn-block" id="buyButt">Приховати</button>
-                    }
-                </span>
-            </form>
-        </div>
-    }
+    
+    //here
 </div>
 <!--*****************//////////courseIMG///////////*********************-->
 <div class="col-md-12 row head text-center">
@@ -284,7 +228,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="col-md-10 col-md-offset-1">
-                <div class="form-group">
+                <div class="form-group" ajax-route="/Course/AddComment" ajax-type="@AjaxTagHelper.MethodType.post" ajax-params="@(new{courseID=Model.Course.ID,commentText="хуйхуйхуй"})" ajax-output="#divContainerCommentInner">
                     <label for="comment">Залиште свій коментар:</label>
                     <textarea name="commentText" class="form-control" rows="5" id="commentTextArea"></textarea>
                     <button id="addCommentButton" courseID="@Model.Course.ID" style="margin-top: 1vmin;" class="btn btn-primary pull-right">Підтвердити</button>
@@ -303,11 +247,9 @@
 <!--*****************//////////endComments///////////*********************-->
       
 </div>
-</body>
 
 @section Scripts{
     
-    <script type="text/javascript" src="~/vendors/jquery.min.js"></script>
     <script>
         $(function () {
             $('#addCommentButton').click(function (event) {
