@@ -249,3 +249,18 @@ function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 }
+
+//course image displaying
+jQuery(function ($) {
+    $('img').one('load', function () {
+        var $img = $(this);
+        var tempImage1 = new Image();
+        tempImage1.src = $img.attr('src');
+        tempImage1.onload = function () {
+            var ratio = tempImage1.width / tempImage1.height;
+            if (!isNaN(ratio) && ratio < 1) $img.addClass('vertical');
+        }
+    }).each(function () {
+        if (this.complete) $(this).load();
+    });
+});

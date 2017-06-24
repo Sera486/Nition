@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='less' />
+﻿/// <binding BeforeBuild='less' ProjectOpened='watch-less' />
 var gulp = require("gulp"),
     del = require('del'),
     concat = require("gulp-concat"),
@@ -11,6 +11,10 @@ gulp.task("less", function () {
     return gulp.src('wwwroot/less/*.less')
         .pipe(less())
         .pipe(gulp.dest('wwwroot/css'));
+});
+// Task to watch less changes
+gulp.task('watch-less', function () {
+    gulp.watch('wwwroot/less/*.less', ['less']);
 });
 
 var paths = {

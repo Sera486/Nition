@@ -67,6 +67,12 @@ namespace Nition.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult CourseEditor()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCourse(CreateCourseViewModel vm)
         {

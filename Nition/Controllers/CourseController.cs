@@ -94,7 +94,6 @@ namespace Nition.Controllers
             return View(viewModel);
         }
 
-
         public static IQueryable<Course> SearchCourse(IQueryable<Course> source, string searchStr, int themeID=0, ApplicationUser author=null)
         {
             if (!string.IsNullOrWhiteSpace(searchStr))
@@ -169,12 +168,16 @@ namespace Nition.Controllers
 
             if (user != null)
             {
+                if (course.Author == user)
+                {
+                    RedirectToAction(nameof(LecturerController.CourseEditor), "Lecturer");
+                }
                 user = _context.ApplicationUser
                     .Include(c => c.Subscriptions).ThenInclude(s=>s.Course)
                     .Include(u=>u.SharingUsers).ThenInclude(fm=>fm.User).ThenInclude(u=>u.Subscriptions).ThenInclude(s=>s.Course).AsNoTracking()
                     .First(c => c.Id == user.Id);
-                var ValidSubscriptions = user.ValidSubscriptions();
-                if (ValidSubscriptions.Count(c=>c.Course.ID==course.ID) == 0)
+                var validSubscriptions = user.ValidSubscriptions();
+                if (validSubscriptions.Count(c=>c.Course.ID==course.ID) == 0)
                 {
                     var viewModel = new CourseInfoViewModel()
                     {
