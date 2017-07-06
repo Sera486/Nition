@@ -2,11 +2,13 @@
 @using Nition.Models
 @model Nition.Models.Course
 
-    <div class="container-fluid" id="gap">
-        <div class="col-md-1"></div>
-        <div class="col-md-11" id="gap-in">
-            <h1 class="animated slideInLeft">Сторінка оплати</h1> </div>
+    <page-header>
+    @ViewData["Title"]
+    <div class="col-md-1"></div>
+    <div class="col-md-11" id="gap-in">
+        <h1 class="animated slideInLeft">Сторінка оплати</h1>
     </div>
+</page-header>
     <course-preview course="@Model"></course-preview>
     <div class="container col-md-11 col-md-offset-2">
         <div class="row">

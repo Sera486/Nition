@@ -2,19 +2,8 @@
 @using Nition.Models.LecturerViewModels
 @model Nition.Models.LecturerViewModels.LessonViewModel
 
-<body>
+	<page-header>@ViewData["Title"]</page-header>
 
-	<!--*****************//////////MIDDLE///////////*********************-->
-	<!--*****************//////////MIDDLE///////////*********************-->
-	<!--*****************//////////MIDDLE///////////*********************-->
-	<div class="container-fluid" id="gap">
-		<div class="col-md-12" id="gap-in">
-			<h1>@Model.Lesson.Title</h1>
-		</div>
-	</div>
-	<!--*****************//////////endMIDDLE///////////*********************-->
-	<!--*****************//////////endMIDDLE///////////*********************-->
-	<!--*****************//////////endMIDDLE///////////*********************-->
 
 
 	<!--*****************//////////COURSE///////////*********************-->
@@ -67,4 +56,3 @@
         <button type="submit" class="btn btn-default pull-left">Повернутись до сторінки курсу</button>
     </form>
 </div>
-</body>

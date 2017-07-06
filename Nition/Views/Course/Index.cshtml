@@ -1,17 +1,14 @@
 ﻿@addTagHelper "Nition.TagHelpers.CoursePreviewTagHelper, Nition"
 @using Nition.Models.CourseViewModels
-@model Nition.Models.CourseViewModels.CourseListViewModel
+@model CourseListViewModel
 @{
-    ViewData["Title"] = "Courses";
+    ViewData["Title"] = "Список курсов";
 }
 <!--*****************//////////MIDDLE///////////*********************-->
 <!--*****************//////////MIDDLE///////////*********************-->
 <!--*****************//////////MIDDLE///////////*********************-->
-<div class="container-fluid" id="gap">
-    <div class="col-md-12" id="gap-in">
-        <h1>Список курсів</h1>
-    </div>
-</div>
+<page-header>@ViewData["Title"]</page-header>
+
 <!--*****************//////////endMIDDLE///////////*********************-->
 <!--*****************//////////endMIDDLE///////////*********************-->
 <!--*****************//////////endMIDDLE///////////*********************-->

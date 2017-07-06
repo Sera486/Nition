@@ -1,35 +1,26 @@
-﻿@using Nition.Models
-@model List<Nition.Models.ApplicationUser>
+﻿@using System.Collections.Generic
+@using Nition.Models
+@model List<ApplicationUser>
 @{
     ViewData["Title"] = "Провідні лектори";
 }
-<!--*****************//////////MIDDLE///////////*********************-->
-<!--*****************//////////MIDDLE///////////*********************-->
-<!--*****************//////////MIDDLE///////////*********************-->
-<div class="container-fluid" id="gap">
-    <div class="col-md-12" id="gap-in">
-        <h1>@ViewData["Title"]</h1>
-    </div>
-</div>
-<!--*****************//////////endMIDDLE///////////*********************-->
-<!--*****************//////////endMIDDLE///////////*********************-->
-<!--*****************//////////endMIDDLE///////////*********************-->
+
+<page-header>@ViewData["Title"]</page-header>
 
 <div class="container-fluid card-lector-all">
     <div class="col-md-10 col-md-offset-1">
-        @for (int i = 0; i < Model.Count; i++)
+        @foreach (ApplicationUser user in Model)
         {
-
             <div class="col-md-12 card-lector">
 
                 <div class="col-md-3 text-center">
-                    <a asp-controller="Manage" asp-action="Index" asp-route-id="@Model[i].Id">
+                    <a asp-controller="Manage" asp-action="Index" asp-route-id="@user.Id">
 
                         <figure class="text-center center-block">
-                            <img src="~/@Model[i].ValidImageURL" alt="Lector" class="img-responsive text-center img-circle" style="width:auto; height:11vmax;padding:1vmin; margin: 0 auto;">
+                            <img src="~/@user.ValidImageURL" alt="Lector" class="img-responsive text-center img-circle" style="width:auto; height:11vmax;padding:1vmin; margin: 0 auto;">
                             <hr class="no-margin no-padding hr-card-lector" />
                             <figcaption>
-                                <p class="name no-margin text-center card-lector-name">@Model[i].FullName</p>
+                                <p class="name no-margin text-center card-lector-name">@user.FullName</p>
                                 <hr class="no-margin no-padding hr-card-lector" />
                             </figcaption>
                         </figure>
@@ -43,12 +34,11 @@
                 </div>
 
                 <div class="col-md-9 no-margin no-padding">
-                    <p style="color:black;" class="text-center">@Model[i].AboutMe</p>
+                    <p style="color:black;" class="text-center">@user.AboutMe</p>
                     <hr class="no-margin no-padding hr-card-lector" />
                     <button class="btn btn-default btn-block btn-lector-card">Далі-></button>
                 </div>
             </div>
-
         }
     </div>
 </div>

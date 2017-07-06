@@ -5,13 +5,11 @@
     ViewData["Title"] = "Студент";
 }
 
-<div class="container-fluid" id="gap">
-    <div class="col-md-12" id="gap-in">
+<page-header is-title-only="false">
         <h1>@Model.UserName</h1>
         <p class="text-success">@ViewData["StatusMessage"]</p>
         <h2>@ViewData["Title"]</h2>
-    </div>
-</div>
+</page-header>
 
 
 <!--*****************//////////endMIDDLE///////////*********************-->

@@ -6,13 +6,11 @@
     ViewData["Title"] = "Лектор";
 }
 
-<div class="container-fluid" id="gap">
-    <div class="col-md-12" id="gap-in">
-        <h1>@Model.UserName</h1>
-        <p class="text-success">@ViewData["StatusMessage"]</p>
-        <h2>@ViewData["Title"]</h2>
-    </div>
-</div>
+<page-header  is-title-only="false">
+    <h1>@Model.UserName</h1>
+    <p class="text-success">@ViewData["StatusMessage"]</p>
+    <h2>@ViewData["Title"]</h2>
+</page-header>
 
 <style>
     .nav-tabs li a {

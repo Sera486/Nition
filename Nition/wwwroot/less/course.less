@@ -1,4 +1,16 @@
-﻿#course-property {
+﻿.shadow-default(@string: 6px 3px 8px 0 rgba(0, 0, 0, 0.15)) {
+    -webkit-box-shadow: @string;
+    -moz-box-shadow: @string;
+    box-shadow: @string;
+}
+
+.shadow-rised(@string: 8px 6px 12px 0 rgba(0, 0, 0, 0.3)) {
+    -webkit-box-shadow: @string;
+    -moz-box-shadow: @string;
+    box-shadow: @string;
+}
+
+#course-property {
     display: inline-block;
 }
 
@@ -15,17 +27,7 @@
     width: 100%;
     height: 57px;
     background-color: #16919d;
-    border: solid;
-    border-color: #36a8a8;
-    border-width: 2vh;
     font-size: 1.3em;
-
-    &:hover {
-        -webkit-box-shadow: -9px 17px 35px -8px rgba(9, 21, 41, 0.67);
-        -moz-box-shadow: -9px 17px 35px -8px rgba(9, 21, 41, 0.67);
-        box-shadow: -9px 17px 35px -8px rgba(9, 21, 41, 0.67);
-        background-color: #137680;
-    }
 }
 
 #all-about-course {
@@ -37,15 +39,19 @@
 #description-min {
     font-size: 1.4em;
 }
-
+.course {
+    background-color: rgb(240,247,250);
+    display: flex;
+    justify-content:space-around;
+}
 .course-container {
-    width: 70%;
+    width: 60%;
     background: white;
-    box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+    padding:10px;
+    .shadow-default;
 }
 
 .image-container {
-    margin: 1%;
     overflow: hidden;
 
     img {
@@ -63,9 +69,71 @@
     border-radius: 5%;
 }
 
-body {
-    background: rgb(240,247,250);
+.lesson-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+.lesson-card,
+.lesson-add-button {
+    height: 130px;
+    width: 300px;
+    position: relative;
+    margin-bottom: 50px;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        display: inline;
+        width: 50%;
+        z-index: 0;
+        transform: skewY(13deg) scaleY(1.2);
+        height: inherit;
+        background-color: white;
+        left: 0%;
+        background-color: white;
+        .shadow-default;
+        transition: box-shadow .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    &::after {
+        width: 50%;
+        transform: skewY(-13deg) scaleY(1.2);
+        left: 50%;
+    }
+
+    &:hover::before,
+    &:hover::after {
+        .shadow-rised;
+    }
+
+    .stats {
+        justify-content: center;
+        display: flex;
+        margin: auto;
+    }
+
+    h4 {
+        text-align: center;
+        margin: 10px;
+    }
+}
+
+.lesson-add-button {
+    height: 40px;
+    width: 70px;
+}
+
+.lesson-card-content {
+    width:inherit;
+    position: absolute;
+    z-index:1;
+    margin-top: 15px;
+    text-align: justify;
+}
+
 
 .image-avatar-container {
     .image-container;
@@ -76,6 +144,7 @@ body {
 
 .course-header-container {
     display: flex;
+    flex-wrap:wrap;
 }
 
 #authorAboout {
@@ -101,8 +170,6 @@ body {
     border-width: 0.19vmin;
     color: black;
 }
-
-
 
 .numLessonTh {
     width: 7em;

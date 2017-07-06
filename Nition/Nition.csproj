@@ -65,6 +65,7 @@
   <ItemGroup>
     <Content Include="wwwroot\css\user-info.css" />
     <Content Include="wwwroot\js\effetsFile.js" />
+    <Content Include="wwwroot\less\contacts.less" />
     <Content Include="wwwroot\less\course-search.less" />
     <Content Include="wwwroot\less\course.less" />
     <Content Include="wwwroot\less\main.less" />
