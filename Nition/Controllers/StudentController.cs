@@ -15,11 +15,13 @@ namespace Nition.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public StudentController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public StudentController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         #region Family sharring
@@ -34,9 +36,9 @@ namespace Nition.Controllers
             var pageSize = 15;
 
             //selecting all students
-            var studentRoleId= _context.Roles.First(r => r.Name == RolesData.Student).Id;
-            var source = _context.ApplicationUser.Include(u => u.Roles)
-                .Where(u => u.Roles.Any(r => r.RoleId == studentRoleId));
+            string roleId = (await _roleManager.FindByNameAsync(RolesData.Student)).Id;
+            var source = _context.ApplicationUser
+                .Where(u => _userManager.IsInRoleAsync(u,RolesData.Student).Result);
             //except current user
             source =source.Where(u=>u!=user);
             

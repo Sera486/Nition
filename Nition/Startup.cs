@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Nition.Data;
 using Nition.Models;
 using Nition.Services;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Nition
 {
@@ -53,7 +55,7 @@ namespace Nition
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-
+            
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -78,7 +80,7 @@ namespace Nition
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            app.UseAuthentication();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
 
@@ -94,15 +96,12 @@ namespace Nition
 
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .UseApplicationInsights()
-                .Build();
-
-            host.Run();
+            BuildWebHost(args).Run();
         }
+
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .Build();
     }
 }

@@ -17,7 +17,7 @@ namespace Nition.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(int courseID)
         {
             var course = await _context.Courses
-                .Include(c => c.Comments).ThenInclude(c => c.User).FirstOrDefaultAsync(c=>c.ID==courseID);
+                .Include(c => c.Comments).ThenInclude(c => c.User).AsNoTracking().FirstOrDefaultAsync(c=>c.ID==courseID);
             return View(course);
         }
     }

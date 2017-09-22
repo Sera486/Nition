@@ -14,6 +14,7 @@ using Nition.Data;
 using Nition.Models;
 using Nition.Models.AccountViewModels;
 using Nition.Services;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Nition.Controllers
 {
@@ -26,12 +27,10 @@ namespace Nition.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-        private readonly string _externalCookieScheme;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory,
@@ -39,7 +38,6 @@ namespace Nition.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
@@ -53,7 +51,7 @@ namespace Nition.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+            await HttpContext.SignOutAsync();
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();

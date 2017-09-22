@@ -17,7 +17,7 @@ namespace Nition.Data
         {
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                 var roles  = new List<string>{Lecturer,Student,Admin};
                 

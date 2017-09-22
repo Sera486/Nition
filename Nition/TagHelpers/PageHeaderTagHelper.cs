@@ -17,7 +17,7 @@ namespace Nition.TagHelpers
             string rez =
                 $@"<div class='container-fluid' id='gap'>
                     <div class='col-md-12' id='gap-in'>
-                    {(IsTitleOnly? $"<h1>{content}</h1>" : content.ToString())}
+                    {(IsTitleOnly? $"<h1>{content.GetContent()}</h1>" : content.GetContent())}
                     </div>
                 </div>";
             output.Content.SetHtmlContent(rez);

@@ -24,7 +24,6 @@ namespace Nition.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment _appEnvironment;
-        private readonly string _externalCookieScheme;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
@@ -34,7 +33,6 @@ namespace Nition.Controllers
           SignInManager<ApplicationUser> signInManager,
           ApplicationDbContext context,
           IHostingEnvironment appEnvironment,
-          IOptions<IdentityCookieOptions> identityCookieOptions,
           IEmailSender emailSender,
           ISmsSender smsSender,
           ILoggerFactory loggerFactory)
@@ -42,7 +40,6 @@ namespace Nition.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _appEnvironment = appEnvironment;
-            _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
@@ -55,7 +52,7 @@ namespace Nition.Controllers
             ApplicationUser user = _context.ApplicationUser.Find(id);
             if (await _userManager.IsInRoleAsync(user, RolesData.Lecturer))
             {
-                return View("LecturerAccount", _context.ApplicationUser.Include(a => a.CreatedCourses).ThenInclude(s => s.Author).First(c => c.Id == id));
+                return View("LecturerAccount", _context.ApplicationUser.Include(a => a.CreatedCourses).ThenInclude(s => s.Author).AsNoTracking().First(c => c.Id == id));
             }
             if (await _userManager.IsInRoleAsync(user, RolesData.Student))
             {
@@ -63,7 +60,7 @@ namespace Nition.Controllers
                     _context.ApplicationUser.Include(a => a.Subscriptions).ThenInclude(s => s.Course)
                         .ThenInclude(s => s.Author)
                         .Include(u => u.SharingUsers).ThenInclude(fm => fm.User).ThenInclude(u => u.Subscriptions)
-                        .ThenInclude(s => s.Course).ThenInclude(c => c.Author)
+                        .ThenInclude(s => s.Course).ThenInclude(c => c.Author).AsNoTracking()
                         .First(c => c.Id == id));
             }
             return View("Error");

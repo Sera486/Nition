@@ -15,6 +15,7 @@ namespace Nition.Data
         public DbSet<Course> Courses {get; set;}
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Comment> Comments {get; set;}
+        public DbSet<InfoBlock> InfoBlocks { get; set; }
         public DbSet<TextBlock> TextBlocks {get; set;}
         public DbSet<VideoBlock> VideoBlocks {get; set;}
         public DbSet<Subscription> Subscriptions{ get;set;}
@@ -66,6 +67,11 @@ namespace Nition.Data
                 entity.HasKey(e => new { e.UserID, e.MemberID });
                 entity.HasOne(e => e.User).WithMany(e => e.FamilyMembers).HasForeignKey(e => e.UserID).OnDelete(DeleteBehavior.Restrict);
                 entity.HasOne(e => e.Member).WithMany(e=>e.SharingUsers).HasForeignKey(e => e.MemberID).OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<InfoBlock>(entity =>
+            {
+                entity.Ignore(e => e.Lesson);
             });
         }
 

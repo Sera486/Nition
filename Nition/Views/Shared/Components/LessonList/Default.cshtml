@@ -1,0 +1,38 @@
+﻿@addTagHelper "Nition.TagHelpers.CommentTagHelper, Nition"
+@using Nition.Data
+@using Nition.Models
+@inject UserManager<ApplicationUser> UserManager
+@model Course
+
+
+    @{
+        bool isAuthor = Model.Author == await UserManager.GetUserAsync(User);
+        string type = "";
+        if (ViewBag.isPaid)
+        {
+            type = "type=locked";
+        }
+        if (isAuthor)
+        {
+            type = "type=editable";
+        }
+    }
+
+    @foreach (var lesson in Model.Lessons)
+    {
+        <div class="lesson-card" @type data-id="@lesson.ID">
+            <div class="lesson-card-left-wing"></div>
+            <div class="lesson-card-content">
+                <h4><strong>@lesson.Title</strong></h4>
+                <div class="stats">
+                    <i class="fa fa-clock-o fa-2x fa-fw"></i>
+                    <span style="margin-top:auto; margin-bottom:auto;">15 мин</span>
+                </div>
+            </div>
+            <div class="lesson-card-right-wing"></div>
+        </div>
+    }
+    @if (isAuthor)
+    {
+        
+    }

@@ -10,12 +10,10 @@
     
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/aos/dist/aos.css" />
-    <link rel="stylesheet" asp-href-include="~/css/**/*.css" />
+    <link rel="stylesheet" asp-href-include="~/css/**/*.css" asp-append-version="true"/>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
@@ -163,14 +161,11 @@
 
 <!-- Modal -->
 @await Html.PartialAsync("_LoginModalPartial", new LoginViewModel())
-    
 
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/aos/dist/aos.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/lib/aos/dist/aos.js"></script>
+<script src="~/js/site.min.js" asp-append-version="true"></script>
 @RenderSection("Scripts", required: false)
 </body>
 </html>

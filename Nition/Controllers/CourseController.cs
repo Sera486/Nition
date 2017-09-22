@@ -53,16 +53,19 @@ namespace Nition.Controllers
                 SearchString = search,
                 ThemeID = theme
             };
-            
+
             //filling themes selector
-            var themes = _context.Themes
-                .Select(t => new SelectListItem
-                {
-                    Text = t.Name,
-                    Value = t.ID.ToString(),
-                    Selected = t.CourseThemes.Exists(th => th.ThemeID == theme)
-                }).ToList();
-            ViewBag.Themes = themes;
+            if (_context.Themes.Count() != 0)
+            {
+                var themes = _context.Themes
+                    .Select(t => new SelectListItem
+                    {
+                        Text = t.Name,
+                        Value = t.ID.ToString(),
+                        Selected = t.CourseThemes.Exists(th => th.ThemeID == theme)
+                    }).ToList();
+                ViewBag.Themes = themes;
+            }
             return View(viewModel);
         }
 
@@ -214,6 +217,12 @@ namespace Nition.Controllers
         public IActionResult CommentListViewComponent(int courseID)
         {
             return ViewComponent("CommentList", courseID );
+        }
+
+        [HttpGet("ViewComponent/LessonList/{courseID}")]
+        public IActionResult LessonsListViewComponent(int courseID,bool isPaid)
+        {
+            return ViewComponent("LessonList", new {courseID , isPaid});
         }
 
         [HttpPost]

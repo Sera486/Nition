@@ -11,7 +11,6 @@
     ViewData["ReturnUrl"] = $"~/Course/{Model.Course.ID}";
     ViewData["Title"] = Model.Course.Title;
 }
-
 <page-header>@ViewData["Title"]</page-header>
 
 <!--*****************//////////COURSE///////////*********************-->
@@ -23,7 +22,7 @@
             <div class="image-course-container">
                 <img src="~/@Model.Course.ValidImageURL" class="img-course">
             </div>
-            <div style="display:flex; flex-direction: column;">
+            <div style="display:flex; flex-direction: column; margin-left: 10px;">
                 <!--*****************//////////course-name///////////*********************-->
                 <h1 class="course-header">Заголовок</h1>
 
@@ -87,99 +86,28 @@
 
             <!--*****************//////////ours+numberVideo+numberPeopleBay///////////*********************-->
             <!--*****************//////////price///////////*********************-->
-            <div class="col-md-5 head">
+            <div class="head">
                 <h4><strong>Цей курс уже куплено, ви можете переглядати уроки.</strong></h4>
             </div>
         </div>
 
         <!--*****************//////////allDescription///////////*********************-->
-        <div class="col-md-12" id="all-about-course">
-            <span>
-                @Model.Course.Description
-            </span>
+        <div id="all-about-course">
+            @Model.Course.Description
         </div>
-
+        
+        <div class="comment-container">
+            <div id="titleComment">
+                <h2>Коментарі</h2>
+            </div>
+            @await Component.InvokeAsync("CommentList", Model.Course.ID);
+        </div>
     </div>
-
-    
     <div class="lesson-container">
         <div class="text-center">
-            <h2><strong>Уроки:</strong></h2>
+            <h2><strong>Уроки</strong></h2>
         </div>
         <br/>
-        @foreach (var lesson in Model.Course.Lessons)
-        {
-            <div class="lesson-card">
-                <div class="lesson-card-content">
-                    <h4><strong>@lesson.Title</strong></h4>
-                    <br/>
-                    <br/>
-                    <div class="stats">
-                        <i class="fa fa-clock-o fa-2x fa-fw"></i>
-                        <span style="margin-top:auto; margin-bottom:auto;">15 мин</span>
-                    </div>
-                </div>
-            </div>
-        }
-        <div class="lesson-add-button" bs-toggle-modal="addLessonForm">
-            <div class="lesson-card-content" style="display:flex; height:100%; margin-top:5px;">
-                
-                <i class="fa fa-plus fa-2x" style="margin:auto;"></i>
-                
-            </div>
-        </div>
+        @await Component.InvokeAsync("LessonList",new{courseID=Model.Course.ID,isPaid=Model.Paid});
     </div>
 </div>
-
-<!--*****************//////////addCourse///////////*********************-->
-
-@if (Model.Course.Author.Id == (await UserManager.GetUserAsync(User)).Id)
-{
-   <modal id="addLessonForm" 
-           title="Modal Title" >
-        
-            <modal-body>
-                <div class="form-group">
-                        <hr>
-                        <h4>Назва уроку</h4>
-                        <textarea class="form-control" id="nameLesson" name="title" placeholder=""></textarea>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-1 col-sm-10">
-                        <hr>
-                        <h4>Опис уроку</h4>
-                        <textarea class="form-control" id="descLesson" name="description" placeholder=""></textarea>
-                    </div>
-                </div>
-            </modal-body>
-            <modal-footer>
-                <div class="col-sm-offset-1 col-sm-10">
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-danger btn-block btn-lg" id="confirmAddLesson">Додати урок</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-default btn-block btn-lg" id="clearAddLesson">Очистити</button>
-                    </div>
-                </div>
-            </modal-footer>
-        
-            </modal>
-            <form class="form-horizontal"
-    asp-controller="Lecturer"
-    asp-action="AddLesson"
-    asp-route-returnUrl="@ViewData["ReturnUrl"]"
-    asp-route-courseID="Model.Course.ID"
-    method="post">
-            </form>
-        <div class="col-sm-offset-1 col-sm-10">
-            <div class="col-md-12 text-center" id="emptyInput">
-                Заповніть усі поля
-            </div>
-        </div>
-
-    <div class="col-md-6 col-md-offset-3">
-        <span>
-            <button type="button" class="btn btn-primary btn-block SeeMore" id="showCourseButt" value="addLesson">Додати урок</button>
-        </span>
-    </div>
-}
